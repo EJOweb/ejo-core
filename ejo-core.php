@@ -3,9 +3,9 @@
  * Plugin Name: EJO Core
  * Plugin URI: http://github.com/ejoweb/ejo-core
  * Description: EJOweb core functionalities for theme development. Including some nifty debug tools.
- * Version: 0.1.0
+ * Version: 0.2.0
  * Author: Erik Joling
- * Author URI: http://www.erikjoling.nl/
+ * Author URI: http://www.ejoweb.nl/
  *
  * Minimum PHP version: 5.3.0
  *
@@ -23,8 +23,8 @@
  */
 final class EJO_Core 
 {
-        //* Version number of this plugin
-    public static $version = '0.1.0';
+    //* Version number of this plugin
+    public static $version = '0.2.0';
 
     //* Holds the instance of this class.
     protected static $_instance = null;
@@ -52,11 +52,14 @@ final class EJO_Core
         //* Setup
         self::setup();
 
-        //* Load functionalities
-        self::load_functionalities();
+        //* Load Development Functions
+        add_action( 'plugins_loaded', array( $this, 'add_development_functions' ), 1 );
 
-        //* Test
-        write_log( self::$dir );
+        //* Load Theme Tools
+        add_action( 'plugins_loaded', array( $this, 'add_theme_tools' ) );
+
+        //* Add shortcodes
+        add_action( 'plugins_loaded', array( $this, 'add_shortcodes' ) );
     }
 
     //* Defines the directory path and URI for the plugin.
@@ -67,10 +70,38 @@ final class EJO_Core
         self::$uri = plugin_dir_url(  __FILE__ );
     }
 
-    //* Loads base.
-    public static function load_functionalities() 
+    //* Add development functions
+    public function add_development_functions() 
     {
-        include_once( self::$dir . 'includes/write-log/write-log.php' );
+        // Write Log
+        include_once( self::$dir . 'includes/dev-functions/write-log.php' );
+
+        // Analyze Query
+        include_once( self::$dir . 'includes/dev-functions/analyze-query.php' );
+    }
+
+    //* Add Theme Support Tools
+    public function add_theme_tools() 
+    {
+    }
+
+    //* Add Shortcodes
+    public function add_shortcodes() 
+    {   
+        //* Vsee link in footer
+        add_shortcode( 'footer_vsee', array( $this, 'show_vsee_credits' ) );
+    }
+
+    // Shortcode Function to show Vsee link
+    public function show_vsee_credits() 
+    {
+        if (is_front_page()) :
+            $output = '<a class="footer-credits" href="http://www.vsee.nl" title="Internetbureau Vsee - Google Adwords en SEO specialisten">Vsee</a>';
+        else :
+            $output = '<span class="footer-credits">Vsee</span>';
+        endif;
+
+        return $output;
     }
 }
 
