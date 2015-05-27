@@ -3,7 +3,7 @@
  * Plugin Name: EJO Core
  * Plugin URI: http://github.com/ejoweb/ejo-core
  * Description: EJOweb core functionalities for theme development. Including some nifty debug tools.
- * Version: 0.2.0
+ * Version: 0.3
  * Author: Erik Joling
  * Author URI: http://www.ejoweb.nl/
  *
@@ -24,7 +24,7 @@
 final class EJO_Core 
 {
     //* Version number of this plugin
-    public static $version = '0.2.0';
+    public static $version = '0.3';
 
     //* Holds the instance of this class.
     protected static $_instance = null;
@@ -60,6 +60,9 @@ final class EJO_Core
 
         //* Add shortcodes
         add_action( 'plugins_loaded', array( $this, 'add_shortcodes' ) );
+
+        //* Add EJOcore Option page to Wordpress Option menu
+        add_action( 'admin_menu', array( $this, 'register_options_page' ) );
     }
 
     //* Defines the directory path and URI for the plugin.
@@ -83,6 +86,12 @@ final class EJO_Core
     //* Add Theme Support Tools
     public function add_theme_tools() 
     {
+        //* Disable Emojis and their default scripts (since wp 4.2)
+        // include_once( self::$dir . 'includes/theme-tools/disable-emojis.php' );
+        //* Just use the plugin...
+
+        //* Possibility to add scripts to header or footer via backend
+        include_once( self::$dir . 'includes/theme-tools/add-scripts.php' );
     }
 
     //* Add Shortcodes
@@ -102,6 +111,19 @@ final class EJO_Core
         endif;
 
         return $output;
+    }
+
+    //* Register EJOcore Options Page
+    public function register_options_page()
+    {
+        add_options_page('EJOcore Theme Options', 'Theme Options', 'manage_options', 'ejo-theme-options', array( $this, 'add_options_page' ) );
+    }
+
+    //* Add EJOcore Options Page
+    public function add_options_page()
+    {
+        //* Include theme options page
+        include_once( self::$dir . 'includes/options-page.php' );
     }
 }
 
