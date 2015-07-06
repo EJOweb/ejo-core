@@ -3,7 +3,7 @@
  * Plugin Name: EJO Core
  * Plugin URI: http://github.com/ejoweb/ejo-core
  * Description: EJOweb core functionalities for theme development. Including some nifty debug tools.
- * Version: 0.3
+ * Version: 0.3.1
  * Author: Erik Joling
  * Author URI: http://www.ejoweb.nl/
  *
@@ -24,7 +24,7 @@
 final class EJO_Core 
 {
     //* Version number of this plugin
-    public static $version = '0.3';
+    public static $version = '0.3.1';
 
     //* Holds the instance of this class.
     protected static $_instance = null;
@@ -102,12 +102,16 @@ final class EJO_Core
     }
 
     // Shortcode Function to show Vsee link
-    public function show_vsee_credits() 
+    public function show_vsee_credits( $atts ) 
     {
+        $atts = shortcode_atts( array(
+            'text' => 'Internetbureau Vsee',
+        ), $atts );
+
         if (is_front_page()) :
-            $output = '<a class="footer-credits" href="http://www.vsee.nl" title="Internetbureau Vsee - Google Adwords en SEO specialisten">Vsee</a>';
+            $output = '<a class="footer-credits" href="http://www.vsee.nl" title="Internetbureau Vsee - Google Adwords en SEO specialisten">' . $atts['text'] . '</a>';
         else :
-            $output = '<span class="footer-credits">Vsee</span>';
+            $output = '<span class="footer-credits">' . $atts['text'] . '</span>';
         endif;
 
         return $output;
