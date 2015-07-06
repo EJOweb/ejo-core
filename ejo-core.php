@@ -3,7 +3,7 @@
  * Plugin Name: EJO Core
  * Plugin URI: http://github.com/ejoweb/ejo-core
  * Description: EJOweb core functionalities for theme development. Including some nifty debug tools.
- * Version: 0.3.1
+ * Version: 0.3.2
  * Author: Erik Joling
  * Author URI: http://www.ejoweb.nl/
  *
@@ -24,7 +24,7 @@
 final class EJO_Core 
 {
     //* Version number of this plugin
-    public static $version = '0.3.1';
+    public static $version = '0.3.2';
 
     //* Holds the instance of this class.
     protected static $_instance = null;
@@ -92,6 +92,12 @@ final class EJO_Core
 
         //* Possibility to add scripts to header or footer via backend
         include_once( self::$dir . 'includes/theme-tools/add-scripts.php' );
+
+        //* Visual Editor Styles
+        include_once( self::$dir . 'includes/theme-tools/visual-editor-styles.php' );
+
+        //* Widget Unregistering
+        include_once( self::$dir . 'includes/theme-tools/unregister-widgets.php' );
     }
 
     //* Add Shortcodes
