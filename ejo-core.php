@@ -3,7 +3,7 @@
  * Plugin Name: EJO Core
  * Plugin URI: http://github.com/ejoweb/ejo-core
  * Description: EJOweb core functionalities for theme development. Including some nifty debug tools.
- * Version: 0.3.2
+ * Version: 0.4.0
  * Author: Erik Joling
  * Author URI: http://www.ejoweb.nl/
  *
@@ -24,7 +24,7 @@
 final class EJO_Core 
 {
     //* Version number of this plugin
-    public static $version = '0.3.2';
+    public static $version = '0.4.0';
 
     //* Holds the instance of this class.
     protected static $_instance = null;
@@ -86,18 +86,21 @@ final class EJO_Core
     //* Add Theme Support Tools
     public function add_theme_tools() 
     {
-        //* Disable Emojis and their default scripts (since wp 4.2)
-        // include_once( self::$dir . 'includes/theme-tools/disable-emojis.php' );
-        //* Just use the plugin...
+        //* Possibility to add scripts for whole website to header or footer via options
+        include_once( self::$dir . 'includes/theme-tools/add-site-scripts.php' );
 
-        //* Possibility to add scripts to header or footer via backend
-        include_once( self::$dir . 'includes/theme-tools/add-scripts.php' );
+        //* Possibility to add scripts for individual posts to header via post-edit
+        include_once( self::$dir . 'includes/theme-tools/add-inpost-scripts.php' );
 
         //* Visual Editor Styles
         include_once( self::$dir . 'includes/theme-tools/visual-editor-styles.php' );
 
         //* Widget Unregistering
         include_once( self::$dir . 'includes/theme-tools/unregister-widgets.php' );
+
+        //* Disable Emojis and their default scripts (since wp 4.2)
+        // include_once( self::$dir . 'includes/theme-tools/disable-emojis.php' );
+        //* Just use the plugin...
     }
 
     //* Add Shortcodes
