@@ -12,3 +12,6 @@ Re-added theme-tools 'unregister widget' and 'visual-editor-styles'
 0.4.0 op 7-7-2015
 Added inpost scripts functionality
 Action to hook into options page
+
+0.4.1 op 8-7-2015
+Fixed slashes bug in add-site-scripts

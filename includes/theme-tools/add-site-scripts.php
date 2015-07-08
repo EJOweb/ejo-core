@@ -37,8 +37,8 @@ function ejo_options_scripts()
 	}
 
 	//* Get header & footer scripts
-	$ejo_header_scripts = get_option( 'ejo_header_scripts', '' );
-	$ejo_footer_scripts = get_option( 'ejo_footer_scripts', '' );
+	$ejo_header_scripts = stripslashes(get_option( 'ejo_header_scripts', '' ));
+	$ejo_footer_scripts = stripslashes(get_option( 'ejo_footer_scripts', '' ));
 
 	?>
 
@@ -78,11 +78,11 @@ function ejo_options_scripts()
 //* Add scripts to header
 function ejo_header_scripts() 
 {
-	echo get_option( 'ejo_header_scripts', '' );
+	echo stripslashes(get_option( 'ejo_header_scripts', '' ));
 }
 
 //* Add scripts to footer
 function ejo_footer_scripts() 
 {
-	echo get_option( 'ejo_footer_scripts', '' );
+	echo stripslashes(get_option( 'ejo_footer_scripts', '' ));
 }
