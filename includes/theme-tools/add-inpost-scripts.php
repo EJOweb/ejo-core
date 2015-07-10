@@ -51,7 +51,7 @@ final class EJO_Inpost_Scripts
 		//* Noncename needed to verify where the data originated
 		wp_nonce_field( 'ejo-inpost-scripts-metabox-' . $post->ID, 'ejo-inpost-scripts-meta-nonce' );
 
-		$inpost_scripts = get_post_meta( $post->ID, '_ejo-inpost-scripts', true ); 
+		$inpost_scripts = stripslashes(get_post_meta( $post->ID, '_ejo-inpost-scripts', true )); 
 
 		?>
 		<p>
@@ -99,7 +99,7 @@ final class EJO_Inpost_Scripts
 		global $post;
 
 		if ( is_singular() )
-			echo get_post_meta( $post->ID, '_ejo-inpost-scripts', true ); 
+			echo stripslashes(get_post_meta( $post->ID, '_ejo-inpost-scripts', true )); 
 	}
 }
 

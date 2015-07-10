@@ -15,3 +15,6 @@ Action to hook into options page
 
 0.4.1 op 8-7-2015
 Fixed slashes bug in add-site-scripts
+
+0.4.2 op 9-7-2015
+Fixed slashes bug in add-inpost-scripts
