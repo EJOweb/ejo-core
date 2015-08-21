@@ -78,10 +78,13 @@ final class EJO_Core
     //* Add development functions
     public function add_development_functions() 
     {
-        // Write Log
+        //* Helper Functions
+        include_once( self::$dir . 'includes/dev-functions/helper-functions.php' );
+
+        //* Write Log
         include_once( self::$dir . 'includes/dev-functions/write-log.php' );
 
-        // Analyze Query
+        //* Analyze Query
         include_once( self::$dir . 'includes/dev-functions/analyze-query.php' );
     }
 
