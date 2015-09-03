@@ -4,6 +4,7 @@
 	    clear: both;
 	    font-weight: bold;
 	}
+	.metabox-holder { clear: both; }
 </style>
 
 <div class="wrap">
@@ -16,7 +17,21 @@
 			<?php submit_button( 'Bewaar Instellingen', 'primary', 'submit', false ); ?>
 		</p>
 
-		<?php do_action('ejo_options'); ?>
+		<?php if (isset($_POST['submit']) ) : ?>
+			<div class='updated'><p>De instellingen zijn opgeslagen.</p></div>
+		<?php endif; ?>
+
+		<div class="metabox-holder">
+        	<div class="postbox-container">
+
+				<?php do_action('ejo_options'); ?>
+
+			</div><!-- END postbox-container -->
+    	</div><!-- END metabox-holder -->
+
+    	<p class="bottom-buttons" style="text-align:right;">
+			<?php submit_button( 'Bewaar Instellingen', 'primary', 'submit', false ); ?>
+		</p>
 
 	</form>
 

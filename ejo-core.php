@@ -3,7 +3,7 @@
  * Plugin Name: EJO Core
  * Plugin URI: http://github.com/ejoweb/ejo-core
  * Description: EJOweb core functionalities for theme development. Including some nifty debug tools.
- * Version: 0.4.3
+ * Version: 0.4.4
  * Author: Erik Joling
  * Author URI: http://www.ejoweb.nl/
  * GitHub Plugin URI: https://github.com/EJOweb/ejo-core
@@ -26,7 +26,7 @@
 final class EJO_Core 
 {
     //* Version number of this plugin
-    public static $version = '0.4.3';
+    public static $version = '0.4.4';
 
     //* Holds the instance of this class.
     protected static $_instance = null;
@@ -67,6 +67,7 @@ final class EJO_Core
         add_action( 'admin_menu', array( $this, 'register_options_page' ) );
     }
 
+    
     //* Defines the directory path and URI for the plugin.
     protected static function setup() 
     {
@@ -75,6 +76,7 @@ final class EJO_Core
         self::$uri = plugin_dir_url(  __FILE__ );
     }
 
+  
     //* Add development functions
     public function add_development_functions() 
     {
@@ -86,8 +88,12 @@ final class EJO_Core
 
         //* Analyze Query
         include_once( self::$dir . 'includes/dev-functions/analyze-query.php' );
+
+        //* Change crop switch of default image size
+        include_once( self::$dir . 'includes/dev-functions/image-size-crop.php' );
     }
 
+  
     //* Add Theme Support Tools
     public function add_theme_tools() 
     {
@@ -103,39 +109,24 @@ final class EJO_Core
         //* Widget Unregistering
         include_once( self::$dir . 'includes/theme-tools/unregister-widgets.php' );
 
-        //* Disable Emojis and their default scripts (since wp 4.2)
-        // include_once( self::$dir . 'includes/theme-tools/disable-emojis.php' );
-        //* Just use the plugin...
+        //* Social Media Links
+        include_once( self::$dir . 'includes/theme-tools/social/index.php' );
     }
 
     //* Add Shortcodes
     public function add_shortcodes() 
     {   
-        //* Vsee link in footer
-        add_shortcode( 'footer_vsee', array( $this, 'show_vsee_credits' ) );
+        //* Footer Credits
+        include_once( self::$dir . 'includes/shortcodes/footer-credits.php' );
     }
 
-    // Shortcode Function to show Vsee link
-    public function show_vsee_credits( $atts ) 
-    {
-        $atts = shortcode_atts( array(
-            'text' => 'Internetbureau Vsee',
-        ), $atts );
-
-        if (is_front_page()) :
-            $output = '<a class="footer-credits" href="http://www.vsee.nl" title="Internetbureau Vsee - Google Adwords en SEO specialisten">' . $atts['text'] . '</a>';
-        else :
-            $output = '<span class="footer-credits">' . $atts['text'] . '</span>';
-        endif;
-
-        return $output;
-    }
 
     //* Register EJOcore Options Page
     public function register_options_page()
     {
         add_options_page('EJOcore Theme Options', 'Theme Options', 'manage_options', 'ejo-theme-options', array( $this, 'add_options_page' ) );
     }
+
 
     //* Add EJOcore Options Page
     public function add_options_page()
