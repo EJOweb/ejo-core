@@ -35,6 +35,9 @@ function ejo_mce_before_init( $settings )
         )
     );
 
+    //* Add Filters for developers
+    $new_style_formats = apply_filters( 'ejo_visual_editor_styles', $new_style_formats );
+
     //* Combine new styles with current styles
     $style_formats = array_merge($style_formats, $new_style_formats);
 
