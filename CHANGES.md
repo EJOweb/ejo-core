@@ -24,3 +24,7 @@ Support for Social Media links
 
 0.4.5
 Added filter to easily add classes to the styles-dropdown visual editor
+
+0.5
+- Check for Genesis when adding scripts options to site and posts
+- Fixed bug in Social Links Tool

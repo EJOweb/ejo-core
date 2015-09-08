@@ -1,13 +1,13 @@
 <?php
 /**
- * Plugin Name: EJO Core
- * Plugin URI: http://github.com/ejoweb/ejo-core
- * Description: EJOweb core functionalities for theme development. Including some nifty debug tools.
- * Version: 0.4.5
- * Author: Erik Joling
- * Author URI: http://www.ejoweb.nl/
- * GitHub Plugin URI: https://github.com/EJOweb/ejo-core
- * GitHub Branch:     master
+ * Plugin Name:         EJO Core
+ * Plugin URI:          http://github.com/ejoweb/ejo-core
+ * Description:         EJOweb core functionalities for theme development. Including some nifty debug tools.
+ * Version:             0.5
+ * Author:              Erik Joling
+ * Author URI:          http://www.ejoweb.nl/
+ * GitHub Plugin URI:   https://github.com/EJOweb/ejo-core
+ * GitHub Branch:       master
  *
  * Minimum PHP version: 5.3.0
  *
@@ -26,7 +26,7 @@
 final class EJO_Core 
 {
     //* Version number of this plugin
-    public static $version = '0.4.5';
+    public static $version = '0.5';
 
     //* Holds the instance of this class.
     protected static $_instance = null;
@@ -71,9 +71,12 @@ final class EJO_Core
     //* Defines the directory path and URI for the plugin.
     protected static function setup() 
     {
-        // Store directory path and url of this plugin
+        //* Store directory path and url of this plugin
         self::$dir = plugin_dir_path( __FILE__ );
         self::$uri = plugin_dir_url(  __FILE__ );
+
+        //* Store if Genesis is active
+        define( 'GENESIS_ACTIVE', 'genesis' == get_option( 'template' ) );
     }
 
   

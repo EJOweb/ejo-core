@@ -24,18 +24,23 @@ final class EJO_Inpost_Scripts
     //* Plugin setup.
     protected function __construct() 
     {
-        //* Add Metabox
-        add_action( 'add_meta_boxes', array( $this, 'add_inpost_scripts_metabox' ) );
+    	//* Skip if Genesis, because they already have this option
+		if ( !GENESIS_ACTIVE ) :
 
-        //* Save Metabox
-		// add_action( 'pre_post_update', array( $this, 'save_inpost_scripts' ) ); // save the custom fields. Save_post hook doesn't seem to be called when not changing the post
-		add_action( 'save_post', array( $this, 'save_inpost_scripts' ), 1, 1 ); 
+	        //* Add Metabox
+	        add_action( 'add_meta_boxes', array( $this, 'add_inpost_scripts_metabox' ) );
 
-		//* Add custom page scripts to header
-		add_action( 'wp_head', array( $this, 'ejo_output_inpost_scripts' ) );
+	        //* Save Metabox
+			// add_action( 'pre_post_update', array( $this, 'save_inpost_scripts' ) ); // save the custom fields. Save_post hook doesn't seem to be called when not changing the post
+			add_action( 'save_post', array( $this, 'save_inpost_scripts' ), 1, 1 ); 
 
-        //* Test
-        // write_log();
+			//* Add custom page scripts to header
+			add_action( 'wp_head', array( $this, 'ejo_output_inpost_scripts' ) );
+
+	        //* Test
+	        // write_log();
+
+		endif; //* Genesis check
     }
 
 	//* Add Post Scripts metabox

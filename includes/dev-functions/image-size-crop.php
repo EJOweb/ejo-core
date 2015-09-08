@@ -20,4 +20,6 @@ function ejo_change_default_image_size_crop( $size = null, $crop = 1 )
 
 //* Because of get_option it is connecting to database on every page
 
+//* Maybe make a button out of it on media page. Then it is only fired at click
+
 //* Delete option on uninstall

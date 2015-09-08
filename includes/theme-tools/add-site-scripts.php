@@ -4,14 +4,19 @@
 Add header & footer scripts to theme
 */
 
-//* Add options to option page
-add_action( 'ejo_options', 'ejo_options_scripts' );
+//* Skip if Genesis, because they already have this option
+if ( !GENESIS_ACTIVE ) :
 
-//* Add scripts to header
-add_action( 'wp_head', 'ejo_header_scripts' );
+	//* Add options to option page
+	add_action( 'ejo_options', 'ejo_options_scripts' );
 
-//* Add scripts to footer
-add_action( 'wp_footer', 'ejo_footer_scripts' );
+	//* Add scripts to header
+	add_action( 'wp_head', 'ejo_header_scripts' );
+
+	//* Add scripts to footer
+	add_action( 'wp_footer', 'ejo_footer_scripts' );
+
+endif; //* Genesis check
 
 
 //* Add options to EJO options page
@@ -40,7 +45,7 @@ function ejo_options_scripts()
 	?>
 
 	<div class="postbox">
-		<h3 class="hndle">Header en Footer Scripts</h3>
+		<h3 class="hndle">Header en Footer Scripts <?php echo GENESIS_ACTIVE; ?></h3>
 
 		<div class="inside">
 			<p>

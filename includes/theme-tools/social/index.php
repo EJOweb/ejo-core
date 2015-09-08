@@ -12,9 +12,9 @@ add_action( 'admin_enqueue_scripts', 'ejo_admin_social_script' );
 //* 
 function ejo_admin_social_script($hook)
 {
-    if ( 'settings_page_ejo-theme-options' != $hook ) {
+    //* Only hook on ejo settings page
+    if ( 'settings_page_ejo-theme-options' != $hook )
         return;
-    }
 
     wp_enqueue_script( 'ejo-admin-social', plugin_dir_url( __FILE__ ) . 'admin.js', array('jquery', 'jquery-ui-sortable') );
     wp_enqueue_style( 'ejo-admin-social', plugin_dir_url( __FILE__ ) . 'admin.css' );
@@ -37,6 +37,7 @@ function ejo_social_links()
         }
     }
 
+    //* Default social media links
     $default_social = array(
         'facebook' => array( 'name' => 'Facebook', 'link' => '' ),
         'twitter' => array( 'name' => 'Twitter', 'link' => '' ),
@@ -45,11 +46,11 @@ function ejo_social_links()
         'google_plus' => array( 'name' => 'Google+', 'link' => '' ),
     );
 
-    //* Get
+    //* Get stored social media links
     $ejo_social_media = get_option( '_ejo_social_media', array() );
 
-    //* Remove redundant keys
-    $ejo_social_media = array_intersect_key($ejo_social_media, $default_social);
+    //* Add extra social links from $default_social
+    $ejo_social_media = $ejo_social_media + $default_social;
 
     ?>
 
