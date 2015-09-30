@@ -43,7 +43,7 @@ function ejo_social_links()
         'twitter' => array( 'name' => 'Twitter', 'link' => '' ),
         'pinterest' => array( 'name' => 'Pinterest', 'link' => '' ),
         'instagram' => array( 'name' => 'Instagram', 'link' => '' ),
-        'google_plus' => array( 'name' => 'Google+', 'link' => '' ),
+        'google-plus' => array( 'name' => 'Google+', 'link' => '' ),
     );
 
     //* Get stored social media links
