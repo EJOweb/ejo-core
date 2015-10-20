@@ -39,3 +39,6 @@ Added filter to easily add classes to the styles-dropdown visual editor
 - Added cleaner functions section
 - Attempt to remove XML-RPC by default
 - Remove unwanted <head> links
+
+0.5.4
+- Also remove pingback link for Genesis

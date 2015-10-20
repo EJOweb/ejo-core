@@ -16,15 +16,19 @@ function ejo_remove_x_pingback_header( $headers ) {
 }
 
 //* Doesn't seem to work
-// add_filter('xmlrpc_enabled', 'ejo_disable_xmlrpc', 10, 1 );
-// function ejo_disable_xmlrpc($enabled)
-// {
-//     return false;
-// }
+add_filter('xmlrpc_enabled', 'ejo_disable_xmlrpc' );
+function ejo_disable_xmlrpc()
+{
+    return false;
+}
 
 //* Hybrid remove pingback
-add_action( 'after_setup_theme', 'ejo_remove_hybrid_pingback' );
-function ejo_remove_hybrid_pingback()
+add_action( 'after_setup_theme', 'ejo_remove_pingback' );
+function ejo_remove_pingback()
 {
+    //* Remove Genesis pingback link
+    remove_action( 'wp_head', 'genesis_do_meta_pingback' );
+
+    //* Remove Hybrid pingback link
     remove_action( 'wp_head', 'hybrid_link_pingback', 3 );
 }
