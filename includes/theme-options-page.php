@@ -24,7 +24,8 @@
 		<div class="metabox-holder">
         	<div class="postbox-container">
 
-				<?php do_action('ejo_options'); ?>
+				<?php do_action('ejo_options'); // Will be deprecated ?>
+				<?php do_action('ejo_theme_options'); ?>
 
 			</div><!-- END postbox-container -->
     	</div><!-- END metabox-holder -->

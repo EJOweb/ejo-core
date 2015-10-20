@@ -4,7 +4,7 @@
 add_shortcode( 'social_media', 'ejo_social_media_links' );
 
 //* 
-add_action( 'ejo_options', 'ejo_social_links' );
+add_action( 'ejo_theme_options', 'ejo_social_links' );
 
 //* Add script
 add_action( 'admin_enqueue_scripts', 'ejo_admin_social_script' );

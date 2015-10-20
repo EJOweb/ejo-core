@@ -28,3 +28,9 @@ Added filter to easily add classes to the styles-dropdown visual editor
 0.5
 - Check for Genesis when adding scripts options to site and posts
 - Fixed bug in Social Links Tool
+
+0.5.1
+- Fixed social media google-plus name
+
+0.5.2
+- Relocated EJO Theme Options to Appearance menu and renamed ejo_options hook to ejo_theme_options

@@ -8,7 +8,7 @@ Add header & footer scripts to theme
 if ( !GENESIS_ACTIVE ) :
 
 	//* Add options to option page
-	add_action( 'ejo_options', 'ejo_options_scripts' );
+	add_action( 'ejo_theme_options', 'ejo_custom_scripts' );
 
 	//* Add scripts to header
 	add_action( 'wp_head', 'ejo_header_scripts' );
@@ -20,7 +20,7 @@ endif; //* Genesis check
 
 
 //* Add options to EJO options page
-function ejo_options_scripts()
+function ejo_custom_scripts()
 {
 	// Save Theme options
 	if (isset($_POST['submit']) ) {
