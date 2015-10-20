@@ -34,3 +34,8 @@ Added filter to easily add classes to the styles-dropdown visual editor
 
 0.5.2
 - Relocated EJO Theme Options to Appearance menu and renamed ejo_options hook to ejo_theme_options
+
+0.5.3
+- Added cleaner functions section
+- Attempt to remove XML-RPC by default
+- Remove unwanted <head> links
