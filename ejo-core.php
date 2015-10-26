@@ -3,7 +3,7 @@
  * Plugin Name:         EJO Core
  * Plugin URI:          http://github.com/ejoweb/ejo-core
  * Description:         EJOweb core functionalities for theme development. Including some nifty debug tools.
- * Version:             0.5.4
+ * Version:             0.6
  * Author:              Erik Joling
  * Author URI:          http://www.ejoweb.nl/
  * GitHub Plugin URI:   https://github.com/EJOweb/ejo-core
@@ -26,7 +26,7 @@
 final class EJO_Core 
 {
     //* Version number of this plugin
-    public static $version = '0.5.4';
+    public static $version = '0.6';
 
     //* Holds the instance of this class.
     protected static $_instance = null;
@@ -65,7 +65,7 @@ final class EJO_Core
 
         //* Load Cleaners
         add_action( 'plugins_loaded', array( $this, 'add_cleaners' ) );
-        // add_action( 'after_setup_theme', array( $this, 'add_cleaners' ), 99 );
+        // add_action( 'after_setup_theme', array( $this, 'add_cleaners' ), 1 );
 
         //* Add EJOcore Option page to Wordpress Option menu
         add_action( 'admin_menu', array( $this, 'register_options_page' ) );
@@ -103,6 +103,9 @@ final class EJO_Core
     //* Add Cleaner Functions
     public function add_cleaners() 
     {
+        //* Clean pingback references if pingback-option is disabled
+        include_once( self::$dir . 'includes/cleaners/pingback.php' );
+
         //* Disable XML-RPC
         include_once( self::$dir . 'includes/cleaners/disable-xmlrpc.php' );
 
