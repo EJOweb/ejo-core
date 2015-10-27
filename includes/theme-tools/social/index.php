@@ -107,7 +107,7 @@ function ejo_social_media_links($atts)
 
                 switch ($atts['type']) {
                     case 'icon':
-                        $text = "<i class='{$social_id}'></i>";
+                        $text = "<i></i>";
                         break;
 
                     case 'text':
@@ -115,7 +115,7 @@ function ejo_social_media_links($atts)
                         break;
                     
                     case 'both':
-                        $text = "<i class='{$social_id}'></i>{$social_media['name']}";
+                        $text = "<i></i>{$social_media['name']}";
                         break;
 
                     default:
@@ -123,9 +123,11 @@ function ejo_social_media_links($atts)
                         break;
                 }
 
+                //* Wrap a link around the social-profile
                 $output .= sprintf(
-                                '<a href="%s" title="%s" target="_blank">%s</a>',
+                                '<a href="%s" class="%s" title="%s" target="_blank">%s</a>',
                                 $social_media['link'],
+                                $social_id,
                                 $social_media['name'],
                                 $text
                            );
