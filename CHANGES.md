@@ -55,3 +55,6 @@ Added filter to easily add classes to the styles-dropdown visual editor
 0.7
 - Removed paragraph wrap from shortcodes in text-widgets (black studio tinymnce widget)
 - Moved social media classname to parent link instead of <i>
+
+0.7.1
+- Renamed function and renamed filter (and warned for deprecation old filter name)
