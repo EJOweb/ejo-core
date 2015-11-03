@@ -3,7 +3,7 @@
  * Plugin Name:         EJO Core
  * Plugin URI:          http://github.com/ejoweb/ejo-core
  * Description:         EJOweb core functionalities for theme development. Including some nifty debug tools.
- * Version:             0.7.2
+ * Version:             0.7.3
  * Author:              Erik Joling
  * Author URI:          http://www.ejoweb.nl/
  * GitHub Plugin URI:   https://github.com/EJOweb/ejo-core
@@ -26,7 +26,7 @@
 final class EJO_Core 
 {
     //* Version number of this plugin
-    public static $version = '0.7.2';
+    public static $version = '0.7.3';
 
     //* Holds the instance of this class.
     protected static $_instance = null;
@@ -69,6 +69,9 @@ final class EJO_Core
 
         //* Add EJOcore Option page to Wordpress Option menu
         add_action( 'admin_menu', array( $this, 'register_options_page' ) );
+
+        //* Hook query analyze function to footer
+        add_action( 'wp_footer', 'ejo_analyze_query', 99 );
     }
 
     

@@ -16,16 +16,17 @@ function ejo_analyze_query()
 			}			
 		</style>
 		<div class="analyze-query">
+			<?php 
+			//* Show number of queries and execution time 
+			echo get_num_queries() . ' queries in ' . timer_stop(0) . ' seconds';
 
-			<?php echo get_num_queries(); ?> queries in <?php echo timer_stop(0); ?> seconds
+			//* Check if savequeries debug option is enabled 
+			if ( defined(SAVEQUERIES) && SAVEQUERIES ) {
+				global $wpdb;
 
-			<?php if ( defined(SAVEQUERIES) && SAVEQUERIES ) : // Check if savequeries debug option is enabled ?>
-
-				<?php global $wpdb; ?>
-				<?php write_log($wpdb->queries); ?>
-
-			<?php endif; // End savequeries check ?>
-
+				write_log($wpdb->queries);
+			}
+			?>
 		</div>
 
 	<?php endif; // End debug check

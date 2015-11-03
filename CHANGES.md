@@ -2,6 +2,10 @@
 [Wordpress] My own core functionalities for theme development. Including some nifty debug tools.
 
 ## CHANGELOG
+0.7.3
+- Hooked ejo_analyze_query to wp_footer
+- Minor changes ejo_analyze_query function
+
 0.7.2
 - Removed redundant bit of test code
 - Added todo idea
