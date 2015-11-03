@@ -45,7 +45,7 @@ function ejo_custom_scripts()
 	?>
 
 	<div class="postbox">
-		<h3 class="hndle">Header en Footer Scripts <?php echo GENESIS_ACTIVE; ?></h3>
+		<h3 class="hndle">Header en Footer Scripts</h3>
 
 		<div class="inside">
 			<p>
