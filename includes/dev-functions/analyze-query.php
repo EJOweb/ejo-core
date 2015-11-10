@@ -8,8 +8,9 @@ function ejo_analyze_query()
 		<style>
 			.analyze-query {
 				position: fixed; 
-				top: 0;
+				bottom: 0;
 				right: 0;
+				z-index: 99;
 				background-color: rgba(255,255,255,0.8);
 				border: 1px dashed #CCC;
 				padding:10px;	
