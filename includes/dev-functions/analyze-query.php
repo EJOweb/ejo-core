@@ -22,7 +22,7 @@ function ejo_analyze_query()
 			echo get_num_queries() . ' queries in ' . timer_stop(0) . ' seconds';
 
 			//* Check if savequeries debug option is enabled 
-			if ( defined(SAVEQUERIES) && SAVEQUERIES ) {
+			if ( defined('SAVEQUERIES') && SAVEQUERIES ) {
 				global $wpdb;
 
 				write_log($wpdb->queries);
