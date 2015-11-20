@@ -26,7 +26,7 @@
 final class EJO_Core 
 {
     //* Version number of this plugin
-    public static $version = '0.7.4';
+    public static $version = '0.7.5';
 
     //* Holds the instance of this class.
     protected static $_instance = null;

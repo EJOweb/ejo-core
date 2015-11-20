@@ -1,0 +1,10 @@
+//* Sanitize checkbox
+public function sanitize_checkbox( $checkbox_value )
+{
+    if ( $checkbox_value == 'on' || $checkbox_value == 'true' || $checkbox_value == '1' || $checkbox_value =='enabled' )
+        $checkbox_value = true;
+    else
+        $checkbox_value = false;
+
+    return $checkbox_value;
+}}
