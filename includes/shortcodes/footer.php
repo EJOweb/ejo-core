@@ -6,8 +6,15 @@ add_shortcode( 'footer_vsee', 'show_vsee_credits' );
 //* EJOweb link in footer
 add_shortcode( 'footer_ejoweb', 'show_ejoweb_credits' );
 
+// Simple current year shortcode
+add_shortcode('year', 'year_shortcode');
 
-// Shortcode Function to show Vsee link
+
+/** 
+ * Show Vsee credits
+ *
+ * Show it as a link on the home-page and as plain text on other pages
+ */
 function show_vsee_credits( $atts ) 
 {
     $atts = shortcode_atts( array(
@@ -23,7 +30,11 @@ function show_vsee_credits( $atts )
     return $output;
 }
 
-// Shortcode Function to show EJOweb link
+/** 
+ * Show EJOweb credits
+ *
+ * Show it as a link on the home-page and as plain text on other pages
+ */
 function show_ejoweb_credits( $atts ) 
 {
     $atts = shortcode_atts( array(
@@ -37,4 +48,13 @@ function show_ejoweb_credits( $atts )
     endif;
 
     return $output;
+}
+
+/**
+ * Get current year from php and return it
+ */
+function year_shortcode() 
+{
+    $year = date('Y');
+    return $year;
 }

@@ -3,7 +3,7 @@
  * Plugin Name:         EJO Core
  * Plugin URI:          http://github.com/ejoweb/ejo-core
  * Description:         EJOweb core functionalities for theme development. Including some nifty debug tools.
- * Version:             0.7.5
+ * Version:             0.7.6
  * Author:              Erik Joling
  * Author URI:          http://www.ejoweb.nl/
  * GitHub Plugin URI:   https://github.com/EJOweb/ejo-core
@@ -26,7 +26,7 @@
 final class EJO_Core 
 {
     //* Version number of this plugin
-    public static $version = '0.7.5';
+    public static $version = '0.7.6';
 
     //* Holds the instance of this class.
     protected static $_instance = null;
@@ -140,7 +140,7 @@ final class EJO_Core
     public function add_shortcodes() 
     {   
         //* Footer Credits
-        include_once( self::$dir . 'includes/shortcodes/footer-credits.php' );
+        include_once( self::$dir . 'includes/shortcodes/footer.php' );
 
         /**
          * Don't auto-p wrap shortcodes that stand alone
