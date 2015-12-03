@@ -2,6 +2,9 @@
 [Wordpress] My own core functionalities for theme development. Including some nifty debug tools.
 
 ## CHANGELOG
+0.7.6
+-  Added current year shortcode [year] and changed filename of footer-shortcodes to footer.php
+
 0.7.5
 - Fixed wrong use of defined() in ejo_analyze_query
 
