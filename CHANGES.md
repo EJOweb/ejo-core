@@ -2,6 +2,10 @@
 [Wordpress] My own core functionalities for theme development. Including some nifty debug tools.
 
 ## CHANGELOG
+0.8
+- Helper function ejo_get_post_summary($post) to easier get excerpt with content fallback
+- Added Whatsapp to social-media options
+
 0.7.6
 -  Added current year shortcode [year] and changed filename of footer-shortcodes to footer.php
 

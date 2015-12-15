@@ -44,6 +44,7 @@ function ejo_social_links()
         'pinterest' => array( 'name' => 'Pinterest', 'link' => '' ),
         'instagram' => array( 'name' => 'Instagram', 'link' => '' ),
         'google-plus' => array( 'name' => 'Google+', 'link' => '' ),
+        'whatsapp' => array( 'name' => 'Whatsapp', 'link' => '' ),
     );
 
     //* Get stored social media links
