@@ -46,6 +46,8 @@ function ejo_add_tinymce_style_formats( $settings )
         $filtered_new_style_formats = apply_filters( 'ejo_tinymce_style_formats', $new_style_formats ); // New filtername
     }
 
+    // Maybe sort style array on title or selector for better order
+
     //* Combine new styles with current styles
     $style_formats = array_merge($style_formats, $filtered_new_style_formats);
 
