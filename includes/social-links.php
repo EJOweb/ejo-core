@@ -16,8 +16,8 @@ function ejo_admin_social_script($hook)
     if ( 'settings_page_ejo-theme-options' != $hook )
         return;
 
-    wp_enqueue_script( 'ejo-admin-social', plugin_dir_url( __FILE__ ) . 'admin.js', array('jquery', 'jquery-ui-sortable') );
-    wp_enqueue_style( 'ejo-admin-social', plugin_dir_url( __FILE__ ) . 'admin.css' );
+    wp_enqueue_script( 'ejo-admin-social', EJO_URI . '/includes/js/admin-social-links.js', array('jquery', 'jquery-ui-sortable') );
+    wp_enqueue_style( 'ejo-admin-social', EJO_URI . '/includes/css/admin-social-links.css' );
 }
 
 //* 

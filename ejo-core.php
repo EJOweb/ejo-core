@@ -3,11 +3,11 @@
  * Plugin Name:         EJO Core
  * Plugin URI:          http://github.com/ejoweb/ejo-core
  * Description:         EJOweb core functionalities for theme development. Including some nifty debug tools.
- * Version:             0.8
+ * Version:             0.8.2
  * Author:              Erik Joling
  * Author URI:          http://www.ejoweb.nl/
  * GitHub Plugin URI:   https://github.com/EJOweb/ejo-core
- * GitHub Branch:       master
+ * GitHub Branch:       theme-support
  *
  * Minimum PHP version: 5.3.0
  *
@@ -26,7 +26,7 @@
 final class EJO_Core 
 {
     //* Version number of this plugin
-    public static $version = '0.8';
+    public static $version = '0.8.2';
 
     //* Holds the instance of this class.
     protected static $_instance = null;
@@ -57,21 +57,12 @@ final class EJO_Core
         //* Load Development Functions
         add_action( 'plugins_loaded', array( $this, 'add_development_functions' ), 1 );
 
-        //* Load Theme Tools
-        add_action( 'plugins_loaded', array( $this, 'add_theme_tools' ) );
+        //* Theme support
+        add_action( 'after_setup_theme', array( $this, 'includes' ) );
 
-        //* Add shortcodes
-        add_action( 'plugins_loaded', array( $this, 'add_shortcodes' ) );
-
-        //* Load Cleaners
-        // add_action( 'plugins_loaded', array( $this, 'add_cleaners' ) );
-        add_action( 'after_setup_theme', array( $this, 'add_cleaners' ), 1 );
-
+        //* Zou in een after_setup_theme functie kunnen
         //* Add EJOcore Option page to Wordpress Option menu
         add_action( 'admin_menu', array( $this, 'register_options_page' ) );
-
-        //* Hook query analyze function to footer
-        add_action( 'wp_footer', 'ejo_analyze_query', 99 );
     }
 
     
@@ -82,6 +73,9 @@ final class EJO_Core
         self::$dir = plugin_dir_path( __FILE__ );
         self::$uri = plugin_dir_url(  __FILE__ );
 
+        define( 'EJO_DIR', plugin_dir_path( __FILE__ ) );
+        define( 'EJO_URI', plugin_dir_url( __FILE__ ) );
+
         //* Store if Genesis is active
         define( 'GENESIS_ACTIVE', 'genesis' == get_option( 'template' ) );
     }
@@ -91,68 +85,60 @@ final class EJO_Core
     public function add_development_functions() 
     {
         //* Helper Functions
-        include_once( self::$dir . 'includes/dev-functions/helper-functions.php' );
+        include_once( EJO_DIR . 'includes/dev-functions/helper-functions.php' );
 
         //* Write Log
-        include_once( self::$dir . 'includes/dev-functions/write-log.php' );
+        include_once( EJO_DIR . 'includes/dev-functions/write-log.php' );
 
         //* Analyze Query
-        include_once( self::$dir . 'includes/dev-functions/analyze-query.php' );
-
-        //* Change crop switch of default image size
-        include_once( self::$dir . 'includes/dev-functions/image-size-crop.php' );
+        include_once( EJO_DIR . 'includes/dev-functions/analyze-query.php' );
     }
 
-    //* Add Cleaner Functions
-    public function add_cleaners() 
+    //* Add Includes
+    public function includes() 
     {
-        //* Clean pingback references if pingback-option is disabled
-        include_once( self::$dir . 'includes/cleaners/pingback.php' );
+        //* Allow arguments to be passed for theme-support
+        add_filter( 'current_theme_supports-ejo-tinymce', 'ejo_theme_support_arguments', 10, 3 );
+        add_filter( 'current_theme_supports-ejo-social-links', 'ejo_theme_support_arguments', 10, 3 );
+        add_filter( 'current_theme_supports-ejo-cleanup-frontend', 'ejo_theme_support_arguments', 10, 3 );
+        add_filter( 'current_theme_supports-ejo-cleanup-backend', 'ejo_theme_support_arguments', 10, 3 );
 
-        //* Disable XML-RPC
-        include_once( self::$dir . 'includes/cleaners/disable-xmlrpc.php' );
-
-        //* Clean <head> links
-        include_once( self::$dir . 'includes/cleaners/head-links.php' );
-
-    }    
-  
-    //* Add Theme Support Tools
-    public function add_theme_tools() 
-    {
-        //* Possibility to add scripts for whole website to header or footer via options
-        include_once( self::$dir . 'includes/theme-tools/add-site-scripts.php' );
-
-        //* Possibility to add scripts for individual posts to header via post-edit
-        include_once( self::$dir . 'includes/theme-tools/add-inpost-scripts.php' );
-
-        //* Visual Editor Styles
-        include_once( self::$dir . 'includes/theme-tools/visual-editor-styles.php' );
-
-        //* Widget Unregistering
-        include_once( self::$dir . 'includes/theme-tools/unregister-widgets.php' );
-
-        //* Social Media Links
-        include_once( self::$dir . 'includes/theme-tools/social/index.php' );
-
-        //* Custom filter content for post-summaries
-        include_once( self::$dir . 'includes/theme-tools/excerpt-content-filters.php' );
-    }
-
-    //* Add Shortcodes
-    public function add_shortcodes() 
-    {   
-        //* Footer Credits
-        include_once( self::$dir . 'includes/shortcodes/footer.php' );
+        /** 
+         * Script include functionality
+         */
+        require_if_theme_supports( 'ejo-scripts', EJO_DIR . 'includes/add-site-scripts.php' ); // Add scripts to site head or footer
+        require_if_theme_supports( 'ejo-scripts', EJO_DIR . 'includes/add-inpost-scripts.php' ); // Add script to individual post head
 
         /**
-         * Don't auto-p wrap shortcodes that stand alone
-         * Ensures that shortcodes are not wrapped in `<p>...</p>`.
-         * See wp-includes/formatting.php
+         * Visual Editor Styles
          */
-        add_filter( 'widget_text', 'shortcode_unautop', 9 );
+        require_if_theme_supports( 'ejo-tinymce', EJO_DIR . 'includes/visual-editor-styles.php' );
+
+        /**
+         * Social Media Links
+         */
+        require_if_theme_supports( 'ejo-social-links', EJO_DIR . 'includes/social-links.php' );
+
+        /** 
+         * Cleanup service
+         */
+        require_if_theme_supports( 'ejo-cleanup-frontend', EJO_DIR . 'includes/cleanup-head.php' ); // Remove unnecessary head links
+        require_if_theme_supports( 'ejo-cleanup-frontend', EJO_DIR . 'includes/disable-xmlrpc.php' ); // Disable XML-RPC
+        require_if_theme_supports( 'ejo-cleanup-frontend', EJO_DIR . 'includes/disable-pingback.php' ); //* Disable Pingback
+        require_if_theme_supports( 'ejo-cleanup-backend', EJO_DIR . 'includes/unregister-widgets.php' ); //* Widget Unregistering
     }
 
+    public function additions()
+    {        
+        //* Custom filter content for post-summaries
+        include_once( EJO_DIR . 'includes/post-summary.php' );
+
+        //* Change crop switch of default image size
+        include_once( EJO_DIR . 'includes/image-size-crop.php' );
+
+        //* Shortcodes
+        include_once( EJO_DIR . 'includes/shortcodes.php' );
+    }
 
     //* Register EJOcore Options Page
     public function register_options_page()
@@ -160,12 +146,11 @@ final class EJO_Core
         add_theme_page('Thema Opties', 'Thema Opties', 'edit_theme_options', 'ejo-theme-options', array( $this, 'add_theme_options_page' ) );
     }
 
-
     //* Add EJOcore Options Page
     public function add_theme_options_page()
     {
         //* Include theme options page
-        include_once( self::$dir . 'includes/theme-options-page.php' );
+        include_once( EJO_DIR . 'includes/theme-options-page.php' );
     }
 }
 
