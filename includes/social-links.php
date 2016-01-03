@@ -1,10 +1,10 @@
 <?php
 
 //* 
-add_shortcode( 'social_media', 'ejo_social_media_links' );
+add_shortcode( 'social_media', 'ejo_social_links_shortcode' );
 
 //* 
-add_action( 'ejo_theme_options', 'ejo_social_links' );
+add_action( 'ejo_theme_options', 'ejo_social_links_options' );
 
 //* Add script
 add_action( 'admin_enqueue_scripts', 'ejo_admin_social_script' );
@@ -13,7 +13,7 @@ add_action( 'admin_enqueue_scripts', 'ejo_admin_social_script' );
 function ejo_admin_social_script($hook)
 {
     //* Only hook on ejo settings page
-    if ( 'settings_page_ejo-theme-options' != $hook )
+    if ( 'appearance_page_ejo-theme-options' != $hook )
         return;
 
     wp_enqueue_script( 'ejo-admin-social', EJO_URI . '/includes/js/admin-social-links.js', array('jquery', 'jquery-ui-sortable') );
@@ -21,7 +21,7 @@ function ejo_admin_social_script($hook)
 }
 
 //* 
-function ejo_social_links()
+function ejo_social_links_options()
 {
     // Save Theme options
     if (isset($_POST['submit']) ) {
@@ -30,28 +30,42 @@ function ejo_social_links()
         if ( isset($_POST['ejo_social_media']) ) {
 
             //* Get 
-            $ejo_social_media = $_POST['ejo_social_media'];
+            $social_links = $_POST['ejo_social_media'];
 
             //* Store 
-            update_option( '_ejo_social_media', $ejo_social_media );
+            update_option( '_ejo_social_media', $social_links );
         }
     }
 
     //* Default social media links
-    $default_social = array(
-        'facebook' => array( 'name' => 'Facebook', 'link' => '' ),
-        'twitter' => array( 'name' => 'Twitter', 'link' => '' ),
-        'pinterest' => array( 'name' => 'Pinterest', 'link' => '' ),
-        'instagram' => array( 'name' => 'Instagram', 'link' => '' ),
-        'google-plus' => array( 'name' => 'Google+', 'link' => '' ),
-        'whatsapp' => array( 'name' => 'Whatsapp', 'link' => '' ),
-    );
+    $social_links_defaults = array();
+
+    if ( current_theme_supports( 'ejo-social-links', 'facebook' ) ) 
+        $social_links_defaults['facebook'] = array( 'name' => 'Facebook', 'link' => '' );
+    
+    if ( current_theme_supports( 'ejo-social-links', 'twitter' ) ) 
+        $social_links_defaults['twitter'] = array( 'name' => 'Twitter', 'link' => '' );
+
+    if ( current_theme_supports( 'ejo-social-links', 'linkedin' ) ) 
+        $social_links_defaults['linkedin'] = array( 'name' => 'Linkedin', 'link' => '' );
+    
+    if ( current_theme_supports( 'ejo-social-links', 'pinterest' ) ) 
+        $social_links_defaults['pinterest'] = array( 'name' => 'Pinterest', 'link' => '' );
+
+    if ( current_theme_supports( 'ejo-social-links', 'instagram' ) ) 
+        $social_links_defaults['instagram'] = array( 'name' => 'Instagram', 'link' => '' );
+
+    if ( current_theme_supports( 'ejo-social-links', 'googleplus' ) ) 
+        $social_links_defaults['googleplus'] = array( 'name' => 'Google+', 'link' => '' );
+
+    if ( current_theme_supports( 'ejo-social-links', 'whatsapp' ) ) 
+        $social_links_defaults['whatsapp'] = array( 'name' => 'Whatsapp', 'link' => '' );
 
     //* Get stored social media links
-    $ejo_social_media = get_option( '_ejo_social_media', array() );
+    $social_links = get_option( '_ejo_social_media', array() );
 
-    //* Add extra social links from $default_social
-    $ejo_social_media = $ejo_social_media + $default_social;
+    //* Add extra social links from $social_links_defaults
+    $social_links = $social_links + $social_links_defaults;
 
     ?>
 
@@ -62,7 +76,7 @@ function ejo_social_links()
 
             <table class="form-table ejo-social-links">
 
-                <?php foreach ($ejo_social_media as $social_id => $social_media) : ?>
+                <?php foreach ($social_links as $social_id => $social_media) : ?>
                     <tr>
                         <th>
                             <label class="move-item dashicons-before dashicons-sort"><?php echo $social_media['name']; ?></label>
@@ -85,7 +99,7 @@ function ejo_social_links()
 }
 
 
-function ejo_social_media_links($atts)
+function ejo_social_links_shortcode($atts)
 {
     $social_media_links = get_option( '_ejo_social_media', array() );
 

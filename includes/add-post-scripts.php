@@ -46,8 +46,14 @@ final class EJO_Inpost_Scripts
 	//* Add Post Scripts metabox
 	public function add_inpost_scripts_metabox() 
 	{
-		add_meta_box( 'ejo_inpost_scripts_metabox', 'Scripts', array( $this, 'render_inpost_scripts_metabox' ), 'post', 'normal', 'low' );
-		add_meta_box( 'ejo_inpost_scripts_metabox', 'Scripts', array( $this, 'render_inpost_scripts_metabox' ), 'page', 'normal', 'low' );
+		/* Get post types from theme-support arguments. If none, then use posts and pages. */
+		$post_types = get_theme_support('ejo-post-scripts');
+        $post_types = (!is_array($post_types)) ? array('post','page') : $post_types[0];
+
+        /* Add metabox for every give post_type */
+        foreach ($post_types as $post_type) {
+            add_meta_box( 'ejo_inpost_scripts_metabox', 'Scripts', array( $this, 'render_inpost_scripts_metabox' ), $post_type, 'normal', 'low' );
+        }
 	}
 
 	//* The post scripts metabox

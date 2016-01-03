@@ -1,7 +1,21 @@
 # EJO Core for Wordpress
 Extra functionalities and utilities for theme development. 
 
+Use theme-support to include certain features...
+
 ## Description
+Theme supports
+--- ejo-site-scripts
+--- ejo-post-scripts
+	args: post_types
+--- ejo-tinymce
+	args: style_formats
+--- ejo-social-links
+	args: social-links
+--- ejo-cleanup-frontend
+	args: head, xmlrpc, pingback
+--- ejo-cleanup-backend
+	args: widgets
 
 ### Cleanup
 * Disable XMLRPC when ping-option is disabled
@@ -27,5 +41,8 @@ Extra functionalities and utilities for theme development.
 * Vsee credits in footer
 
 ## To Do
-* EJO Testimonials, EJO Dynamic Sidebars, EJO Menu Marquee (?), EJO Simple Testimonials opnemen in EJO core. 
-* Themes via add_theme_support laten kiezen of ze bepaalde functionaliteiten ondersteunen.
+* EJO Testimonials, EJO Dynamic Sidebars, EJO Menu Marquee (?), EJO Simple Testimonials opnemen in EJO core?
+* Document theme-support
+* Improve allround documentation
+* Use Settings API for theme-options?
+* Move theme options to customizer?

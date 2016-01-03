@@ -1,14 +1,17 @@
 <?php
 
-add_action( 'widgets_init', 'ejo_core_unregister_widgets', 99 );
+add_action( 'widgets_init', 'ejo_unregister_widgets', 99 );
 
-//* Unregister Widgets that I don't use often
-function ejo_core_unregister_widgets()
+/** 
+ * Unregister Widgets that I don't use often
+ *
+ * Use ejo_core_unregister_widgets filter to manipulate
+ */
+function ejo_unregister_widgets()
 {
-	/* 
-	 * If you want widgets to show use ejo_core_unregister_widgets filter in theme
-	 */
+	global $wp_widget_factory;
 
+	/* Widgets to remove */
 	$widgets_to_unregister = array(
 		'WP_Widget_Pages',
 		'WP_Widget_Calendar',
@@ -20,16 +23,13 @@ function ejo_core_unregister_widgets()
 		'WP_Widget_Recent_Comments',
 		'WP_Widget_RSS',
 		'WP_Widget_Tag_Cloud',
-		// 'WP_Nav_Menu_Widget', // Don't default unregister nav_menu widget
 	);
 
-	global $wp_widget_factory;
-
-	//* Remove 'default text widget' if Black Studio TinyMCE widget is available
+	//* If Black Studio TinyMCE widget is available remove 'default text widget'
 	if ( isset($wp_widget_factory->widgets['WP_Widget_Black_Studio_TinyMCE']) )
 		$widgets_to_unregister[] = 'WP_Widget_Text';
 
-	//* Filter $widgets_to_unregister
+	/* Filter $widgets_to_unregister */
 	$widgets_to_unregister = apply_filters( 'ejo_core_unregister_widgets', $widgets_to_unregister );
 
 	//* Unregister each widget in array $widgets_to_unregister

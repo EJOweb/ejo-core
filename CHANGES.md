@@ -2,6 +2,17 @@
 [Wordpress] My own core functionalities for theme development. Including some nifty debug tools.
 
 ## CHANGELOG
+theme-support branch
+- added theme-support for
+--- ejo-site-scripts
+--- ejo-post-scripts
+--- ejo-tinymce
+--- ejo-social-links
+--- ejo-cleanup-frontend
+--- ejo-cleanup-backend
+- social-links array-key 'googleplus' instead of 'google-plus'
+- improved option for cropping 'medium' and 'large' image size
+
 0.8
 - Helper function ejo_get_post_summary($post) to easier get excerpt with content fallback
 - Added Whatsapp to social-media options
