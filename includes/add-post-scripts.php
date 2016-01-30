@@ -65,14 +65,24 @@ final class EJO_Inpost_Scripts
 		$inpost_scripts = stripslashes(get_post_meta( $post->ID, '_ejo-inpost-scripts', true )); 
 
 		?>
-		<p>
-			<textarea class="widefat" rows="4" cols="4" name="ejo-inpost-scripts"><?php echo esc_textarea( $inpost_scripts ); ?></textarea>
-		</p>
-		<p>
-			Suitable for custom tracking, conversion or other page-specific script. Must include <code>script</code> tags.
-		</p>
-
-	<?php
+		<table class="form-table">
+			<tbody>
+				<tr>
+					<th scope="row">
+						<label for="ejo-inpost-scripts"><?php echo ucfirst($post->post_type); ?>-specific Scripts</label>
+					</th>
+					<td>
+						<p>
+							<textarea class="widefat" rows="4" cols="4" name="ejo-inpost-scripts" id="ejo-inpost-scripts"><?php echo esc_textarea( $inpost_scripts ); ?></textarea>
+						</p>
+						<p>
+							Suitable for custom tracking, conversion or other <?php echo $post->post_type; ?>-specific script. Must include <code>script</code> tags.
+						</p>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<?php
 	}
 
 	//* Manage saving Metabox Data
