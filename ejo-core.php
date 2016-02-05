@@ -3,7 +3,7 @@
  * Plugin Name:         EJO Core
  * Plugin URI:          http://github.com/ejoweb/ejo-core
  * Description:         EJOweb core functionalities for theme development. Including some nifty debug tools.
- * Version:             0.8.4
+ * Version:             0.8.5
  * Author:              Erik Joling
  * Author URI:          http://www.ejoweb.nl/
  * GitHub Plugin URI:   https://github.com/EJOweb/ejo-core
@@ -26,7 +26,7 @@
 final class EJO_Core 
 {
     //* Version number of this plugin
-    public static $version = '0.8.4';
+    public static $version = '0.8.5';
 
     //* Holds the instance of this class.
     protected static $_instance = null;
@@ -108,6 +108,7 @@ final class EJO_Core
         add_filter( 'current_theme_supports-ejo-social-links', 'ejo_theme_support_arguments', 10, 3 );
         add_filter( 'current_theme_supports-ejo-cleanup-frontend', 'ejo_theme_support_arguments', 10, 3 );
         add_filter( 'current_theme_supports-ejo-cleanup-backend', 'ejo_theme_support_arguments', 10, 3 );
+        add_filter( 'current_theme_supports-ejo-widgets', 'ejo_theme_support_arguments', 10, 3 );
 
         /* ----------------------------------- */
 
@@ -119,6 +120,9 @@ final class EJO_Core
 
         //* Shortcodes
         require_once( EJO_DIR . 'includes/shortcodes.php' );
+        
+        //* Widgets
+        require_once( EJO_DIR . 'includes/widgets.php' );
 
         /* Allow admin to add scripts to entire site */
         require_if_theme_supports( 'ejo-site-scripts', EJO_DIR . 'includes/add-site-scripts.php' );
@@ -139,6 +143,7 @@ final class EJO_Core
 
         /* Cleanup Backend */
         require_if_theme_supports( 'ejo-cleanup-backend', EJO_DIR . 'includes/unregister-widgets.php' ); //* Widget Unregistering
+      
     }
 
     //* Register EJOcore Options Page

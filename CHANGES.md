@@ -3,6 +3,11 @@
 
 ## CHANGELOG
 theme-support branch
+0.8.5
+- Added foundation for adding widgets using theme-support
+- Added Featured Image Widget
+
+theme-support branch
 - added theme-support for
 --- ejo-site-scripts
 --- ejo-post-scripts
