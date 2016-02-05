@@ -20,17 +20,15 @@ final class EJO_Featured_Image_Widget extends WP_Widget
 		$title = isset( $instance['title'] ) ? $instance['title'] : '';
 		$image_size = isset( $instance['image-size'] ) ? $instance['image-size'] : null;
 
-		echo $args['before_widget'];
-		?>
+		if (has_post_thumbnail()) : // If post has thumbnail.
 
-		<?php if (has_post_thumbnail()) : // If post has thumbnail. ?>
+			echo $args['before_widget'];
+	
+			the_post_thumbnail( $image_size );
 
-			<?php the_post_thumbnail( $image_size ); ?>
+			echo $args['after_widget'];
 
- 		<?php endif; // End Post Thumbnail check. ?>
-
- 		<?php
-		echo $args['after_widget'];
+ 		endif; // End Post Thumbnail check.
 	}
 
  	public function form( $instance ) 
