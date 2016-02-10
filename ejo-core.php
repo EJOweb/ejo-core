@@ -3,7 +3,7 @@
  * Plugin Name:         EJO Core
  * Plugin URI:          http://github.com/ejoweb/ejo-core
  * Description:         EJOweb core functionalities for theme development. Including some nifty debug tools.
- * Version:             0.8.5
+ * Version:             0.8.6
  * Author:              Erik Joling
  * Author URI:          http://www.ejoweb.nl/
  * GitHub Plugin URI:   https://github.com/EJOweb/ejo-core
@@ -26,7 +26,7 @@
 final class EJO_Core 
 {
     //* Version number of this plugin
-    public static $version = '0.8.5';
+    public static $version = '0.8.6';
 
     //* Holds the instance of this class.
     protected static $_instance = null;
@@ -83,10 +83,10 @@ final class EJO_Core
     public function helper_functions() 
     {
         //* Remove entry from array based on value
-        include_once( EJO_DIR . 'includes/helpers/remove_array_value.php' );
+        include_once( EJO_DIR . 'includes/helpers/remove-array-value.php' );
 
         //* Use this function to filter custom theme support with arguments
-        include_once( EJO_DIR . 'includes/helpers/theme_support_arguments.php' );
+        include_once( EJO_DIR . 'includes/helpers/theme-support-arguments.php' );
     }
   
     //* Add development functions

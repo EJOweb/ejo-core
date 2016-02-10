@@ -20,7 +20,10 @@ final class EJO_Featured_Image_Widget extends WP_Widget
 		$title = isset( $instance['title'] ) ? $instance['title'] : '';
 		$image_size = isset( $instance['image-size'] ) ? $instance['image-size'] : null;
 
-		if (has_post_thumbnail()) : // If post has thumbnail.
+		if (is_home() || is_archive() || is_search())
+			return;
+
+		if (has_post_thumbnail()) : // If no archive and post has thumbnail.
 
 			echo $args['before_widget'];
 	
