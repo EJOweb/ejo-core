@@ -3,6 +3,11 @@
 
 ## CHANGELOG
 theme-support branch
+0.8.6
+- check if theme-support-arguments functionality already exists
+- featured image widget nog shown on archives
+- changed underscores in couple of filenames to hyphens
+
 0.8.5
 - Added foundation for adding widgets using theme-support
 - Added Featured Image Widget
