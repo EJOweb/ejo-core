@@ -3,6 +3,10 @@
 
 ## CHANGELOG
 theme-support branch
+0.8.7
+- Added array_insert_before and array_insert_after function
+- Rename remove_array_value function to array_remove_value
+
 0.8.6
 - check if theme-support-arguments functionality already exists
 - featured image widget nog shown on archives
