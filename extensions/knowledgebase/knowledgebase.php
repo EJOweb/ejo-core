@@ -1,7 +1,6 @@
 <?php
 /**
  * Description: 		Knowledgebase, the EJOweb way.
- * Version: 			0.1
  * Author: 				Erik Joling
  * Author URI: 			http://www.ejoweb.nl/
  */
@@ -11,24 +10,26 @@ define( 'EJO_KNOWLEDGEBASE_PLUGIN_DIR', trailingslashit( EJO_DIR . 'extensions/k
 define( 'EJO_KNOWLEDGEBASE_PLUGIN_URL', trailingslashit( EJO_URI . 'extensions/knowledgebase' ) );
 
 /* Load classes */
-require_once( EJO_KNOWLEDGEBASE_PLUGIN_DIR . 'settings-class.php' );
+require_once( EJO_KNOWLEDGEBASE_PLUGIN_DIR . 'class-settings.php' );
+require_once( EJO_KNOWLEDGEBASE_PLUGIN_DIR . 'class-widget.php' );
 
 /* Knowledgebase */
 EJO_Knowledgebase::init();
-
-/* Settings */
-EJO_Knowledgebase_Settings::init();
 
 /**
  *
  */
 final class EJO_Knowledgebase 
 {
-	/* Version number of this plugin */
-	public static $version = '0.1';
-
 	/* Holds the instance of this class. */
 	private static $_instance = null;
+
+	/* Return the class instance. */
+	public static function init() {
+		if ( !self::$_instance )
+			self::$_instance = new self;
+		return self::$_instance;
+	}
 
 	/* Store post type */
 	public static $post_type = 'knowledgebase_post';
@@ -42,28 +43,29 @@ final class EJO_Knowledgebase
 	/* Post type category */
 	public static $post_type_category = 'knowledgebase_category';
 
-	/* Plugin setup. */
+	/**
+	 * Class is initiated at 'after_setup_theme' hook inside ejo-core.php
+	 */
 	protected function __construct() 
 	{
-		/* Add Theme Features */
-        add_action( 'after_setup_theme', array( $this, 'theme_features' ) );
-
 		/* Register Post Type */
-		add_action( 'init', array( $this, 'register_knowledgebase_post_type' ) );
+		add_action( 'init', array( $this, 'register_post_type' ) );
+
+		/* Register Widget */
+		add_action( 'widgets_init', array( $this, 'register_widget' ) );
+
+		/* Settings */
+		EJO_Knowledgebase_Settings::init();
+
+		/* Allow arguments to be passed for theme-support */
+		add_filter( 'current_theme_supports-ejo-knowledgebase', 'ejo_theme_support_arguments', 10, 3 );
 
 		//* Rewrite knowledgebase post permalink
 		add_filter( 'post_type_link', array( $this, 'knowledgebase_permalink' ), 10, 4 );
 	}
 
-    /* Add Features */
-    public function theme_features() 
-    {	
-		/* Allow arguments to be passed for theme-support */
-		add_filter( 'current_theme_supports-ejo-knowledgebase', 'ejo_theme_support_arguments', 10, 3 );
-	}
-
 	/* Register Post Type */
-	public function register_knowledgebase_post_type() 
+	public function register_post_type() 
 	{
 		/* Get knowledgebase settings */
 		$knowledgebase_settings = get_option( 'knowledgebase_settings', array() );
@@ -181,11 +183,9 @@ final class EJO_Knowledgebase
 		return $post_link;
 	}
 
-	/* Returns the instance. */
-	public static function init() 
-	{
-		if ( !self::$_instance )
-			self::$_instance = new self;
-		return self::$_instance;
+	/* Register Widget */
+	public function register_widget() 
+	{ 
+	    register_widget( 'EJO_Knowledgebase_Widget' ); 
 	}
 }

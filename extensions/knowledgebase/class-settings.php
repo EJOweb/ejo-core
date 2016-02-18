@@ -1,9 +1,19 @@
 <?php
 
+/**
+ * Class Knowledgebase settings.
+ */
 class EJO_Knowledgebase_Settings 
 {
 	/* Holds the instance of this class. */
-	private static $_instance;
+	private static $_instance = null;
+
+	/* Returns the instance. */
+	public static function init() {
+		if ( !self::$_instance )
+			self::$_instance = new self;
+		return self::$_instance;
+	}
 
 	/* Plugin setup. */
 	public function __construct() 
@@ -129,7 +139,6 @@ class EJO_Knowledgebase_Settings
 							type="text"
 							name="knowledgebase-settings[title]"
 							class="text"
-							style="width"
 						>
 						<p class="description">Wordt getoond op de archiefpagina, breadcrumbs en meta's tenzij anders aangegeven</p>
 					</td>
@@ -137,14 +146,20 @@ class EJO_Knowledgebase_Settings
 
 				<tr>					
 					<th scope="row">
-						<label for="knowledgebase-description">Beschrijving</label>
+						<label for="knowledgebase_description">Beschrijving</label>
 					</th>
 					<td>
-						<textarea
-							id="knowledgebase-description"
-							name="knowledgebase-settings[description]"
-							class="text"
-						><?php echo $description; ?></textarea>
+						<?php 
+
+						wp_editor( 
+							$description, 
+							'knowledgebase_description', 
+							array(
+								'textarea_name' => 'knowledgebase-settings[description]',
+							) 
+						);
+
+						?>
 						<p class="description">De beschrijving kan getoond worden op de archiefpagina (afhankelijk van het thema)</p>
 					</td>
 				</tr>
@@ -160,7 +175,6 @@ class EJO_Knowledgebase_Settings
 							type="text"
 							name="knowledgebase-settings[archive-slug]"
 							class="text"
-							style="width"
 						>
 						<p class="description">Bepaalt de <i>slug</i> van de archiefpagina</p>
 					</td>
@@ -184,13 +198,5 @@ class EJO_Knowledgebase_Settings
 			wp_enqueue_style( 'knowledgebase-admin-settings-page-css', EJO_KNOWLEDGEBASE_PLUGIN_URL . 'assets/css/admin-settings-page.css' );
 
 		endif;
-	}
-
-	/* Returns the instance. */
-	public static function init() 
-	{
-		if ( !self::$_instance )
-			self::$_instance = new self;
-		return self::$_instance;
 	}
 }
