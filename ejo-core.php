@@ -3,7 +3,7 @@
  * Plugin Name:         EJO Core
  * Plugin URI:          http://github.com/ejoweb/ejo-core
  * Description:         EJOweb core functionalities for theme development. Including some nifty debug tools.
- * Version:             0.8.7
+ * Version:             0.8.8
  * Author:              Erik Joling
  * Author URI:          http://www.ejoweb.nl/
  * GitHub Plugin URI:   https://github.com/EJOweb/ejo-core
@@ -25,22 +25,22 @@
  */
 final class EJO_Core 
 {
-    //* Version number of this plugin
-    public static $version = '0.8.7';
+    /* Version number of this plugin */
+    public static $version = '0.8.8';
 
-    //* Holds the instance of this class.
+    /* Holds the instance of this class. */
     protected static $_instance = null;
 
-    //* Store the slug of this plugin
+    /* Store the slug of this plugin */
     public static $slug = 'ejo-core';
 
-    //* Stores the directory path for this plugin.
+    /* Stores the directory path for this plugin. */
     public static $dir;
 
-    //* Stores the directory URI for this plugin.
+    /* Stores the directory URI for this plugin. */
     public static $uri;
 
-    //* Returns the instance.
+    /* Returns the instance. */
     public static function instance() 
     {
         if ( !self::$_instance )
@@ -48,58 +48,58 @@ final class EJO_Core
         return self::$_instance;
     }
 
-    //* Plugin setup.
+    /* Plugin setup. */
     protected function __construct() 
     {
-        //* Setup
+        /* Setup */
         self::setup();
 
-        //* Load Helper Functions
+        /* Load Helper Functions */
         add_action( 'plugins_loaded', array( $this, 'helper_functions' ), 1 );
 
-        //* Load Development Functions
+        /* Load Development Functions */
         add_action( 'plugins_loaded', array( $this, 'development_features' ), 1 );
 
-        //* Add Theme Features
+        /* Add Theme Features */
         add_action( 'after_setup_theme', array( $this, 'theme_features' ) );
 
-        //* Zou in een after_setup_theme functie kunnen
-        //* Add EJOcore Option page to Wordpress Option menu
+        /* Zou in een after_setup_theme functie kunnen */
+        /* Add EJOcore Option page to Wordpress Option menu */
         add_action( 'admin_menu', array( $this, 'register_options_page' ) );
     }
 
     
-    //* Defines the directory path and URI for the plugin.
+    /* Defines the directory path and URI for the plugin. */
     protected static function setup() 
     {
         define( 'EJO_DIR', plugin_dir_path( __FILE__ ) );
         define( 'EJO_URI', plugin_dir_url( __FILE__ ) );
 
-        //* Store if Genesis is active
+        /* Store if Genesis is active */
         define( 'GENESIS_ACTIVE', 'genesis' == get_option( 'template' ) );
     }
   
-    //* Add helper functions
+    /* Add helper functions */
     public function helper_functions() 
     {
-        //* Remove entry from array based on value
+        /* Remove entry from array based on value */
         include_once( EJO_DIR . 'includes/helpers/array-functions.php' );
 
-        //* Use this function to filter custom theme support with arguments
+        /* Use this function to filter custom theme support with arguments */
         include_once( EJO_DIR . 'includes/helpers/theme-support-arguments.php' );
     }
   
-    //* Add development functions
+    /* Add development functions */
     public function development_features() 
     {
-        //* Write Log
+        /* Write Log */
         include_once( EJO_DIR . 'includes/development/write-log.php' );
 
-        //* Analyze Query
+        /* Analyze Query */
         include_once( EJO_DIR . 'includes/development/analyze-query.php' );
     }
 
-    //* Add Features
+    /* Add Features */
     public function theme_features() 
     {
         /* Allow arguments to be passed for theme-support */
@@ -112,16 +112,19 @@ final class EJO_Core
 
         /* ----------------------------------- */
 
-        //* Improved summary for posts
+        /* Knowledgebase */
+        require_if_theme_supports( 'ejo-knowledgebase', EJO_DIR . 'extensions/knowledgebase/knowledgebase.php' );
+
+        /* Improved summary for posts */
         require_once( EJO_DIR . 'includes/post-summary.php' );
 
-        //* Change crop switch of default image size
+        /* Change crop switch of default image size */
         require_once( EJO_DIR . 'includes/image-size-crop.php' );
 
-        //* Shortcodes
+        /* Shortcodes */
         require_once( EJO_DIR . 'includes/shortcodes.php' );
         
-        //* Widgets
+        /* Widgets */
         require_once( EJO_DIR . 'includes/widgets.php' );
 
         /* Allow admin to add scripts to entire site */
@@ -139,23 +142,23 @@ final class EJO_Core
         /* Cleanup Frontend */
         require_if_theme_supports( 'ejo-cleanup-frontend', EJO_DIR . 'includes/cleanup-head.php' ); // Remove unnecessary head links
         require_if_theme_supports( 'ejo-cleanup-frontend', EJO_DIR . 'includes/disable-xmlrpc.php' ); // Disable XML-RPC
-        require_if_theme_supports( 'ejo-cleanup-frontend', EJO_DIR . 'includes/disable-pingback.php' ); //* Disable Pingback
+        require_if_theme_supports( 'ejo-cleanup-frontend', EJO_DIR . 'includes/disable-pingback.php' ); // Disable Pingback
 
         /* Cleanup Backend */
-        require_if_theme_supports( 'ejo-cleanup-backend', EJO_DIR . 'includes/unregister-widgets.php' ); //* Widget Unregistering
-      
+        require_if_theme_supports( 'ejo-cleanup-backend', EJO_DIR . 'includes/unregister-widgets.php' ); // Widget Unregistering
+     
     }
 
-    //* Register EJOcore Options Page
+    /* Register EJOcore Options Page */
     public function register_options_page()
     {
         add_theme_page('Thema Opties', 'Thema Opties', 'edit_theme_options', 'ejo-theme-options', array( $this, 'add_theme_options_page' ) );
     }
 
-    //* Add EJOcore Options Page
+    /* Add EJOcore Options Page */
     public function add_theme_options_page()
     {
-        //* Include theme options page
+        /* Include theme options page */
         include_once( EJO_DIR . 'includes/theme-options-page.php' );
     }
 
@@ -173,5 +176,5 @@ final class EJO_Core
     }
 }
 
-//* Call EJO Core
+/* Call EJO Core */
 EJO_Core::instance();
