@@ -130,7 +130,7 @@ class EJO_Knowledgebase_Settings
 
 				<tr>					
 					<th scope="row">
-						<label for="knowledgebase-title">Title</label>
+						<label for="knowledgebase-title"><?php _e('Title:'); ?></label>
 					</th>
 					<td>
 						<input
@@ -146,7 +146,7 @@ class EJO_Knowledgebase_Settings
 
 				<tr>					
 					<th scope="row">
-						<label for="knowledgebase_description">Beschrijving</label>
+						<label for="knowledgebase_description"><?php _e('Description:'); ?></label>
 					</th>
 					<td>
 						<?php 
@@ -160,13 +160,13 @@ class EJO_Knowledgebase_Settings
 						);
 
 						?>
-						<p class="description">De beschrijving kan getoond worden op de archiefpagina (afhankelijk van het thema)</p>
+						<p class="description"><?php _e('The description may be shown on the archivepage depending on the theme'); ?></p>
 					</td>
 				</tr>
 
 				<tr>					
 					<th scope="row">
-						<label for="knowledgebase-slug">Archive Slug</label>
+						<label for="knowledgebase-slug"><?php _e('Archive Slug'); ?></label>
 					</th>
 					<td>
 						<input

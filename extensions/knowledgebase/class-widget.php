@@ -14,7 +14,7 @@ final class EJO_Knowledgebase_Widget extends WP_Widget
 
 		$widget_info = array(
 			'classname'   => 'knowledgebase-widget',
-			'description' => __('Korte informatie met een button', 'ejo-core'),
+			'description' => __('Text followed by knowledgebase categories', 'ejo-core'),
 		);
 
 		parent::__construct( 'knowledgebase-widget', $widget_title, $widget_info );

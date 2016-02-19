@@ -60,8 +60,14 @@ final class EJO_Knowledgebase
 		/* Allow arguments to be passed for theme-support */
 		add_filter( 'current_theme_supports-ejo-knowledgebase', 'ejo_theme_support_arguments', 10, 3 );
 
-		//* Rewrite knowledgebase post permalink
+		/* Rewrite knowledgebase post permalink */
 		add_filter( 'post_type_link', array( $this, 'knowledgebase_permalink' ), 10, 4 );
+
+		/* Manage columns */
+		add_filter( 'manage_edit-'.self::$post_type.'_columns', array( $this, 'edit_knowledgebase_columns' ) );
+
+		/* Manage columns */
+		add_action( 'manage_'.self::$post_type.'_posts_custom_column', array( $this, 'manage_knowledgebase_columns' ), 10, 2 );
 	}
 
 	/* Register Post Type */
@@ -111,18 +117,18 @@ final class EJO_Knowledgebase
 				/* Labels used when displaying the posts. */
 				'labels' => array(
 					'name'               => $title,
-					'singular_name'      => __( 'Article',                    'ejo-knowledgebase' ),
-					'menu_name'          => __( 'Knowledgebase',              'ejo-knowledgebase' ),
-					'name_admin_bar'     => __( 'Knowledgebase Article',      'ejo-knowledgebase' ),
-					'add_new'            => __( 'Add New',                    'ejo-knowledgebase' ),
-					'add_new_item'       => __( 'Add New Article',            'ejo-knowledgebase' ),
-					'edit_item'          => __( 'Edit Article',               'ejo-knowledgebase' ),
-					'new_item'           => __( 'New Article',                'ejo-knowledgebase' ),
-					'view_item'          => __( 'View Article',               'ejo-knowledgebase' ),
-					'search_items'       => __( 'Search Articles',            'ejo-knowledgebase' ),
-					'not_found'          => __( 'No articles found',          'ejo-knowledgebase' ),
-					'not_found_in_trash' => __( 'No articles found in trash', 'ejo-knowledgebase' ),
-					'all_items'          => __( 'All Articles',               'ejo-knowledgebase' ),
+					'singular_name'      => __( 'Article',                    'ejo-core' ),
+					'menu_name'          => __( 'Knowledgebase',              'ejo-core' ),
+					'name_admin_bar'     => __( 'Knowledgebase Article',      'ejo-core' ),
+					'add_new'            => __( 'Add New',                    'ejo-core' ),
+					'add_new_item'       => __( 'Add New Article',            'ejo-core' ),
+					'edit_item'          => __( 'Edit Article',               'ejo-core' ),
+					'new_item'           => __( 'New Article',                'ejo-core' ),
+					'view_item'          => __( 'View Article',               'ejo-core' ),
+					'search_items'       => __( 'Search Articles',            'ejo-core' ),
+					'not_found'          => __( 'No articles found',          'ejo-core' ),
+					'not_found_in_trash' => __( 'No articles found in trash', 'ejo-core' ),
+					'all_items'          => __( 'All Articles',               'ejo-core' ),
 				)
 			)
 		);
@@ -142,19 +148,19 @@ final class EJO_Knowledgebase
 
 				/* Labels used when displaying the posts. */
 				'labels'        => array(
-					'name'              => __( 'Knowledgebase Categories',	'ejo-knowledgebase' ),
-					'singular_name'     => __( 'Category', 				 	'ejo-knowledgebase' ),
-					'menu_name'         => __( 'Categories', 			 	'ejo-knowledgebase' ),
-					'search_items'      => __( 'Search Categories',      	'ejo-knowledgebase' ),
-					'all_items'         => __( 'All Categories',         	'ejo-knowledgebase' ),
-					'parent_item'       => __( 'Parent Category',        	'ejo-knowledgebase' ),
-					'parent_item_colon' => __( 'Parent Category:',       	'ejo-knowledgebase' ),
-					'edit_item'         => __( 'Edit Category',          	'ejo-knowledgebase' ),
-					'update_item'       => __( 'Update Category',        	'ejo-knowledgebase' ),
-					'add_new_item'      => __( 'Add New Category',       	'ejo-knowledgebase' ),
-					'new_item_name'     => __( 'New Category ',          	'ejo-knowledgebase' ),
-					'popular_items'     => __( 'Popular Categories',     	'ejo-knowledgebase' ),
-					'not_found'			=> __( 'Category not found', 	 	'ejo-knowledgebase' )
+					'name'              => __( 'Knowledgebase Categories',	'ejo-core' ),
+					'singular_name'     => __( 'Category', 				 	'ejo-core' ),
+					'menu_name'         => __( 'Categories', 			 	'ejo-core' ),
+					'search_items'      => __( 'Search Categories',      	'ejo-core' ),
+					'all_items'         => __( 'All Categories',         	'ejo-core' ),
+					'parent_item'       => __( 'Parent Category',        	'ejo-core' ),
+					'parent_item_colon' => __( 'Parent Category:',       	'ejo-core' ),
+					'edit_item'         => __( 'Edit Category',          	'ejo-core' ),
+					'update_item'       => __( 'Update Category',        	'ejo-core' ),
+					'add_new_item'      => __( 'Add New Category',       	'ejo-core' ),
+					'new_item_name'     => __( 'New Category ',          	'ejo-core' ),
+					'popular_items'     => __( 'Popular Categories',     	'ejo-core' ),
+					'not_found'			=> __( 'Category not found', 	 	'ejo-core' )
 				),
 			)
 		);
@@ -181,6 +187,71 @@ final class EJO_Knowledgebase
 			$post_link = str_replace( '%'.self::$post_type_category.'%', $knowledgebase_category_slug, $post_link );
 	    }
 		return $post_link;
+	}
+
+	/**
+	 * Edit the columns of the knowledgebase post overview (admin area)
+	 */
+	public function edit_knowledgebase_columns( $columns ) 
+	{
+		$columns = array(
+			'cb' => '<input type="checkbox" />',
+			'title' => __( 'Title' ),
+			'author' => __( 'Author' ),
+			'knowledgebase_category' => __( 'Category', 'ejo-core' ),
+			'date' => __( 'Date' ),
+		);
+
+		/* If Wordpress SEO plugin is activated add wpseo-score column */
+		if ( is_plugin_active( 'wordpress-seo/wp-seo.php' ) ) 
+			$columns['wpseo-score'] = __( 'SEO', 'ejo-core' );
+
+		return $columns;
+	}
+
+	/**
+	 * Process the value of the custom columns in the knowledgebase post overview (admin area)
+	 */
+	function manage_knowledgebase_columns( $column, $post_id ) 
+	{
+		global $post;
+
+		switch( $column ) {
+
+			/* If displaying the 'knowledgebase_category' column. */
+			case 'knowledgebase_category' :
+
+				/* Get the knowledgebase_categorys for the post. */
+				$terms = get_the_terms( $post_id, 'knowledgebase_category' );
+
+				/* If terms were found. */
+				if ( !empty( $terms ) ) {
+
+					$out = array();
+
+					/* Loop through each term, linking to the 'edit posts' page for the specific term. */
+					foreach ( $terms as $term ) {
+						$out[] = sprintf( '<a href="%s">%s</a>',
+							esc_url( add_query_arg( array( 'post_type' => $post->post_type, 'knowledgebase_category' => $term->slug ), 'edit.php' ) ),
+							esc_html( sanitize_term_field( 'name', $term->name, $term->term_id, 'knowledgebase_category', 'display' ) )
+						);
+					}
+
+					/* Join the terms, separating them with a comma. */
+					echo join( ', ', $out );
+				}
+
+				/* If no terms were found, output a default message. */
+				else {
+					_e( 'No categories', 'ejo-core' );
+				}
+
+				break;
+
+			/* Just break out of the switch statement for everything else. */
+			default :
+				break;
+		}
 	}
 
 	/* Register Widget */

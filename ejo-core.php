@@ -3,9 +3,12 @@
  * Plugin Name:         EJO Core
  * Plugin URI:          http://github.com/ejoweb/ejo-core
  * Description:         EJOweb core functionalities for theme development. Including some nifty debug tools.
- * Version:             0.8.8
+ * Version:             0.9
  * Author:              Erik Joling
  * Author URI:          http://www.ejoweb.nl/
+ * Text Domain:         ejo-core
+ * Domain Path:         /languages
+ *
  * GitHub Plugin URI:   https://github.com/EJOweb/ejo-core
  * GitHub Branch:       theme-support
  *
@@ -26,7 +29,7 @@
 final class EJO_Core 
 {
     /* Version number of this plugin */
-    public static $version = '0.8.8';
+    public static $version = '0.9';
 
     /* Holds the instance of this class. */
     protected static $_instance = null;
@@ -52,13 +55,16 @@ final class EJO_Core
     protected function __construct() 
     {
         /* Setup */
-        self::setup();
+        add_action( 'plugins_loaded', array( $this, 'setup' ), 1 );
+
+        /* Load Translations */
+        add_action( 'plugins_loaded', array( $this, 'load_textdomain' ), 2 );
 
         /* Load Helper Functions */
-        add_action( 'plugins_loaded', array( $this, 'helper_functions' ), 1 );
+        add_action( 'plugins_loaded', array( $this, 'helper_functions' ), 3 );
 
         /* Load Development Functions */
-        add_action( 'plugins_loaded', array( $this, 'development_features' ), 1 );
+        add_action( 'plugins_loaded', array( $this, 'development_features' ), 4 );
 
         /* Add Theme Features */
         add_action( 'after_setup_theme', array( $this, 'theme_features' ) );
@@ -70,13 +76,20 @@ final class EJO_Core
 
     
     /* Defines the directory path and URI for the plugin. */
-    protected static function setup() 
+    public function setup() 
     {
         define( 'EJO_DIR', plugin_dir_path( __FILE__ ) );
         define( 'EJO_URI', plugin_dir_url( __FILE__ ) );
 
         /* Store if Genesis is active */
         define( 'GENESIS_ACTIVE', 'genesis' == get_option( 'template' ) );
+    }
+
+    /* Load Translations */
+    public function load_textdomain() 
+    {
+        /* Load the translation for the plugin */
+        load_plugin_textdomain('ejo-core', false, 'ejo-core/languages' );
     }
   
     /* Add helper functions */

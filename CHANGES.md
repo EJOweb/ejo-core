@@ -3,6 +3,10 @@
 
 ## CHANGELOG
 theme-support branch
+0.9
+- Knowledgebase translations
+- Knowledgebase ready for live
+
 0.8.8
 - Knowledgebase extension
 
