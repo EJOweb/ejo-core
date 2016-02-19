@@ -3,6 +3,9 @@
 
 ## CHANGELOG
 theme-support branch
+0.9.1
+- Bugfix @ knowledgebase_category pagination
+
 0.9
 - Knowledgebase translations
 - Knowledgebase ready for live

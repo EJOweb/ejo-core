@@ -167,6 +167,13 @@ final class EJO_Knowledgebase
 
 		/* Connect Taxonomy with Post type */
 		register_taxonomy_for_object_type( self::$post_type_category, self::$post_type );
+
+		/* Add rewrite rule for taxonomy archive pagination */
+		add_rewrite_rule( 
+			"^$archive_slug/([-\w]+)/page/([0-9]+)/?$", 
+	    	'index.php?knowledgebase_category=$matches[1]&paged=$matches[2]',  
+	    	'top'  
+		);
 	}
 
 	/**
@@ -186,6 +193,7 @@ final class EJO_Knowledgebase
         	/* Replace the placeholder with knowledgebase-category-slug */
 			$post_link = str_replace( '%'.self::$post_type_category.'%', $knowledgebase_category_slug, $post_link );
 	    }
+
 		return $post_link;
 	}
 
