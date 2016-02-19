@@ -44,7 +44,7 @@ function array_insert_before($key, array &$array, $new_key, $new_value)
 	if (!array_key_exists($key, $array))
 		return FALSE;
 
-	$new = [];
+	$new = array();
 
 	foreach ($array as $k => $value) {
 		if ($k === $key) {
@@ -78,7 +78,7 @@ function array_insert_after($key, array &$array, $new_key, $new_value)
 	if (!array_key_exists($key, $array))
 		return FALSE;
 		
-	$new = [];
+	$new = array();
 	
 	foreach ($array as $k => $value) {
 		$new[$k] = $value;
