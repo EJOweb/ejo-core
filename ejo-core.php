@@ -20,7 +20,6 @@
  * @author    Erik Joling <erik@ejoweb.nl>
  * @copyright Copyright (c) 2015, Erik Joling
  * @link      http://github.com/ejoweb
- * @license   http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
 
 /**
