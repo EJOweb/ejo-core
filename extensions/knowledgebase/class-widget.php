@@ -25,12 +25,21 @@ final class EJO_Knowledgebase_Widget extends WP_Widget
 	 */
 	public function widget( $args, $instance ) 
 	{
-		$title = isset( $instance['title'] ) ? $instance['title'] : '';
-		$text = isset( $instance['text'] ) ? $instance['text'] : '';
+		/** 
+		 * Combine $instance data with defaults
+		 * Then extract variables of this array
+		 */
+        extract( wp_parse_args( $instance, array( 
+            'title' => '',
+            'text' => '',
+            'link_text' => '',
+        )));
+
+		/* Run $text through filter */
 		$text = apply_filters( 'widget_text', $text, $instance, $this );
 
+		/* Get archive of knowledgebase */
 		$url = get_post_type_archive_link( EJO_Knowledgebase::$post_type );
-		$link_text = isset( $instance['link-text'] ) ? $instance['link-text'] : '';
 		?>
 
 		<?php echo $args['before_widget']; ?>
@@ -95,9 +104,15 @@ final class EJO_Knowledgebase_Widget extends WP_Widget
 	 */
  	public function form( $instance ) 
  	{
-		$title = isset( $instance['title'] ) ? $instance['title'] : '';
-		$text = isset( $instance['text'] ) ? $instance['text'] : '';
-		$link_text = isset( $instance['link-text'] ) ? $instance['link-text'] : '';
+		/** 
+		 * Combine $instance data with defaults
+		 * Then extract variables of this array
+		 */
+        extract( wp_parse_args( $instance, array( 
+            'title' => '',
+            'text' => '',
+            'link_text' => '',
+        )));
 
 		?>
 		<p>
@@ -112,8 +127,8 @@ final class EJO_Knowledgebase_Widget extends WP_Widget
 		</p>
 
 		<p>
-			<label for="<?php echo $this->get_field_id('link-text'); ?>"><?php _e('Link text:') ?></label>
-			<input type="text" class="widefat" id="<?php echo $this->get_field_id('link-text'); ?>" name="<?php echo $this->get_field_name('link-text'); ?>" value="<?php echo $link_text; ?>" />
+			<label for="<?php echo $this->get_field_id('link_text'); ?>"><?php _e('Link text:') ?></label>
+			<input type="text" class="widefat" id="<?php echo $this->get_field_id('link_text'); ?>" name="<?php echo $this->get_field_name('link_text'); ?>" value="<?php echo $link_text; ?>" />
 		</p>
 		<?php
 	}
@@ -130,7 +145,10 @@ final class EJO_Knowledgebase_Widget extends WP_Widget
 		$instance['title'] = strip_tags( $new_instance['title'] );
 
 		/* Store text */
-		$instance['text'] = stripslashes( wp_filter_post_kses( addslashes( $new_instance['text'] ) ) ); // wp_filter_post_kses() expects slashed
+		if ( current_user_can('unfiltered_html') )
+			$instance['text'] =  $new_instance['text'];
+		else
+			$instance['text'] = wp_kses_post( stripslashes( $new_instance['text'] ) );
 
 		/* Store url and link-text */
 		$instance['link-text'] = strip_tags( $new_instance['link-text'] );

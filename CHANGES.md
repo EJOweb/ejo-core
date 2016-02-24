@@ -3,6 +3,10 @@
 
 ## CHANGELOG
 theme-support branch
+0.9.2
+- Added Image Select Script for admin
+- improved knowledgebase widget
+
 0.9.1
 - Bugfix @ knowledgebase_category pagination
 
