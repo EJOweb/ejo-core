@@ -3,6 +3,9 @@
 
 ## CHANGELOG
 theme-support branch
+0.9.3
+- Hide WP Smush upgrade notices
+
 0.9.2
 - Added Image Select Script for admin
 - improved knowledgebase widget
