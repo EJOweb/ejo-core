@@ -24,30 +24,28 @@ final class EJO_Inpost_Scripts
     //* Plugin setup.
     protected function __construct() 
     {
-    	//* Skip if Genesis, because they already have this option
-		if ( !GENESIS_ACTIVE ) :
+        //* Add Metabox
+        add_action( 'add_meta_boxes', array( $this, 'add_inpost_scripts_metabox' ) );
 
-	        //* Add Metabox
-	        add_action( 'add_meta_boxes', array( $this, 'add_inpost_scripts_metabox' ) );
+        //* Save Metabox
+		// add_action( 'pre_post_update', array( $this, 'save_inpost_scripts' ) ); // save the custom fields. Save_post hook doesn't seem to be called when not changing the post
+		add_action( 'save_post', array( $this, 'save_inpost_scripts' ), 1, 1 ); 
 
-	        //* Save Metabox
-			// add_action( 'pre_post_update', array( $this, 'save_inpost_scripts' ) ); // save the custom fields. Save_post hook doesn't seem to be called when not changing the post
-			add_action( 'save_post', array( $this, 'save_inpost_scripts' ), 1, 1 ); 
-
-			//* Add custom page scripts to header
-			add_action( 'wp_head', array( $this, 'ejo_output_inpost_scripts' ) );
-
-	        //* Test
-	        // write_log();
-
-		endif; //* Genesis check
+		//* Add custom page scripts to header
+		add_action( 'wp_head', array( $this, 'ejo_output_inpost_scripts' ) );
     }
 
 	//* Add Post Scripts metabox
 	public function add_inpost_scripts_metabox() 
 	{
-		add_meta_box( 'ejo_inpost_scripts_metabox', 'Scripts', array( $this, 'render_inpost_scripts_metabox' ), 'post', 'normal', 'low' );
-		add_meta_box( 'ejo_inpost_scripts_metabox', 'Scripts', array( $this, 'render_inpost_scripts_metabox' ), 'page', 'normal', 'low' );
+		/* Get post types from theme-support arguments. If none, then use posts and pages. */
+		$post_types = get_theme_support( 'ejo-post-scripts' );
+        $post_types = (!is_array($post_types)) ? array('post','page') : $post_types[0];
+
+        /* Add metabox for every give post_type */
+        foreach ($post_types as $post_type) {
+            add_meta_box( 'ejo_inpost_scripts_metabox', 'Scripts', array( $this, 'render_inpost_scripts_metabox' ), $post_type, 'normal', 'low' );
+        }
 	}
 
 	//* The post scripts metabox
@@ -59,14 +57,24 @@ final class EJO_Inpost_Scripts
 		$inpost_scripts = stripslashes(get_post_meta( $post->ID, '_ejo-inpost-scripts', true )); 
 
 		?>
-		<p>
-			<textarea class="widefat" rows="4" cols="4" name="ejo-inpost-scripts"><?php echo esc_textarea( $inpost_scripts ); ?></textarea>
-		</p>
-		<p>
-			Suitable for custom tracking, conversion or other page-specific script. Must include <code>script</code> tags.
-		</p>
-
-	<?php
+		<table class="form-table">
+			<tbody>
+				<tr>
+					<th scope="row">
+						<label for="ejo-inpost-scripts"><?php echo ucfirst($post->post_type); ?>-specific Scripts</label>
+					</th>
+					<td>
+						<p>
+							<textarea class="widefat" rows="4" cols="4" name="ejo-inpost-scripts" id="ejo-inpost-scripts"><?php echo esc_textarea( $inpost_scripts ); ?></textarea>
+						</p>
+						<p>
+							Suitable for custom tracking, conversion or other <?php echo $post->post_type; ?>-specific script. Must include <code>script</code> tags.
+						</p>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<?php
 	}
 
 	//* Manage saving Metabox Data

@@ -33,4 +33,7 @@ function ejo_analyze_query()
 	<?php endif; // End debug check
 }
 
+//* Hook query analyze function to footer
+add_action( 'wp_footer', 'ejo_analyze_query', 99 );
+
 ?>

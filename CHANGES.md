@@ -2,6 +2,54 @@
 [Wordpress] My own core functionalities for theme development. Including some nifty debug tools.
 
 ## CHANGELOG
+0.9.4 Master merge
+- Improved Readme
+- Improved Code organization
+- Removed references to Genesis, because theme-authors can choose to include features using add_theme_support
+- Added get_all_image_sizes() helper function
+
+theme-support branch
+0.9.3
+- Hide WP Smush upgrade notices
+
+0.9.2
+- Added Image Select Script for admin
+- improved knowledgebase widget
+
+0.9.1
+- Bugfix @ knowledgebase_category pagination
+
+0.9
+- Knowledgebase translations
+- Knowledgebase ready for live
+
+0.8.8
+- Knowledgebase extension
+
+0.8.7
+- Added array_insert_before and array_insert_after function
+- Rename remove_array_value function to array_remove_value
+
+0.8.6
+- check if theme-support-arguments functionality already exists
+- featured image widget nog shown on archives
+- changed underscores in couple of filenames to hyphens
+
+0.8.5
+- Added foundation for adding widgets using theme-support
+- Added Featured Image Widget
+
+theme-support branch
+- added theme-support for
+--- ejo-site-scripts
+--- ejo-post-scripts
+--- ejo-tinymce
+--- ejo-social-links
+--- ejo-cleanup-frontend
+--- ejo-cleanup-backend
+- social-links array-key 'googleplus' instead of 'google-plus'
+- improved option for cropping 'medium' and 'large' image size
+
 0.8
 - Helper function ejo_get_post_summary($post) to easier get excerpt with content fallback
 - Added Whatsapp to social-media options

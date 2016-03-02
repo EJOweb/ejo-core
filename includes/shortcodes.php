@@ -1,4 +1,11 @@
-<?php
+<?php 
+
+/**
+ * Don't auto-p wrap shortcodes that stand alone
+ * Ensures that shortcodes are not wrapped in `<p>...</p>`.
+ * See wp-includes/formatting.php
+ */
+add_filter( 'widget_text', 'shortcode_unautop', 9 );
 
 //* Vsee link in footer
 add_shortcode( 'footer_vsee', 'show_vsee_credits' );
