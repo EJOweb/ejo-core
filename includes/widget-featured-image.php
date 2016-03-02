@@ -38,24 +38,14 @@ final class EJO_Featured_Image_Widget extends WP_Widget
  	{
 		$title = isset( $instance['title'] ) ? $instance['title'] : '';
 		$selected_image_size = isset( $instance['image-size'] ) ? $instance['image-size'] : null;
-
+		$image_sizes = get_all_image_sizes();
 		?>
+
 		<p>
 			<label for="<?php echo $this->get_field_id('title'); ?>"><?php _e('Title:') ?></label>
 			<input type="text" class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" value="<?php echo $title; ?>" />
 		</p>
-
-		<?php
-			/* Default Image Sizes */
-			$image_sizes = array( 'thumbnail', 'medium', 'large' );
-
-			/* Additional Image Sizes */
-			global $_wp_additional_image_sizes;
-			$additional_image_sizes = (!empty($_wp_additional_image_sizes)) ? array_keys($_wp_additional_image_sizes) : array();
-
-			/* Merge all Image Sizes */
-			$image_sizes = array_merge($image_sizes, $additional_image_sizes);
-		?>
+		
 		<p>
 			<label>Afmeting:</label>
 			<select name="<?php echo $this->get_field_name('image-size'); ?>">
@@ -67,6 +57,7 @@ final class EJO_Featured_Image_Widget extends WP_Widget
 				?>
 			</select>
 		</p>
+		
 		<?php
 	}
 

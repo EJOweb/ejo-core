@@ -4,19 +4,14 @@
 Add header & footer scripts to theme
 */
 
-//* Skip if Genesis, because they already have this option
-if ( !GENESIS_ACTIVE ) :
+//* Add options to option page
+add_action( 'ejo_theme_options', 'ejo_custom_scripts' );
 
-	//* Add options to option page
-	add_action( 'ejo_theme_options', 'ejo_custom_scripts' );
+//* Add scripts to header
+add_action( 'wp_head', 'ejo_header_scripts' );
 
-	//* Add scripts to header
-	add_action( 'wp_head', 'ejo_header_scripts' );
-
-	//* Add scripts to footer
-	add_action( 'wp_footer', 'ejo_footer_scripts' );
-
-endif; //* Genesis check
+//* Add scripts to footer
+add_action( 'wp_footer', 'ejo_footer_scripts' );
 
 
 //* Add options to EJO options page

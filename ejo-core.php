@@ -3,14 +3,14 @@
  * Plugin Name:         EJO Core
  * Plugin URI:          http://github.com/ejoweb/ejo-core
  * Description:         EJOweb core functionalities for theme development. Including some nifty debug tools.
- * Version:             0.9.3
+ * Version:             0.9.4
  * Author:              Erik Joling
  * Author URI:          http://www.ejoweb.nl/
  * Text Domain:         ejo-core
  * Domain Path:         /languages
  *
  * GitHub Plugin URI:   https://github.com/EJOweb/ejo-core
- * GitHub Branch:       theme-support
+ * GitHub Branch:       master
  *
  * Minimum PHP version: 5.3.0
  *
@@ -28,7 +28,7 @@
 final class EJO_Core 
 {
     /* Version number of this plugin */
-    public static $version = '0.9.3';
+    public static $version = '0.9.4';
 
     /* Holds the instance of this class. */
     protected static $_instance = null;
@@ -66,7 +66,10 @@ final class EJO_Core
         add_action( 'plugins_loaded', array( $this, 'development_features' ), 4 );
 
         /* Add Theme Features */
-        add_action( 'after_setup_theme', array( $this, 'theme_features' ) );
+        add_action( 'after_setup_theme', array( $this, 'included_theme_features' ) );
+
+        /* Add Optional Theme Features */
+        add_action( 'after_setup_theme', array( $this, 'optional_theme_features' ) );
 
         /* Zou in een after_setup_theme functie kunnen */
         /* Add EJOcore Option page to Wordpress Option menu */
@@ -79,9 +82,6 @@ final class EJO_Core
     {
         define( 'EJO_DIR', plugin_dir_path( __FILE__ ) );
         define( 'EJO_URI', plugin_dir_url( __FILE__ ) );
-
-        /* Store if Genesis is active */
-        define( 'GENESIS_ACTIVE', 'genesis' == get_option( 'template' ) );
     }
 
     /* Load Translations */
@@ -94,8 +94,11 @@ final class EJO_Core
     /* Add helper functions */
     public function helper_functions() 
     {
-        /* Remove entry from array based on value */
+        /* Useful array functions */
         include_once( EJO_DIR . 'includes/helpers/array-functions.php' );
+
+        /* Function to get all image sizes */
+        include_once( EJO_DIR . 'includes/helpers/get-all-image-sizes.php' );
 
         /* Use this function to filter custom theme support with arguments */
         include_once( EJO_DIR . 'includes/helpers/theme-support-arguments.php' );
@@ -111,8 +114,21 @@ final class EJO_Core
         include_once( EJO_DIR . 'includes/development/analyze-query.php' );
     }
 
-    /* Add Features */
-    public function theme_features() 
+    /* Add Included Theme Features */
+    public function included_theme_features() 
+    {        
+        /* Change crop switch of default image size */
+        require_once( EJO_DIR . 'includes/image-size-crop.php' );
+
+        /* Shortcodes */
+        require_once( EJO_DIR . 'includes/shortcodes.php' );
+
+        /* Improved summary for posts */
+        require_once( EJO_DIR . 'includes/post-summary.php' );
+    }
+
+    /* Add Optional Theme Features */
+    public function optional_theme_features() 
     {
         /* Allow arguments to be passed for theme-support */
         add_filter( 'current_theme_supports-ejo-post-scripts', 'ejo_theme_support_arguments', 10, 3 );
@@ -126,18 +142,9 @@ final class EJO_Core
 
         /* Knowledgebase */
         require_if_theme_supports( 'ejo-knowledgebase', EJO_DIR . 'extensions/knowledgebase/knowledgebase.php' );
-
-        /* Improved summary for posts */
-        require_once( EJO_DIR . 'includes/post-summary.php' );
-
-        /* Change crop switch of default image size */
-        require_once( EJO_DIR . 'includes/image-size-crop.php' );
-
-        /* Shortcodes */
-        require_once( EJO_DIR . 'includes/shortcodes.php' );
-        
+       
         /* Widgets */
-        require_once( EJO_DIR . 'includes/widgets.php' );
+        require_if_theme_supports( 'ejo-widgets', EJO_DIR . 'includes/widgets.php' );
 
         /* Allow admin to add scripts to entire site */
         require_if_theme_supports( 'ejo-site-scripts', EJO_DIR . 'includes/add-site-scripts.php' );
@@ -157,8 +164,8 @@ final class EJO_Core
         require_if_theme_supports( 'ejo-cleanup-frontend', EJO_DIR . 'includes/disable-pingback.php' ); // Disable Pingback
 
         /* Cleanup Backend */
-        require_if_theme_supports( 'ejo-cleanup-backend', EJO_DIR . 'includes/unregister-widgets.php' ); // Widget Unregistering
-         require_if_theme_supports( 'ejo-cleanup-backend', EJO_DIR . 'includes/cleanup-wp-smush-plugin.php' ); // Hide notices to smush-it pro
+        require_if_theme_supports( 'ejo-cleanup-backend', EJO_DIR . 'includes/cleanup-default-widgets.php' ); // Widget Unregistering
+        require_if_theme_supports( 'ejo-cleanup-backend', EJO_DIR . 'includes/cleanup-wp-smush-plugin.php' ); // Hide notices to smush-it pro
 
         /* Admin Image Select Script */
         require_if_theme_supports( 'ejo-admin-image-select', EJO_DIR . 'includes/admin-image-select.php' );
@@ -168,6 +175,10 @@ final class EJO_Core
     /* Register EJOcore Options Page */
     public function register_options_page()
     {
+        /* Do not add theme options page if the features that use aren't supported */
+        if( !get_theme_support( 'ejo-social-links' ) && !get_theme_support( 'ejo-site-scripts' ) )
+            return;
+
         add_theme_page('Thema Opties', 'Thema Opties', 'edit_theme_options', 'ejo-theme-options', array( $this, 'add_theme_options_page' ) );
     }
 

@@ -2,6 +2,12 @@
 [Wordpress] My own core functionalities for theme development. Including some nifty debug tools.
 
 ## CHANGELOG
+0.9.4 Master merge
+- Improved Readme
+- Improved Code organization
+- Removed references to Genesis, because theme-authors can choose to include features using add_theme_support
+- Added get_all_image_sizes() helper function
+
 theme-support branch
 0.9.3
 - Hide WP Smush upgrade notices
