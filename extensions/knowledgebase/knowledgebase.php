@@ -93,7 +93,7 @@ final class EJO_Knowledgebase
 			self::$post_type,
 			array(
 				'description'         => $description,
-				'menu_position'       => 24,
+				'menu_position'       => 9,
 				'menu_icon'           => 'dashicons-archive',
 				'public'              => true,
 				'has_archive'         => $archive_slug,

@@ -2,6 +2,10 @@
 [Wordpress] My own core functionalities for theme development. Including some nifty debug tools.
 
 ## CHANGELOG
+0.9.5
+- Admin Client Cleanup theme feature
+- Relocate admin pages menu just before posts menu
+
 0.9.4 Master merge
 - Improved Readme
 - Improved Code organization

@@ -3,7 +3,7 @@
  * Plugin Name:         EJO Core
  * Plugin URI:          http://github.com/ejoweb/ejo-core
  * Description:         EJOweb core functionalities for theme development. Including some nifty debug tools.
- * Version:             0.9.4
+ * Version:             0.9.5
  * Author:              Erik Joling
  * Author URI:          http://www.ejoweb.nl/
  * Text Domain:         ejo-core
@@ -28,7 +28,7 @@
 final class EJO_Core 
 {
     /* Version number of this plugin */
-    public static $version = '0.9.4';
+    public static $version = '0.9.5';
 
     /* Holds the instance of this class. */
     protected static $_instance = null;
@@ -125,6 +125,9 @@ final class EJO_Core
 
         /* Improved summary for posts */
         require_once( EJO_DIR . 'includes/post-summary.php' );
+
+        /* Relocate page menu in admin */
+        require_once( EJO_DIR . 'includes/admin-relocate-page-menu.php' );
     }
 
     /* Add Optional Theme Features */
@@ -137,6 +140,7 @@ final class EJO_Core
         add_filter( 'current_theme_supports-ejo-cleanup-frontend', 'ejo_theme_support_arguments', 10, 3 );
         add_filter( 'current_theme_supports-ejo-cleanup-backend', 'ejo_theme_support_arguments', 10, 3 );
         add_filter( 'current_theme_supports-ejo-widgets', 'ejo_theme_support_arguments', 10, 3 );
+        add_filter( 'current_theme_supports-ejo-admin-client-cleanup', 'ejo_theme_support_arguments', 10, 3 );
 
         /* ----------------------------------- */
 
@@ -169,6 +173,9 @@ final class EJO_Core
 
         /* Admin Image Select Script */
         require_if_theme_supports( 'ejo-admin-image-select', EJO_DIR . 'includes/admin-image-select.php' );
+
+        /* Admin Client Cleanup */
+        require_if_theme_supports( 'ejo-admin-client-cleanup', EJO_DIR . 'includes/admin-client-cleanup.php' );
      
     }
 
