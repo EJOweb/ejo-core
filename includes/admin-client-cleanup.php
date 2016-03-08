@@ -16,10 +16,19 @@ if (is_admin()) {
 
 if ($non_ejoweb_user) {
 	/* Remove menu's */
-	add_action( 'admin_init', 'ejo_remove_menus' );
+	add_action( 'admin_menu', 'ejo_remove_menus' );
+
+	/* Remove theme-editor (Must be called at admin_init hook for some reason) */
+	add_action( 'admin_init', 'ejo_remove_theme_editor_menu' );
+
+	/* Remove font awesome from options menu (Must be called at admin_init hook for some reason ) */
+	add_action( 'admin_init', 'ejo_remove_better_font_awesome_menu' );
 
 	/* Remove admin bar menu's */
 	add_action( 'admin_bar_menu', 'ejo_remove_admin_bar_menus', 999 );
+
+	/* Remove dashboard widgets */
+	add_action( 'wp_dashboard_setup', 'ejo_remove_dashboard_widgets' );
 }
 
 /**
@@ -29,6 +38,9 @@ if ($non_ejoweb_user) {
  * 	[2][index.php]
  *		[0] Home
  *		[10] Updates
+ *
+ *	Seperator
+ *	[4]
  *
  * 	Posts
  * 	[5][edit.php]
@@ -50,7 +62,10 @@ if ($non_ejoweb_user) {
  *		[10] Nieuwe pagina
  *
  * 	Comments
- * 	[edit-comments.php]
+ * 	[25][edit-comments.php]
+ *
+ *	Seperator
+ *	[59]
  *
  * 	Themes
  * 	[60][themes.php]
@@ -94,6 +109,29 @@ if ($non_ejoweb_user) {
  * 	[edit-tags.php?taxonomy=link_category]
  *		[15] Categorie
  *
+ *  ADDITIONAL MENU
+ *
+ *  Genesis Seperator
+ *  [58.995]
+ *
+ *  Genesis
+ *  [58.996][genesis]
+ *		[0] Theme Settings
+ *		[1] Import/Export
+ *		[2] Simple Edits
+ *		[3] Slider Settings
+ *
+ *  Gravity Forms
+ *  [16.9][gf_edit_forms]
+ * 		[0] Formulieren
+ * 		[1] Nieuw formulier
+ * 		[2] Inzendingen
+ * 		[3] Instellingen
+ * 		[4] Import/Export
+ * 		[5] Updates
+ * 		[6] Add-ons
+ * 		[7] Help
+ *
  *	WP SEO
  * 	[99.5][wpseo_dashboard]
  *		[0] Algemeen
@@ -106,18 +144,19 @@ if ($non_ejoweb_user) {
  *		[7] Extensies
  */
 
-/* Remove theme-editor */
+/* Remove menus */
 function ejo_remove_menus()
 {
 	global $submenu;
 
-	/* Dashboard */
-	remove_submenu_page( 'index.php', 'update-core.php' );
+	if ( current_theme_supports( 'ejo-admin-client-cleanup', 'updates' ) ) {
+		/* Dashboard */
+		remove_submenu_page( 'index.php', 'update-core.php' );
+	}
 
 	/* Appearance */
     unset($submenu['themes.php'][6]); // Customize
     remove_submenu_page( 'themes.php', 'themes.php' ); // Theme switcher    
-    remove_submenu_page( 'themes.php', 'theme-editor.php' ); // Theme editor
 
 	/* Plugin */
 	remove_menu_page( 'plugins.php' );
@@ -126,12 +165,59 @@ function ejo_remove_menus()
 	remove_menu_page( 'tools.php' );                
 
 	/* Settings */
-	remove_menu_page( 'options-general.php' );
+	// remove_menu_page( 'options-general.php' );
+	// remove_submenu_page( 'options-general.php', 'options-general.php' );
+	remove_submenu_page( 'options-general.php', 'options-writing.php' );
+	remove_submenu_page( 'options-general.php', 'options-reading.php' );
+	remove_submenu_page( 'options-general.php', 'options-discussion.php' );
+	remove_submenu_page( 'options-general.php', 'options-media.php' );
+	remove_submenu_page( 'options-general.php', 'options-permalink.php' );
+	remove_submenu_page( 'options-general.php', 'Mic-setting-admin' );
+	
+	// [80][options-general.php]
+ // *		[10] Algemeen
+ // *		[15] Schrijven
+ // *		[20] Lezen
+ // *		[25] Reacties
+ // *		[30] Media
+ // *		[40] Permalinks
+ // *		[41] Manual Image Crop
 
+	/* Remove posts menu */
 	if ( current_theme_supports( 'ejo-admin-client-cleanup', 'blog' ) ) {
-		/* Posts */
-		remove_menu_page( 'edit.php' );
+		remove_menu_page( 'edit.php' ); // Posts
 	}
+
+	/* Remove genesis menu */
+	if ( current_theme_supports( 'ejo-admin-client-cleanup', 'genesis' ) ) {
+		remove_menu_page( 'genesis' );
+	}
+
+	/* Remove Reactions */
+	if ( current_theme_supports( 'ejo-admin-client-cleanup', 'comments' ) ) {
+		remove_menu_page( 'edit-comments.php' );
+		remove_submenu_page( 'edit.php', 'edit-comments.php' ); // In case comment menu is transfered to posts menu
+	}
+}
+
+/**
+ * Remove theme-editor 
+ *
+ * Must be called at admin_init hook for some reason
+ */
+function ejo_remove_theme_editor_menu()
+{
+	remove_submenu_page( 'themes.php', 'theme-editor.php' ); // Theme editor
+}
+
+/**
+ * Remove font awesome from options menu
+ *
+ * Must be called at admin_init hook for some reason
+ */
+function ejo_remove_better_font_awesome_menu()
+{
+	remove_submenu_page( 'options-general.php', 'better-font-awesome' ); // Font awesome
 }
 
 /* Remove admin bar menu's */
@@ -153,6 +239,7 @@ function ejo_remove_admin_bar_menus( $wp_admin_bar )
 	 * [feedback]
 	 * [site-name]
 	 * [view-site]
+	 * [updates]
 	 * [comments]
 	 * [new-content]
 	 * [new-post]
@@ -178,7 +265,33 @@ function ejo_remove_admin_bar_menus( $wp_admin_bar )
 	 * [wp-logo-external]
 	 */
 
+	/* Comments */
+	if ( current_theme_supports( 'ejo-admin-client-cleanup', 'comments' ) ) {
+		$wp_admin_bar->remove_node( 'comments' );
+	}
+
+	/* Updates */
+	if ( current_theme_supports( 'ejo-admin-client-cleanup', 'updates' ) ) {
+		$wp_admin_bar->remove_node( 'updates' );
+	}
+
+	/* Blog */
 	if ( current_theme_supports( 'ejo-admin-client-cleanup', 'blog' ) ) {
 		$wp_admin_bar->remove_node( 'new-post' );
 	}
+}
+
+/* Remove dashboard widgets */
+function ejo_remove_dashboard_widgets()
+{
+	global $wp_meta_boxes;
+
+	/* Remove Quick post and Activity dashboard widget if no blog */
+	if ( current_theme_supports( 'ejo-admin-client-cleanup', 'blog' ) ) {
+		unset($wp_meta_boxes['dashboard']['side']['core']['dashboard_quick_press']);
+		unset($wp_meta_boxes['dashboard']['normal']['core']['dashboard_activity']);
+	}
+
+	/* Remove Wordpress news */
+	unset($wp_meta_boxes['dashboard']['side']['core']['dashboard_primary']);
 }
