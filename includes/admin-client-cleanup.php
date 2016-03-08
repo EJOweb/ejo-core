@@ -18,11 +18,8 @@ if ($non_ejoweb_user) {
 	/* Remove menu's */
 	add_action( 'admin_menu', 'ejo_remove_menus' );
 
-	/* Remove theme-editor (Must be called at admin_init hook for some reason) */
-	add_action( 'admin_init', 'ejo_remove_theme_editor_menu' );
-
-	/* Remove font awesome from options menu (Must be called at admin_init hook for some reason ) */
-	add_action( 'admin_init', 'ejo_remove_better_font_awesome_menu' );
+	/* Remove some menu's at a later hook */
+	add_action( 'admin_init', 'ejo_remove_menus_2' );
 
 	/* Remove admin bar menu's */
 	add_action( 'admin_bar_menu', 'ejo_remove_admin_bar_menus', 999 );
@@ -74,6 +71,7 @@ if ($non_ejoweb_user) {
  *		[7] Widgets
  *		[10] Menus
  *		[11] Thema Opties
+ *		[15] Header
  *
  * 	Plugins
  * 	[65][plugins.php]
@@ -155,8 +153,12 @@ function ejo_remove_menus()
 	}
 
 	/* Appearance */
-    unset($submenu['themes.php'][6]); // Customize
-    remove_submenu_page( 'themes.php', 'themes.php' ); // Theme switcher    
+    remove_submenu_page( 'themes.php', 'themes.php' ); // Theme switcher
+
+    if ( current_theme_supports( 'ejo-admin-client-cleanup', 'customizer' ) ) {
+    	unset($submenu['themes.php'][6]); // Customize
+    	unset($submenu['themes.php'][15]); // Customize Header
+    }
 
 	/* Plugin */
 	remove_menu_page( 'plugins.php' );
@@ -201,23 +203,22 @@ function ejo_remove_menus()
 }
 
 /**
- * Remove theme-editor 
+ * Remove some menu items at a later hook
  *
- * Must be called at admin_init hook for some reason
+ * Some menu items must be called at admin_init hook for some reason
  */
-function ejo_remove_theme_editor_menu()
+function ejo_remove_menus_2()
 {
-	remove_submenu_page( 'themes.php', 'theme-editor.php' ); // Theme editor
-}
+	/* Theme editor */
+	remove_submenu_page( 'themes.php', 'theme-editor.php' ); 
 
-/**
- * Remove font awesome from options menu
- *
- * Must be called at admin_init hook for some reason
- */
-function ejo_remove_better_font_awesome_menu()
-{
-	remove_submenu_page( 'options-general.php', 'better-font-awesome' ); // Font awesome
+	/* Font awesome */
+	remove_submenu_page( 'options-general.php', 'better-font-awesome' ); 
+
+	if ( current_theme_supports( 'ejo-admin-client-cleanup', 'updates' ) ) {
+		/* Github Updater */
+		remove_submenu_page( 'options-general.php', 'github-updater' ); 
+	}
 }
 
 /* Remove admin bar menu's */

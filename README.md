@@ -51,6 +51,9 @@ add_theme_support( 'ejo-cleanup-frontend', array( 'head', 'xmlrpc', 'pingback' )
 ### Admin Image Select
 add_theme_support( 'ejo-admin-image-select' );
 
+### Admin Client Cleanup
+add_theme_support( 'ejo-admin-client-cleanup', array( 'blog', 'genesis', 'updates', 'comments', 'customizer' ) );
+
 
 ## To Do
 * EJO Testimonials, EJO Dynamic Sidebars, EJO Menu Marquee (?), EJO Simple Testimonials opnemen in EJO core?
