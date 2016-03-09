@@ -31,10 +31,10 @@ add_theme_support( 'ejo-social-links', array( 'facebook', 'twitter', 'linkedin',
 add_theme_support( 'ejo-tinymce', array( 'button', 'button-2', 'intro' ) );
 
 ### Allow admin to add scripts to entire site
-add_theme_support( 'site-scripts' );
+add_theme_support( 'ejo-site-scripts' );
 
 ### Allow admin to add scripts to specific posts
-add_theme_support( 'post-scripts' );
+add_theme_support( 'ejo-post-scripts' );
 
 ### Knowledgebase
 add_theme_support( 'ejo-knowledgebase' );
