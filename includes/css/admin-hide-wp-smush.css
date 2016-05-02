@@ -1,7 +1,9 @@
-.wp-smush-pro-features {
-	display: none !important;
+.wp-smush-pro-adv,
+.wp-smush-hb-adv,
+.wp-smush-super-smush-promo {
+	display: none;
 }
 
-.smush-instructions .error a {
-	display: none;
+.wpmud .dev-box.bulk-smush-wrapper:not(.wp-smush-pro-install) {
+    padding-bottom: 20px !important;
 }

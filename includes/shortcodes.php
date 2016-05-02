@@ -49,7 +49,7 @@ function show_ejoweb_credits( $atts )
     ), $atts );
 
     if (is_front_page()) :
-        $output = '<a class="footer-credits" href="http://www.ejoweb.nl" title="EJOweb - Wordpress Developer">' . $atts['text'] . '</a>';
+        $output = '<a class="footer-credits" href="https://www.ejoweb.nl" title="EJOweb - Professionele website laten maken">' . $atts['text'] . '</a>';
     else :
         $output = '<span class="footer-credits">' . $atts['text'] . '</span>';
     endif;
