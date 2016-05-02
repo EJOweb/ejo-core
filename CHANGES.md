@@ -2,6 +2,11 @@
 [Wordpress] My own core functionalities for theme development. Including some nifty debug tools.
 
 ## CHANGELOG
+0.9.8
+- Removed ejo-core's tinymce styleformats. This is theme domain  
+  * add_theme_support( 'ejo-tinymce' ) no longer supports array of styles
+  * include function to simply add tinymce style-formats by default
+
 0.9.7
 - Admin Client Cleanup improvements
 

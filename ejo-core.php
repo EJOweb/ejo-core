@@ -3,7 +3,7 @@
  * Plugin Name:         EJO Core
  * Plugin URI:          http://github.com/ejoweb/ejo-core
  * Description:         EJOweb core functionalities for theme development. Including some nifty debug tools.
- * Version:             0.9.7
+ * Version:             0.9.8
  * Author:              Erik Joling
  * Author URI:          http://www.ejoweb.nl/
  * Text Domain:         ejo-core
@@ -28,7 +28,7 @@
 final class EJO_Core 
 {
     /* Version number of this plugin */
-    public static $version = '0.9.7';
+    public static $version = '0.9.8';
 
     /* Holds the instance of this class. */
     protected static $_instance = null;
@@ -102,6 +102,9 @@ final class EJO_Core
 
         /* Use this function to filter custom theme support with arguments */
         include_once( EJO_DIR . 'includes/helpers/theme-support-arguments.php' );
+
+        /* Filter to makes adding style_formats easier */
+        include_once( EJO_DIR . 'includes/helpers/simple-tinymce-style-formats.php');
     }
   
     /* Add development functions */
@@ -135,7 +138,6 @@ final class EJO_Core
     {
         /* Allow arguments to be passed for theme-support */
         add_filter( 'current_theme_supports-ejo-post-scripts', 'ejo_theme_support_arguments', 10, 3 );
-        add_filter( 'current_theme_supports-ejo-tinymce', 'ejo_theme_support_arguments', 10, 3 );
         add_filter( 'current_theme_supports-ejo-social-links', 'ejo_theme_support_arguments', 10, 3 );
         add_filter( 'current_theme_supports-ejo-cleanup-frontend', 'ejo_theme_support_arguments', 10, 3 );
         add_filter( 'current_theme_supports-ejo-cleanup-backend', 'ejo_theme_support_arguments', 10, 3 );
