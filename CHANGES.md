@@ -2,6 +2,10 @@
 [Wordpress] My own core functionalities for theme development. Including some nifty debug tools.
 
 ## CHANGELOG
+0.9.8
+- Changed shortcode EJOweb link to https-protocol
+- Updated WP smushit Cleanup to support 2.2
+
 0.9.7
 - Admin Client Cleanup improvements
 
