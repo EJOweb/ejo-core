@@ -8,7 +8,7 @@
  * They generate new rewrite rules for each category
  */
 add_action( 'init', 'ejo_remove_category_base' );
-// add_action( 'wp_footer', 'ejo_category_paging_fix_debug' );
+add_action( 'wp_footer', 'ejo_category_paging_fix_debug' );
 
 function ejo_remove_category_base()
 {
@@ -89,9 +89,15 @@ function ejo_add_post_rewrite_rules( $post_rewrite_rules )
 	 * index.php?category_name=$matches[1]&name=$matches[2]&paged=$matches[3]
 	 */
 	$post_category_paging_rewrite_rule = array(
-		"$front/(.+?)/page/?([0-9]{1,})/?$" => 'index.php?category_name=$matches[1]&paged=$matches[2]'
+		"$front/(.+?)/page/?([0-9]{1,})/?$" => 'index.php?category_name=$matches[1]&paged=$matches[2]',		
 	);
 
+	/**
+	 * Fix blog paging
+	 */
+	$post_category_paging_rewrite_rule["$front/page/?([0-9]{1,})/?$"] = 'index.php?post_type=post&paged=$matches[1]';
+
+	/* Merge and return */
 	return array_merge($post_category_paging_rewrite_rule, $post_rewrite_rules);
 }
 
