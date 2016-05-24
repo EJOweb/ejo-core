@@ -3,7 +3,7 @@
  * Plugin Name:         EJO Core
  * Plugin URI:          http://github.com/ejoweb/ejo-core
  * Description:         EJOweb core functionalities for theme development. Including some nifty debug tools.
- * Version:             0.9.9
+ * Version:             0.9.10
  * Author:              Erik Joling
  * Author URI:          http://www.ejoweb.nl/
  * Text Domain:         ejo-core
@@ -28,7 +28,7 @@
 final class EJO_Core 
 {
     /* Version number of this plugin */
-    public static $version = '0.9.9';
+    public static $version = '0.9.10';
 
     /* Holds the instance of this class. */
     protected static $_instance = null;
@@ -178,7 +178,9 @@ final class EJO_Core
 
         /* Admin Client Cleanup */
         require_if_theme_supports( 'ejo-admin-client-cleanup', EJO_DIR . 'includes/admin-client-cleanup.php' );
-     
+
+        /* Fix paging of categories when no /category/ base and have /front/ */
+        require_if_theme_supports( 'ejo-remove-category-base', EJO_DIR . 'includes/remove-category-base.php' );     
     }
 
     /* Register EJOcore Options Page */

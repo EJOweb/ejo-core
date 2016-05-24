@@ -168,9 +168,16 @@ final class EJO_Knowledgebase
 		/* Connect Taxonomy with Post type */
 		register_taxonomy_for_object_type( self::$post_type_category, self::$post_type );
 
-		/* Add rewrite rule for taxonomy archive pagination */
+		/**
+		 * Add rewrite rule for knowledgebase_category paging to top of rewrite-rules to solve paging 404
+		 *
+		 * Possible conflict with multipage posts because it precedes:
+		 *
+		 * $archive-slug/([^/]+)/([^/]+)/page/?([0-9]{1,})/?$	
+		 * index.php?knowledgebase_category=$matches[1]&knowledgebase_post=$matches[2]&paged=$matches[3]
+		 */
 		add_rewrite_rule( 
-			"^$archive_slug/([-\w]+)/page/([0-9]+)/?$", 
+			"$archive_slug/(.+?)/page/?([0-9]{1,})/?$", 
 	    	'index.php?knowledgebase_category=$matches[1]&paged=$matches[2]',  
 	    	'top'  
 		);
