@@ -125,7 +125,7 @@ function ejo_add_page_rewrite_rules_to_bottom( $rewrite_rules )
 function ejo_remove_category_base_debug()
 {
 	/* Only analyze if in debugging mode */
-	if ( !WP_DEBUG ) : 
+	if ( !WP_DEBUG )
 		return;
 
 	global $wp, $wp_rewrite;
