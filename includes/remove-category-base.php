@@ -8,7 +8,7 @@
  * They generate new rewrite rules for each category
  */
 add_action( 'init', 'ejo_remove_category_base' );
-add_action( 'wp_footer', 'ejo_category_paging_fix_debug' );
+add_action( 'wp_footer', 'ejo_remove_category_base_debug' );
 
 function ejo_remove_category_base()
 {
@@ -122,8 +122,12 @@ function ejo_add_page_rewrite_rules_to_bottom( $rewrite_rules )
 /**
  * Test results in footer 
  */
-function ejo_category_paging_fix_debug()
+function ejo_remove_category_base_debug()
 {
+	/* Only analyze if in debugging mode */
+	if ( !WP_DEBUG ) : 
+		return;
+
 	global $wp, $wp_rewrite;
 
     $front = ejo_get_front();
@@ -135,6 +139,7 @@ function ejo_category_paging_fix_debug()
 	echo empty($wp->matched_rule) ? 'None' : esc_html($wp->matched_rule);
 	echo '<br/>';
 	echo empty($wp->matched_query) ? 'None' : esc_html($wp->matched_query);
+	echo '<br/>';
 
 	global $wp_query;
 	var_dump($wp_query);
