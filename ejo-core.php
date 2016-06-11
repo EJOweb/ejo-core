@@ -114,7 +114,10 @@ final class EJO_Core
         include_once( EJO_DIR . 'includes/development/write-log.php' );
 
         /* Analyze Query */
-        include_once( EJO_DIR . 'includes/development/analyze-query.php' );
+        // include_once( EJO_DIR . 'includes/development/analyze-query.php' );
+
+        /* Debug */
+        // include_once( EJO_DIR . 'includes/development/debug.php' );
     }
 
     /* Add Included Theme Features */
@@ -178,9 +181,6 @@ final class EJO_Core
 
         /* Admin Client Cleanup */
         require_if_theme_supports( 'ejo-admin-client-cleanup', EJO_DIR . 'includes/admin-client-cleanup.php' );
-
-        /* Fix paging of categories when no /category/ base and have /front/ */
-        require_if_theme_supports( 'ejo-remove-category-base', EJO_DIR . 'includes/remove-category-base.php' );     
     }
 
     /* Register EJOcore Options Page */
