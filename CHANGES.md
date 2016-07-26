@@ -2,6 +2,11 @@
 [Wordpress] My own base functionalities for theme development. Including some nifty debug tools.
 
 ## CHANGELOG
+1.0 
+- Fork from EJO core
+- Removed knowledgebase. It's in a seperate plugin now
+- Removed client cleanup. It's in a seperate plugin now
+
 0.9.10
 - Added functionality to remove category base when using `front` in permalink-structure
 - Minor update to knowledgebase rewrite-rule

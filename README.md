@@ -36,9 +36,6 @@ add_theme_support( 'ejo-site-scripts' );
 ### Allow admin to add scripts to specific posts
 add_theme_support( 'ejo-post-scripts' );
 
-### Knowledgebase
-add_theme_support( 'ejo-knowledgebase' );
-
 ### Widgets
 add_theme_support( 'ejo-widgets', array( 'featured-image' ) );
 

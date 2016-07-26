@@ -148,10 +148,7 @@ final class EJO_Base
         add_filter( 'current_theme_supports-ejo-admin-client-cleanup', 'ejo_theme_support_arguments', 10, 3 );
 
         /* ----------------------------------- */
-
-        /* Knowledgebase */
-        require_if_theme_supports( 'ejo-knowledgebase', EJO_DIR . 'extensions/knowledgebase/knowledgebase.php' );
-       
+  
         /* Widgets */
         require_if_theme_supports( 'ejo-widgets', EJO_DIR . 'includes/widgets.php' );
 
@@ -180,7 +177,7 @@ final class EJO_Base
         require_if_theme_supports( 'ejo-admin-image-select', EJO_DIR . 'includes/admin-image-select.php' );
 
         /* Admin Client Cleanup */
-        require_if_theme_supports( 'ejo-admin-client-cleanup', EJO_DIR . 'includes/admin-client-cleanup.php' );
+        // require_if_theme_supports( 'ejo-admin-client-cleanup', EJO_DIR . 'includes/admin-client-cleanup.php' );
     }
 
     /* Register EJObase Options Page */

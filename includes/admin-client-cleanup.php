@@ -246,7 +246,6 @@ function ejo_remove_admin_bar_menus( $wp_admin_bar )
 	 * [new-post]
 	 * [new-media]
 	 * [new-page]
-	 * [new-knowledgebase_post]
 	 * [new-user]
 	 * [wpseo-menu]
 	 * [wpseo-kwresearch]
