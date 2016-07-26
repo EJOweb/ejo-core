@@ -3,7 +3,7 @@
  * Plugin Name:         EJO Base
  * Plugin URI:          http://github.com/erikjoling/ejo-base
  * Description:         EJOweb base functionalities for theme development. Including some nifty debug tools.
- * Version:             0.9.10.1
+ * Version:             1.0
  * Author:              Erik Joling
  * Author URI:          http://www.ejoweb.nl/
  * Text Domain:         ejo-base
@@ -28,7 +28,7 @@
 final class EJO_Base 
 {
     /* Version number of this plugin */
-    public static $version = '0.9.10.1';
+    public static $version = '1.0';
 
     /* Holds the instance of this class. */
     protected static $_instance = null;
