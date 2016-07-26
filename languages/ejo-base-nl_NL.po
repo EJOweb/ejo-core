@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: ejo-core\n"
+"Project-Id-Version: ejo-base\n"
 "POT-Creation-Date: 2016-02-19 16:10+0100\n"
 "PO-Revision-Date: 2016-02-19 16:10+0100\n"
 "Last-Translator: Erik Joling <erik@ejoweb.nl>\n"

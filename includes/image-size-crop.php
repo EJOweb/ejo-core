@@ -45,7 +45,7 @@ function ejo_medium_image_crop()
 //* Change crop of default image size (thumbnail, medium, large)
 function ejo_change_default_image_size_crop( $size = null, $crop = 1 )
 {
-	_deprecated_function( __FUNCTION__, 'EJOcore 0.9', 'crop-opties in Wordpress > Instellingen > Media' );
+	_deprecated_function( __FUNCTION__, 'EJObase 0.9', 'crop-opties in Wordpress > Instellingen > Media' );
 
 	//* Check $size
 	if ( !isset($size) )

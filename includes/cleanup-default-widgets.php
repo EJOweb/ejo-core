@@ -7,7 +7,7 @@ if ( current_theme_supports( 'ejo-cleanup-backend', 'widgets' ) ) {
 	/** 
 	 * Unregister Widgets that I don't use often
 	 *
-	 * Use ejo_core_unregister_widgets filter to manipulate
+	 * Use ejo_base_unregister_widgets filter to manipulate
 	 */
 	function ejo_unregister_widgets()
 	{
@@ -32,7 +32,7 @@ if ( current_theme_supports( 'ejo-cleanup-backend', 'widgets' ) ) {
 			$widgets_to_unregister[] = 'WP_Widget_Text';
 
 		/* Filter $widgets_to_unregister */
-		$widgets_to_unregister = apply_filters( 'ejo_core_unregister_widgets', $widgets_to_unregister );
+		$widgets_to_unregister = apply_filters( 'ejo_base_unregister_widgets', $widgets_to_unregister );
 
 		//* Unregister each widget in array $widgets_to_unregister
 		foreach ($widgets_to_unregister as $widget) {

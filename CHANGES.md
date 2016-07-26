@@ -1,5 +1,5 @@
-# EJO Core
-[Wordpress] My own core functionalities for theme development. Including some nifty debug tools.
+# EJO Base
+[Wordpress] My own base functionalities for theme development. Including some nifty debug tools.
 
 ## CHANGELOG
 0.9.10
@@ -11,7 +11,7 @@
 - Updated WP smushit Cleanup to support 2.2
 
 0.9.8
-- Removed ejo-core's tinymce styleformats. This is theme domain  
+- Removed ejo-base's tinymce styleformats. This is theme domain  
   * add_theme_support( 'ejo-tinymce' ) no longer supports array of styles
   * include function to simply add tinymce style-formats by default
 
@@ -57,7 +57,7 @@ theme-support branch
 0.8.6
 - check if theme-support-arguments functionality already exists
 - featured image widget nog shown on archives
-- changed underscores in couple of filenames to hyphens
+- changed undersbases in couple of filenames to hyphens
 
 0.8.5
 - Added foundation for adding widgets using theme-support

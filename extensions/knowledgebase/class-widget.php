@@ -10,11 +10,11 @@ final class EJO_Knowledgebase_Widget extends WP_Widget
 	 */
 	function __construct() 
 	{
-		$widget_title = __('Knowledgebase Widget', 'ejo-core');
+		$widget_title = __('Knowledgebase Widget', 'ejo-base');
 
 		$widget_info = array(
 			'classname'   => 'knowledgebase-widget',
-			'description' => __('Text followed by knowledgebase categories', 'ejo-core'),
+			'description' => __('Text followed by knowledgebase categories', 'ejo-base'),
 		);
 
 		parent::__construct( 'knowledgebase-widget', $widget_title, $widget_info );

@@ -44,7 +44,7 @@ final class EJO_Knowledgebase
 	public static $post_type_category = 'knowledgebase_category';
 
 	/**
-	 * Class is initiated at 'after_setup_theme' hook inside ejo-core.php
+	 * Class is initiated at 'after_setup_theme' hook inside ejo-base.php
 	 */
 	protected function __construct() 
 	{
@@ -117,18 +117,18 @@ final class EJO_Knowledgebase
 				/* Labels used when displaying the posts. */
 				'labels' => array(
 					'name'               => $title,
-					'singular_name'      => __( 'Article',                    'ejo-core' ),
-					'menu_name'          => __( 'Knowledgebase',              'ejo-core' ),
-					'name_admin_bar'     => __( 'Knowledgebase Article',      'ejo-core' ),
-					'add_new'            => __( 'Add New',                    'ejo-core' ),
-					'add_new_item'       => __( 'Add New Article',            'ejo-core' ),
-					'edit_item'          => __( 'Edit Article',               'ejo-core' ),
-					'new_item'           => __( 'New Article',                'ejo-core' ),
-					'view_item'          => __( 'View Article',               'ejo-core' ),
-					'search_items'       => __( 'Search Articles',            'ejo-core' ),
-					'not_found'          => __( 'No articles found',          'ejo-core' ),
-					'not_found_in_trash' => __( 'No articles found in trash', 'ejo-core' ),
-					'all_items'          => __( 'All Articles',               'ejo-core' ),
+					'singular_name'      => __( 'Article',                    'ejo-base' ),
+					'menu_name'          => __( 'Knowledgebase',              'ejo-base' ),
+					'name_admin_bar'     => __( 'Knowledgebase Article',      'ejo-base' ),
+					'add_new'            => __( 'Add New',                    'ejo-base' ),
+					'add_new_item'       => __( 'Add New Article',            'ejo-base' ),
+					'edit_item'          => __( 'Edit Article',               'ejo-base' ),
+					'new_item'           => __( 'New Article',                'ejo-base' ),
+					'view_item'          => __( 'View Article',               'ejo-base' ),
+					'search_items'       => __( 'Search Articles',            'ejo-base' ),
+					'not_found'          => __( 'No articles found',          'ejo-base' ),
+					'not_found_in_trash' => __( 'No articles found in trash', 'ejo-base' ),
+					'all_items'          => __( 'All Articles',               'ejo-base' ),
 				)
 			)
 		);
@@ -148,19 +148,19 @@ final class EJO_Knowledgebase
 
 				/* Labels used when displaying the posts. */
 				'labels'        => array(
-					'name'              => __( 'Knowledgebase Categories',	'ejo-core' ),
-					'singular_name'     => __( 'Category', 				 	'ejo-core' ),
-					'menu_name'         => __( 'Categories', 			 	'ejo-core' ),
-					'search_items'      => __( 'Search Categories',      	'ejo-core' ),
-					'all_items'         => __( 'All Categories',         	'ejo-core' ),
-					'parent_item'       => __( 'Parent Category',        	'ejo-core' ),
-					'parent_item_colon' => __( 'Parent Category:',       	'ejo-core' ),
-					'edit_item'         => __( 'Edit Category',          	'ejo-core' ),
-					'update_item'       => __( 'Update Category',        	'ejo-core' ),
-					'add_new_item'      => __( 'Add New Category',       	'ejo-core' ),
-					'new_item_name'     => __( 'New Category ',          	'ejo-core' ),
-					'popular_items'     => __( 'Popular Categories',     	'ejo-core' ),
-					'not_found'			=> __( 'Category not found', 	 	'ejo-core' )
+					'name'              => __( 'Knowledgebase Categories',	'ejo-base' ),
+					'singular_name'     => __( 'Category', 				 	'ejo-base' ),
+					'menu_name'         => __( 'Categories', 			 	'ejo-base' ),
+					'search_items'      => __( 'Search Categories',      	'ejo-base' ),
+					'all_items'         => __( 'All Categories',         	'ejo-base' ),
+					'parent_item'       => __( 'Parent Category',        	'ejo-base' ),
+					'parent_item_colon' => __( 'Parent Category:',       	'ejo-base' ),
+					'edit_item'         => __( 'Edit Category',          	'ejo-base' ),
+					'update_item'       => __( 'Update Category',        	'ejo-base' ),
+					'add_new_item'      => __( 'Add New Category',       	'ejo-base' ),
+					'new_item_name'     => __( 'New Category ',          	'ejo-base' ),
+					'popular_items'     => __( 'Popular Categories',     	'ejo-base' ),
+					'not_found'			=> __( 'Category not found', 	 	'ejo-base' )
 				),
 			)
 		);
@@ -213,13 +213,13 @@ final class EJO_Knowledgebase
 			'cb' => '<input type="checkbox" />',
 			'title' => __( 'Title' ),
 			'author' => __( 'Author' ),
-			'knowledgebase_category' => __( 'Category', 'ejo-core' ),
+			'knowledgebase_category' => __( 'Category', 'ejo-base' ),
 			'date' => __( 'Date' ),
 		);
 
-		/* If Wordpress SEO plugin is activated add wpseo-score column */
+		/* If Wordpress SEO plugin is activated add wpseo-sbase column */
 		if ( is_plugin_active( 'wordpress-seo/wp-seo.php' ) ) 
-			$columns['wpseo-score'] = __( 'SEO', 'ejo-core' );
+			$columns['wpseo-sbase'] = __( 'SEO', 'ejo-base' );
 
 		return $columns;
 	}
@@ -258,7 +258,7 @@ final class EJO_Knowledgebase
 
 				/* If no terms were found, output a default message. */
 				else {
-					_e( 'No categories', 'ejo-core' );
+					_e( 'No categories', 'ejo-base' );
 				}
 
 				break;

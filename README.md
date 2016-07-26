@@ -1,4 +1,4 @@
-# EJO Core for Wordpress
+# EJO Base for Wordpress
 Extra functionalities and utilities for theme development. 
 
 ## Included additions
@@ -56,7 +56,7 @@ add_theme_support( 'ejo-admin-client-cleanup', array( 'blog', 'genesis', 'update
 
 
 ## To Do
-* EJO Testimonials, EJO Dynamic Sidebars, EJO Menu Marquee (?), EJO Simple Testimonials opnemen in EJO core?
+* EJO Testimonials, EJO Dynamic Sidebars, EJO Menu Marquee (?), EJO Simple Testimonials opnemen in EJO base?
 * Document theme-support
 * Improve allround documentation
 * Use Settings API for theme-options?

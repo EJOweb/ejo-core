@@ -1,31 +1,31 @@
 <?php
 /**
- * Plugin Name:         EJO Core
- * Plugin URI:          http://github.com/ejoweb/ejo-core
- * Description:         EJOweb core functionalities for theme development. Including some nifty debug tools.
+ * Plugin Name:         EJO Base
+ * Plugin URI:          http://github.com/erikjoling/ejo-base
+ * Description:         EJOweb base functionalities for theme development. Including some nifty debug tools.
  * Version:             0.9.10.1
  * Author:              Erik Joling
  * Author URI:          http://www.ejoweb.nl/
- * Text Domain:         ejo-core
+ * Text Domain:         ejo-base
  * Domain Path:         /languages
  *
- * GitHub Plugin URI:   https://github.com/EJOweb/ejo-core
+ * GitHub Plugin URI:   https://github.com/erikjoling/ejo-base
  * GitHub Branch:       master
  *
  * Minimum PHP version: 5.3.0
  *
- * @package   EJO Core
+ * @package   EJO Base
  * @version   0.1.0
  * @since     0.1.0
  * @author    Erik Joling <erik@ejoweb.nl>
  * @copyright Copyright (c) 2015, Erik Joling
- * @link      http://github.com/ejoweb
+ * @link      http://github.com/erikjoling
  */
 
 /**
  *
  */
-final class EJO_Core 
+final class EJO_Base 
 {
     /* Version number of this plugin */
     public static $version = '0.9.10.1';
@@ -34,7 +34,7 @@ final class EJO_Core
     protected static $_instance = null;
 
     /* Store the slug of this plugin */
-    public static $slug = 'ejo-core';
+    public static $slug = 'ejo-base';
 
     /* Stores the directory path for this plugin. */
     public static $dir;
@@ -72,7 +72,7 @@ final class EJO_Core
         add_action( 'after_setup_theme', array( $this, 'optional_theme_features' ) );
 
         /* Zou in een after_setup_theme functie kunnen */
-        /* Add EJOcore Option page to Wordpress Option menu */
+        /* Add EJObase Option page to Wordpress Option menu */
         add_action( 'admin_menu', array( $this, 'register_options_page' ) );
     }
 
@@ -88,7 +88,7 @@ final class EJO_Core
     public function load_textdomain() 
     {
         /* Load the translation for the plugin */
-        load_plugin_textdomain('ejo-core', false, 'ejo-core/languages' );
+        load_plugin_textdomain('ejo-base', false, 'ejo-base/languages' );
     }
   
     /* Add helper functions */
@@ -183,7 +183,7 @@ final class EJO_Core
         require_if_theme_supports( 'ejo-admin-client-cleanup', EJO_DIR . 'includes/admin-client-cleanup.php' );
     }
 
-    /* Register EJOcore Options Page */
+    /* Register EJObase Options Page */
     public function register_options_page()
     {
         /* Do not add theme options page if the features that use aren't supported */
@@ -193,7 +193,7 @@ final class EJO_Core
         add_theme_page('Thema Opties', 'Thema Opties', 'edit_theme_options', 'ejo-theme-options', array( $this, 'add_theme_options_page' ) );
     }
 
-    /* Add EJOcore Options Page */
+    /* Add EJObase Options Page */
     public function add_theme_options_page()
     {
         /* Include theme options page */
@@ -214,5 +214,5 @@ final class EJO_Core
     }
 }
 
-/* Call EJO Core */
-EJO_Core::instance();
+/* Call EJO Base */
+EJO_Base::instance();
