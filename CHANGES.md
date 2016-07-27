@@ -2,6 +2,9 @@
 [Wordpress] My own base functionalities for theme development. Including some nifty debug tools.
 
 ## CHANGELOG
+1.0.1
+- Fixed bug/notice when posts menu is hidden
+
 1.0 
 - Fork from EJO core
 - Removed knowledgebase. It's in a seperate plugin now
