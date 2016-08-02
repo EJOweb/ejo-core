@@ -1,5 +1,5 @@
 # EJO Base for Wordpress
-Extra functionalities and utilities for theme development. 
+Framework for EJO basewebsites
 
 ## Included additions
 
@@ -15,7 +15,6 @@ Extra functionalities and utilities for theme development.
 
 ### Shortcodes
 * EJOweb credits in footer: [footer_ejoweb]
-* Vsee credits in footer [footer_vsee]
 
 ### Theme Functions
 * ejo_the_post_summary( optional $post_id )
@@ -53,7 +52,8 @@ add_theme_support( 'ejo-admin-client-cleanup', array( 'blog', 'genesis', 'update
 
 
 ## To Do
-* EJO Testimonials, EJO Dynamic Sidebars, EJO Menu Marquee (?), EJO Simple Testimonials opnemen in EJO base?
+* Move EJO-inline-post to separate plugin?
+* Move EJO-widget-cleanup to separate plugin?
 * Document theme-support
 * Improve allround documentation
 * Use Settings API for theme-options?

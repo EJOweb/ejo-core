@@ -7,35 +7,12 @@
  */
 add_filter( 'widget_text', 'shortcode_unautop', 9 );
 
-//* Vsee link in footer
-add_shortcode( 'footer_vsee', 'show_vsee_credits' );
-
 //* EJOweb link in footer
 add_shortcode( 'footer_ejoweb', 'show_ejoweb_credits' );
 
 // Simple current year shortcode
 add_shortcode('year', 'year_shortcode');
 
-
-/** 
- * Show Vsee credits
- *
- * Show it as a link on the home-page and as plain text on other pages
- */
-function show_vsee_credits( $atts ) 
-{
-    $atts = shortcode_atts( array(
-        'text' => 'Internetbureau Vsee',
-    ), $atts );
-
-    if (is_front_page()) :
-        $output = '<a class="footer-credits" href="http://www.vsee.nl" title="Internetbureau Vsee - Google Adwords en SEO specialisten">' . $atts['text'] . '</a>';
-    else :
-        $output = '<span class="footer-credits">' . $atts['text'] . '</span>';
-    endif;
-
-    return $output;
-}
 
 /** 
  * Show EJOweb credits

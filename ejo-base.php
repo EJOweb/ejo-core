@@ -3,7 +3,7 @@
  * Plugin Name:         EJO Base
  * Plugin URI:          http://github.com/erikjoling/ejo-base
  * Description:         EJOweb base functionalities for theme development. Including some nifty debug tools.
- * Version:             1.0.1
+ * Version:             1.1
  * Author:              Erik Joling
  * Author URI:          http://www.ejoweb.nl/
  * Text Domain:         ejo-base
@@ -27,11 +27,11 @@
  */
 final class EJO_Base 
 {
+    /* Holds the instance of this class. */
+    private static $_instance = null;
+
     /* Version number of this plugin */
     public static $version = '1.0.1';
-
-    /* Holds the instance of this class. */
-    protected static $_instance = null;
 
     /* Store the slug of this plugin */
     public static $slug = 'ejo-base';
@@ -42,163 +42,164 @@ final class EJO_Base
     /* Stores the directory URI for this plugin. */
     public static $uri;
 
-    /* Returns the instance. */
-    public static function instance() 
+    /* Stores activated modules */
+    public static $activated_modules;
+
+    public static $activated_modules2 = array('test1', 'test2');
+
+    /* Only instantiate once */
+    public static function init() 
     {
         if ( !self::$_instance )
             self::$_instance = new self;
         return self::$_instance;
     }
 
+    //* No cloning
+    private function __clone() { /* No clones pleasssse! */ }
+
     /* Plugin setup. */
-    protected function __construct() 
+    private function __construct() 
     {
         /* Setup */
-        add_action( 'plugins_loaded', array( $this, 'setup' ), 1 );
+        add_action( 'plugins_loaded', array( 'EJO_Base', 'setup' ), 1 );
 
         /* Load Translations */
-        add_action( 'plugins_loaded', array( $this, 'load_textdomain' ), 2 );
+        add_action( 'plugins_loaded', array( 'EJO_Base', 'load_textdomain' ), 2 );
 
         /* Load Helper Functions */
-        add_action( 'plugins_loaded', array( $this, 'helper_functions' ), 3 );
-
-        /* Load Development Functions */
-        add_action( 'plugins_loaded', array( $this, 'development_features' ), 4 );
+        add_action( 'plugins_loaded', array( 'EJO_Base', 'helpers' ), 3 );
 
         /* Add Theme Features */
-        add_action( 'after_setup_theme', array( $this, 'included_theme_features' ) );
-
-        /* Add Optional Theme Features */
-        add_action( 'after_setup_theme', array( $this, 'optional_theme_features' ) );
+        add_action( 'after_setup_theme', array( 'EJO_Base', 'base' ), 1 );
 
         /* Zou in een after_setup_theme functie kunnen */
         /* Add EJObase Option page to Wordpress Option menu */
-        add_action( 'admin_menu', array( $this, 'register_options_page' ) );
+        add_action( 'admin_menu', array( 'EJO_Base', 'register_options_page' ) );
     }
 
     
     /* Defines the directory path and URI for the plugin. */
-    public function setup() 
+    public static function setup() 
     {
-        define( 'EJO_DIR', plugin_dir_path( __FILE__ ) );
-        define( 'EJO_URI', plugin_dir_url( __FILE__ ) );
+        EJO_Base::$dir = plugin_dir_path( __FILE__ );
+        EJO_Base::$uri = plugin_dir_url( __FILE__ );
     }
 
     /* Load Translations */
-    public function load_textdomain() 
+    public static function load_textdomain() 
     {
         /* Load the translation for the plugin */
-        load_plugin_textdomain('ejo-base', false, 'ejo-base/languages' );
+        load_plugin_textdomain( 'ejo-base', false, 'ejo-base/languages' );
     }
   
     /* Add helper functions */
-    public function helper_functions() 
-    {
-        /* Useful array functions */
-        include_once( EJO_DIR . 'includes/helpers/array-functions.php' );
-
-        /* Function to get all image sizes */
-        include_once( EJO_DIR . 'includes/helpers/get-all-image-sizes.php' );
-
-        /* Use this function to filter custom theme support with arguments */
-        include_once( EJO_DIR . 'includes/helpers/theme-support-arguments.php' );
-
-        /* Filter to makes adding style_formats easier */
-        include_once( EJO_DIR . 'includes/helpers/simple-tinymce-style-formats.php');
-    }
-  
-    /* Add development functions */
-    public function development_features() 
+    public static function helpers() 
     {
         /* Write Log */
-        include_once( EJO_DIR . 'includes/development/write-log.php' );
+        require_once( EJO_Base::$dir . 'includes/helpers/write-log.php' );
 
-        /* Analyze Query */
-        // include_once( EJO_DIR . 'includes/development/analyze-query.php' );
+        /* Useful array functions */
+        require_once( EJO_Base::$dir . 'includes/helpers/array-functions.php' );
 
-        /* Debug */
-        // include_once( EJO_DIR . 'includes/development/debug.php' );
-    }
+        /* Base Module is active check */
+        require_once( EJO_Base::$dir . 'includes/helpers/module-is-active-check.php' );
 
-    /* Add Included Theme Features */
-    public function included_theme_features() 
-    {        
-        /* Change crop switch of default image size */
-        require_once( EJO_DIR . 'includes/image-size-crop.php' );
+        /* Use this function to filter custom theme support with arguments */
+        require_once( EJO_Base::$dir . 'includes/helpers/theme-support-arguments.php' );
 
-        /* Shortcodes */
-        require_once( EJO_DIR . 'includes/shortcodes.php' );
+        /* Function to get all image sizes */
+        require_once( EJO_Base::$dir . 'includes/helpers/get-all-image-sizes.php' );
 
         /* Improved summary for posts */
-        require_once( EJO_DIR . 'includes/post-summary.php' );
-
-        /* Relocate page menu in admin */
-        require_once( EJO_DIR . 'includes/admin-relocate-page-menu.php' );
+        require_once( EJO_Base::$dir . 'includes/helpers/post-summary.php' );
     }
-
-    /* Add Optional Theme Features */
-    public function optional_theme_features() 
-    {
-        /* Allow arguments to be passed for theme-support */
-        add_filter( 'current_theme_supports-ejo-post-scripts', 'ejo_theme_support_arguments', 10, 3 );
-        add_filter( 'current_theme_supports-ejo-social-links', 'ejo_theme_support_arguments', 10, 3 );
-        add_filter( 'current_theme_supports-ejo-cleanup-frontend', 'ejo_theme_support_arguments', 10, 3 );
-        add_filter( 'current_theme_supports-ejo-cleanup-backend', 'ejo_theme_support_arguments', 10, 3 );
-        add_filter( 'current_theme_supports-ejo-widgets', 'ejo_theme_support_arguments', 10, 3 );
-        add_filter( 'current_theme_supports-ejo-admin-client-cleanup', 'ejo_theme_support_arguments', 10, 3 );
-
-        /* ----------------------------------- */
   
-        /* Widgets */
-        require_if_theme_supports( 'ejo-widgets', EJO_DIR . 'includes/widgets.php' );
+    /* Add Included Theme Features */
+    public static function base() 
+    {   
+        /* Allow arguments to be passed for theme-support */
+        add_filter( 'current_theme_supports-ejo-base', 'ejo_theme_support_arguments', 10, 3 );
 
-        /* Allow admin to add scripts to entire site */
-        require_if_theme_supports( 'ejo-site-scripts', EJO_DIR . 'includes/add-site-scripts.php' );
+        EJO_Base::$activated_modules = array(
+            // 'blog',
+            // 'blog-comments',
+            'testimonials',
+            'contactads',
+            // 'portfolio',
+            // 'social-extra',
+            // 'popup-box',
+            // 'photo-gallery',
+            // 'team',
+            // 'social-media-extra',
+            // 'FAQ',
+        );
 
-        /* Allow admin to add scripts to specific posts */
-        require_if_theme_supports( 'ejo-post-scripts', EJO_DIR . 'includes/add-post-scripts.php' ); 
 
-        /* Improved Visual Editor */
-        require_if_theme_supports( 'ejo-tinymce', EJO_DIR . 'includes/visual-editor-styles.php' );
+        /**
+         * Debugging 
+         */
 
-        /* Social Media Links */
-        require_if_theme_supports( 'ejo-social-links', EJO_DIR . 'includes/social-links.php' );
+        //* Debugging
+        require_once( EJO_Base::$dir . 'includes/debugging.php' );
 
-        /* Cleanup Frontend */
-        require_if_theme_supports( 'ejo-cleanup-frontend', EJO_DIR . 'includes/cleanup-head.php' ); // Remove unnecessary head links
-        require_if_theme_supports( 'ejo-cleanup-frontend', EJO_DIR . 'includes/disable-xmlrpc.php' ); // Disable XML-RPC
-        require_if_theme_supports( 'ejo-cleanup-frontend', EJO_DIR . 'includes/disable-pingback.php' ); // Disable Pingback
 
-        /* Cleanup Backend */
-        require_if_theme_supports( 'ejo-cleanup-backend', EJO_DIR . 'includes/cleanup-default-widgets.php' ); // Widget Unregistering
-        require_if_theme_supports( 'ejo-cleanup-backend', EJO_DIR . 'includes/cleanup-wp-smush-plugin.php' ); // Hide notices to smush-it pro
+        /**
+         * Admin
+         */
 
         /* Admin Image Select Script */
-        require_if_theme_supports( 'ejo-admin-image-select', EJO_DIR . 'includes/admin-image-select.php' );
+        require_once( EJO_Base::$dir . 'includes/admin/admin-image-select.php' );
 
-        /* Admin Client Cleanup */
-        // require_if_theme_supports( 'ejo-admin-client-cleanup', EJO_DIR . 'includes/admin-client-cleanup.php' );
+        /* Relocate page menu in admin */
+        require_once( EJO_Base::$dir . 'includes/admin/admin-relocate-page-menu.php' );
+
+        /* Cleanup Backend */
+        require_once( EJO_Base::$dir . 'includes/admin/cleanup-default-widgets.php' ); // Widget Unregistering
+
+        /* Improved Visual Editor */
+        require_once( EJO_Base::$dir . 'includes/admin/visual-editor-styles.php' );
+
+        /**
+         * Other
+         */
+
+        /* Change crop switch of default image size */
+        require_once( EJO_Base::$dir . 'includes/image-size-crop.php' );
+
+        /* Shortcodes */
+        require_once( EJO_Base::$dir . 'includes/shortcodes.php' );        
+
+        /* Allow admin to add scripts to entire site */
+        require_once( EJO_Base::$dir . 'includes/add-site-scripts.php' );
+
+        /* Allow admin to add scripts to specific posts */
+        require_once( EJO_Base::$dir . 'includes/add-post-scripts.php' ); 
+
+        // /* Widgets */
+        // require_once( EJO_Base::$dir . 'includes/widgets.php' );
+
+        /* Cleanup Frontend */
+        require_once( EJO_Base::$dir . 'includes/cleanup-head.php' ); // Remove unnecessary head links
+        require_once( EJO_Base::$dir . 'includes/disable-xmlrpc.php' ); // Disable XML-RPC
+        require_once( EJO_Base::$dir . 'includes/disable-pingback.php' ); // Disable Pingback
     }
 
-    /* Register EJObase Options Page */
-    public function register_options_page()
+    /* Register EJObase Options Menu Page */
+    public static function register_options_page()
     {
-        /* Do not add theme options page if the features that use aren't supported */
-        if( !get_theme_support( 'ejo-social-links' ) && !get_theme_support( 'ejo-site-scripts' ) )
-            return;
-
-        add_theme_page('Thema Opties', 'Thema Opties', 'edit_theme_options', 'ejo-theme-options', array( $this, 'add_theme_options_page' ) );
+        add_menu_page( __('EJO Base Options'), __('EJO Base'), 'manage_options', 'ejo-base-options', array( 'EJO_Base', 'add_menu_page' ) );
     }
 
-    /* Add EJObase Options Page */
-    public function add_theme_options_page()
+    /* Add EJObase Options Menu Page */
+    public static function add_menu_page()
     {
         /* Include theme options page */
-        include_once( EJO_DIR . 'includes/theme-options-page.php' );
+        require_once( EJO_Base::$dir . 'includes/admin/options-page.php' );
     }
 
     /* Uninstall */
-    public function uninstall()
+    private static function uninstall()
     {
         /**
          * Stored data in options table
@@ -212,4 +213,4 @@ final class EJO_Base
 }
 
 /* Call EJO Base */
-EJO_Base::instance();
+EJO_Base::init();

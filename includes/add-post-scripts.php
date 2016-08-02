@@ -8,13 +8,13 @@
 final class EJO_Inpost_Scripts
 {
     //* Holds the instance of this class.
-    protected static $_instance = null;
+    private static $_instance = null;
 
     //* Store the slug of this plugin
     public static $slug = 'ejo-inpost-scripts';
 
     //* Returns the instance.
-    public static function instance() 
+    public static function init() 
     {
         if ( !self::$_instance )
             self::$_instance = new self;
@@ -22,14 +22,14 @@ final class EJO_Inpost_Scripts
     }
 
     //* Plugin setup.
-    protected function __construct() 
+    private function __construct()
     {
         //* Add Metabox
         add_action( 'add_meta_boxes', array( $this, 'add_inpost_scripts_metabox' ) );
 
         //* Save Metabox
 		// add_action( 'pre_post_update', array( $this, 'save_inpost_scripts' ) ); // save the custom fields. Save_post hook doesn't seem to be called when not changing the post
-		add_action( 'save_post', array( $this, 'save_inpost_scripts' ), 1, 1 ); 
+		add_action( 'save_post', array( $this, 'save_inpost_scripts' ), 1, 1 ); // Hook early to make sure it saves (see previous line)
 
 		//* Add custom page scripts to header
 		add_action( 'wp_head', array( $this, 'ejo_output_inpost_scripts' ) );
@@ -117,5 +117,5 @@ final class EJO_Inpost_Scripts
 }
 
 //* Call EJO Inpost Scripts
-EJO_Inpost_Scripts::instance();
+EJO_Inpost_Scripts::init();
 
