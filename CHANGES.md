@@ -2,6 +2,13 @@
 [Wordpress] My own base functionalities for theme development. Including some nifty debug tools.
 
 ## CHANGELOG
+1.1
+- Rename to EJO Base
+- Code restructuring
+- Made a start for enabling/disabling modules
+- Removed all theme support checks. Included most functionalities by default, removed others
+- Improved widget-cleanup
+
 1.0.1
 - Fixed bug/notice when posts menu is hidden
 

@@ -31,7 +31,7 @@ final class EJO_Base
     private static $_instance = null;
 
     /* Version number of this plugin */
-    public static $version = '1.0.1';
+    public static $version = '1.1';
 
     /* Store the slug of this plugin */
     public static $slug = 'ejo-base';
@@ -43,9 +43,19 @@ final class EJO_Base
     public static $uri;
 
     /* Stores activated modules */
-    public static $activated_modules;
-
-    public static $activated_modules2 = array('test1', 'test2');
+    public static $activated_modules = array(
+        // 'blog',
+        // 'blog-comments',
+        'testimonials',
+        'contactads',
+        // 'portfolio',
+        // 'social-extra',
+        // 'popup-box',
+        // 'photo-gallery',
+        // 'team',
+        // 'social-media-extra',
+        // 'FAQ',
+    );
 
     /* Only instantiate once */
     public static function init() 
@@ -121,27 +131,12 @@ final class EJO_Base
         /* Allow arguments to be passed for theme-support */
         add_filter( 'current_theme_supports-ejo-base', 'ejo_theme_support_arguments', 10, 3 );
 
-        EJO_Base::$activated_modules = array(
-            // 'blog',
-            // 'blog-comments',
-            'testimonials',
-            'contactads',
-            // 'portfolio',
-            // 'social-extra',
-            // 'popup-box',
-            // 'photo-gallery',
-            // 'team',
-            // 'social-media-extra',
-            // 'FAQ',
-        );
-
-
         /**
          * Debugging 
          */
 
         //* Debugging
-        require_once( EJO_Base::$dir . 'includes/debugging.php' );
+        // require_once( EJO_Base::$dir . 'includes/debugging.php' );
 
 
         /**
