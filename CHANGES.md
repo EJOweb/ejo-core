@@ -2,6 +2,11 @@
 [Wordpress] My own base functionalities for theme development. Including some nifty debug tools.
 
 ## CHANGELOG
+1.2
+- Improved admin image select organization
+- Fixed tinyMCE styleselect
+- Added snippets
+
 1.1
 - Rename to EJO Base
 - Code restructuring

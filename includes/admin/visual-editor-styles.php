@@ -7,6 +7,7 @@ add_filter( 'mce_buttons_2', 'ejo_mce_buttons_2' );
 //* Customize block format possibilities
 add_filter( 'tiny_mce_before_init', 'ejo_tinymce_formats' );
 
+
 /** 
  * TinyMCE custom row 1
  * 
@@ -43,9 +44,26 @@ function ejo_mce_buttons_2($buttons)
 /** 
  * TinyMCE custom block formats
  */
-function ejo_tinymce_formats($init) 
+function ejo_tinymce_formats($settings) 
 {
-    $init['block_formats'] = 'Paragraph=p;Heading 2=h2;Heading 3=h3;Heading 4=h4;Pre=pre';
+    $block_formats = 'Paragraph=p;Heading 2=h2;Heading 3=h3;Heading 4=h4;Pre=pre';
+    
+    //* Get current styles or empty array
+    $style_formats = !empty($settings['style_formats']) ? json_decode( $settings['style_formats'] ) : array();
 
-    return $init;
+    $style_formats[] =  array(
+        'title' => 'Button',
+        'selector' => 'a',
+        'classes' => 'button'
+    );
+
+    //* Allow styleselect to be filtered by theme
+    $style_formats = apply_filters( 'ejo_tinymce_styleselect', $style_formats );
+
+
+    $settings['block_formats'] = 'Paragraph=p;Heading 2=h2;Heading 3=h3;Heading 4=h4;Pre=pre';
+    $settings['style_formats'] = json_encode( $style_formats );
+
+    return $settings;
 }
+
