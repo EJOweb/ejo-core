@@ -66,16 +66,13 @@ final class EJO_Base
     }
 
     //* No cloning
-    private function __clone() { /* No clones pleasssse! */ }
+    private function __clone() {}
 
     /* Plugin setup. */
     private function __construct() 
     {
         /* Setup */
         add_action( 'plugins_loaded', array( 'EJO_Base', 'setup' ), 1 );
-
-        /* Load Translations */
-        add_action( 'plugins_loaded', array( 'EJO_Base', 'load_textdomain' ), 2 );
 
         /* Load Helper Functions */
         add_action( 'plugins_loaded', array( 'EJO_Base', 'helpers' ), 3 );
@@ -94,11 +91,7 @@ final class EJO_Base
     {
         EJO_Base::$dir = plugin_dir_path( __FILE__ );
         EJO_Base::$uri = plugin_dir_url( __FILE__ );
-    }
 
-    /* Load Translations */
-    public static function load_textdomain() 
-    {
         /* Load the translation for the plugin */
         load_plugin_textdomain( 'ejo-base', false, 'ejo-base/languages' );
     }
@@ -123,6 +116,10 @@ final class EJO_Base
 
         /* Improved summary for posts */
         require_once( EJO_Base::$dir . 'includes/helpers/post-summary.php' );
+
+        //* Allow templating of widgets
+        require_once( EJO_Base::$dir . 'includes/helpers/class-widget-template-loader.php' );
+
     }
   
     /* Add Included Theme Features */
@@ -170,6 +167,8 @@ final class EJO_Base
 
         /* Allow admin to add scripts to specific posts */
         require_once( EJO_Base::$dir . 'includes/add-post-scripts.php' ); 
+
+
 
         // /* Widgets */
         // require_once( EJO_Base::$dir . 'includes/widgets.php' );

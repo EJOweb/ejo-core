@@ -2,6 +2,8 @@
 [Wordpress] My own base functionalities for theme development. Including some nifty debug tools.
 
 ## CHANGELOG
+- Added EJO_Widget_Template_Loader so themes can have their own widget-templates
+
 1.2
 - Improved admin image select organization
 - Fixed tinyMCE styleselect
