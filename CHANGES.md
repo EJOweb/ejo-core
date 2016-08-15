@@ -3,6 +3,7 @@
 
 ## CHANGELOG
 - Added EJO_Widget_Template_Loader so themes can have their own widget-templates
+- Small improvement on code structuring
 
 1.2
 - Improved admin image select organization

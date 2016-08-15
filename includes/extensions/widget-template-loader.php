@@ -2,6 +2,8 @@
 
 /**
  *
+ *
+ * 
  */
 final class EJO_Widget_Template_Loader
 {
@@ -120,34 +122,6 @@ final class EJO_Widget_Template_Loader
 		return $located;
 	}
 
-	// public static function get_template_file2( $template_file_names, $template_directories ) 
-	// {
-	// 	$located = false;
-
-	// 	//* Try to find a template file.
-	// 	foreach ( $template_file_names as $template_file_name ) {
-
-	// 		//* Trim off any slashes from the template name.
-	// 		$template_file_name = ltrim( $template_file_name, '/' );
-
-	// 		//* Try locating this template file by looping through the template paths.
-	// 		foreach ( $template_directories as $template_directory ) {
-
-	// 			if ( file_exists( $template_directory . $template_file_name ) ) {
-
-	// 				$located = $template_directory . $template_file_name;
-
-	// 				//* Break out both loops
-	// 				break 2;
-	// 			}
-	// 		}
-	// 	}
-
-	// 	return $located;
-	// }
-
-
-
 	/**
 	 * Load a template file.
 	 *
@@ -155,9 +129,15 @@ final class EJO_Widget_Template_Loader
 	 * @param array  $args          Widget $args
 	 * @param array  $instance      Widget $instance
 	 */
-	public static function load_template( $template_file, $args, $instance ) {
+	public static function load_template( $args, $instance, $widget ) 
+	{
+		//* Get template file
+		$template_file = self::get_template_file( $widget->id_base, $args['id'] );
+
 		if ( file_exists( $template_file ) ) {
 			require( $template_file );
 		}
+
+		return $template_file;
 	}
 }

@@ -75,7 +75,10 @@ final class EJO_Base
         add_action( 'plugins_loaded', array( 'EJO_Base', 'setup' ), 1 );
 
         /* Load Helper Functions */
-        add_action( 'plugins_loaded', array( 'EJO_Base', 'helpers' ), 3 );
+        add_action( 'plugins_loaded', array( 'EJO_Base', 'helpers' ), 2 );
+
+        /* Load Extensions */
+        add_action( 'plugins_loaded', array( 'EJO_Base', 'extensions' ), 3 );
 
         /* Add Theme Features */
         add_action( 'after_setup_theme', array( 'EJO_Base', 'base' ), 1 );
@@ -117,9 +120,13 @@ final class EJO_Base
         /* Improved summary for posts */
         require_once( EJO_Base::$dir . 'includes/helpers/post-summary.php' );
 
-        //* Allow templating of widgets
-        require_once( EJO_Base::$dir . 'includes/helpers/class-widget-template-loader.php' );
+    }
 
+    /* Add Extensions */
+    public static function extensions() 
+    {
+        //* Allow templating of widgets
+        require_once( EJO_Base::$dir . 'includes/extensions/widget-template-loader.php' );
     }
   
     /* Add Included Theme Features */
