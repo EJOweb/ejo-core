@@ -43,18 +43,18 @@ final class EJO_Base
     public static $uri;
 
     /* Stores activated modules */
-    public static $activated_modules = array(
-        // 'blog',
-        // 'blog-comments',
+    public static $supported_modules = array(
+        'blog',
+        'blog-comments',
         'testimonials',
         'contactads',
-        // 'portfolio',
-        // 'social-extra',
-        // 'popup-box',
-        // 'photo-gallery',
-        // 'team',
-        // 'social-media-extra',
-        // 'FAQ',
+        'portfolio',
+        'social-extra',
+        'popup-box',
+        'photo-gallery',
+        'team',
+        'social-media-extra',
+        'FAQ',
     );
 
     /* Only instantiate once */
@@ -126,7 +126,13 @@ final class EJO_Base
     public static function extensions() 
     {
         //* Allow templating of widgets
-        require_once( EJO_Base::$dir . 'includes/extensions/widget-template-loader.php' );
+        require_once( EJO_Base::$dir . 'includes/extensions/widget-template-loader/widget-template-loader.php' );
+
+        /* Allow admin to add scripts to entire site */
+        require_once( EJO_Base::$dir . 'includes/extensions/add-site-scripts/add-site-scripts.php' );
+
+        /* Allow admin to add scripts to specific posts */
+        require_once( EJO_Base::$dir . 'includes/extensions/add-post-scripts.php' ); 
     }
   
     /* Add Included Theme Features */
@@ -169,11 +175,6 @@ final class EJO_Base
         /* Shortcodes */
         require_once( EJO_Base::$dir . 'includes/shortcodes.php' );        
 
-        /* Allow admin to add scripts to entire site */
-        require_once( EJO_Base::$dir . 'includes/add-site-scripts.php' );
-
-        /* Allow admin to add scripts to specific posts */
-        require_once( EJO_Base::$dir . 'includes/add-post-scripts.php' ); 
 
 
 

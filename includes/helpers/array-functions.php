@@ -1,17 +1,5 @@
 <?php 
 //* Delete one array-record based on value
-function remove_array_value( $value, $array ) 
-{
-	/* Deprecate please! */
-	$key = array_search($value, $array);
-
-	if( $key !== false)
-		unset($array[$key]);
-
-	return $array;
-}
-
-//* Delete one array-record based on value
 function array_remove_value( $value, $array ) 
 {
 	$key = array_search($value, $array);
