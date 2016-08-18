@@ -42,21 +42,6 @@ final class EJO_Base
     /* Stores the directory URI for this plugin. */
     public static $uri;
 
-    /* Stores activated modules */
-    public static $supported_modules = array(
-        'blog',
-        'blog-comments',
-        'testimonials',
-        'contactads',
-        'portfolio',
-        'social-extra',
-        'popup-box',
-        'photo-gallery',
-        'team',
-        'social-media-extra',
-        'FAQ',
-    );
-
     /* Only instantiate once */
     public static function init() 
     {
@@ -82,10 +67,6 @@ final class EJO_Base
 
         /* Add Theme Features */
         add_action( 'after_setup_theme', array( 'EJO_Base', 'base' ), 1 );
-
-        /* Zou in een after_setup_theme functie kunnen */
-        /* Add EJObase Option page to Wordpress Option menu */
-        add_action( 'admin_menu', array( 'EJO_Base', 'register_options_page' ) );
     }
 
     
@@ -97,6 +78,9 @@ final class EJO_Base
 
         /* Load the translation for the plugin */
         load_plugin_textdomain( 'ejo-base', false, 'ejo-base/languages' );
+
+        //* Load Module Manager
+        require_once( self::$dir . 'includes/module-manager/module-manager.php' );
     }
   
     /* Add helper functions */
@@ -107,9 +91,6 @@ final class EJO_Base
 
         /* Useful array functions */
         require_once( EJO_Base::$dir . 'includes/helpers/array-functions.php' );
-
-        /* Base Module is active check */
-        require_once( EJO_Base::$dir . 'includes/helpers/module-is-active-check.php' );
 
         /* Use this function to filter custom theme support with arguments */
         require_once( EJO_Base::$dir . 'includes/helpers/theme-support-arguments.php' );
@@ -138,9 +119,6 @@ final class EJO_Base
     /* Add Included Theme Features */
     public static function base() 
     {   
-        /* Allow arguments to be passed for theme-support */
-        add_filter( 'current_theme_supports-ejo-base', 'ejo_theme_support_arguments', 10, 3 );
-
         /**
          * Debugging 
          */
@@ -185,19 +163,6 @@ final class EJO_Base
         require_once( EJO_Base::$dir . 'includes/cleanup-head.php' ); // Remove unnecessary head links
         require_once( EJO_Base::$dir . 'includes/disable-xmlrpc.php' ); // Disable XML-RPC
         require_once( EJO_Base::$dir . 'includes/disable-pingback.php' ); // Disable Pingback
-    }
-
-    /* Register EJObase Options Menu Page */
-    public static function register_options_page()
-    {
-        add_menu_page( __('EJO Base Options'), __('EJO Base'), 'manage_options', 'ejo-base-options', array( 'EJO_Base', 'add_menu_page' ) );
-    }
-
-    /* Add EJObase Options Menu Page */
-    public static function add_menu_page()
-    {
-        /* Include theme options page */
-        require_once( EJO_Base::$dir . 'includes/admin/options-page.php' );
     }
 
     /* Uninstall */

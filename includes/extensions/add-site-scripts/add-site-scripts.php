@@ -62,11 +62,7 @@ class EJO_Site_scripts
     }
 
     public function register_admin_scripts_and_styles() {
-        // if (isset($_GET['page']) && $_GET['page'] == EJO_Simple_Testimonials::$slug) {
-        //     wp_enqueue_script( 'ejo-simple-testimonials-admin-js', EJO_Simple_Testimonials::$uri . 'includes/js/admin.js', array('jquery', 'jquery-ui-sortable') );
 
-        //     wp_enqueue_style( 'ejo-simple-testimonials-admin', EJO_Simple_Testimonials::$uri . 'includes/css/admin.css' );
-        // }
     }
 
     //* Add scripts to header
