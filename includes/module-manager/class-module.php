@@ -197,8 +197,6 @@ class EJO_Base_Module
 
         // $output = __( 'Dependancies: ');
 
-        write_log($dependancies);
-        
         foreach ($dependancies as $dependancy) {
 
             if ($dependancy['type'] == 'ejo-base-module') {
@@ -269,8 +267,14 @@ class EJO_Base_Module
 
                 //* Store altered modules
                 update_option( 'ejo_base_active_modules', $active_modules );
+
+                do_action( "ejo_base_module_activation_$id", $id );
+
+                return true;
             }
         }
+
+        return false;
     }
 
     public static function deactivate( $id, $active_modules = null )
@@ -288,6 +292,33 @@ class EJO_Base_Module
 
             //* Store altered modules
             update_option( 'ejo_base_active_modules', $active_modules );
+
+            do_action( "ejo_base_module_deactivation_$id", $id );
+
+            // //* Check for dependancy
+            // self::check_activated_modules( $active_modules );
+
+            return true;
+        }
+
+        return false;
+    }
+
+    /** 
+     * Check currently activated modules 
+     *  
+     * Deactivate modules which shouldn't be activated (ie. missing dependancies)
+     */
+    public static function check_activated_modules( $active_modules = null )
+    {
+        if ( ! $active_modules )
+            $active_modules = get_option( 'ejo_base_active_modules', array() );
+
+        foreach ($active_modules as $id) {
+
+            if ( ! self::is_available($id) ) {
+                self::deactivate( $id, $active_modules );
+            }
         }
     }
 }

@@ -33,18 +33,22 @@ final class EJO_Base_Module_Manager
 
         //* Set modules
         self::set_modules();
+
+        /* Allow array-arguments to be passed for theme-support:ejo-base-modules */
+        add_filter( 'current_theme_supports-ejo-base-modules', 'ejo_theme_support_arguments', 10, 3 );
         
         /* Add EJObase Option page to Wordpress Option menu */
         add_action( 'admin_menu', array( 'EJO_Base_Module_Manager', 'register_ejo_base_modules_menu' ) );
+
+        //* Stuff that needs to be done when some modules are (in)active
+        add_action( 'after_setup_theme', array( 'EJO_Base_Module_Manager', 'module_actions_blog' ) );
+        add_action( 'after_setup_theme', array( 'EJO_Base_Module_Manager', 'module_actions_blog_comments' ) );
     }
-    
+
     /* Defines the directory path and URI for the plugin. */
     public static function setup() 
     {
         self::$dir = trailingslashit( dirname( __FILE__ ) );
-
-        /* Allow array-arguments to be passed for theme-support:ejo-base-modules */
-        add_filter( 'current_theme_supports-ejo-base-modules', 'ejo_theme_support_arguments', 10, 3 );
 
         /* Include class module */
         require_once( self::$dir . 'class-module.php' );
@@ -139,11 +143,6 @@ final class EJO_Base_Module_Manager
         );
     }
 
-    public static function get_modules()
-    {
-        return EJO_Base::$modules;
-    }
-
     /* Register EJObase Options Menu Page */
     public static function register_ejo_base_modules_menu()
     {
@@ -156,6 +155,39 @@ final class EJO_Base_Module_Manager
         /* Include theme options page */
         require_once( self::$dir . 'options-page.php' );
     }
+
+    public static function module_actions_blog()
+    {
+        if ( ! EJO_Base_Module::is_active('blog') ) {
+
+            //* Remove widget 
+            add_filter( 'ejo_base_unregister_widgets', function($widgets_to_unregister) {
+
+                if (! current_user_can( 'manage_options' ) ) {
+                    $widgets_to_unregister[] = 'WP_Widget_Recent_Posts';
+                }
+
+                return $widgets_to_unregister;
+            });
+        }
+    }
+
+    public static function module_actions_blog_comments()
+    {
+        if ( ! EJO_Base_Module::is_active('blog-comments') ) {
+
+            //* Remove widget 
+            add_filter( 'ejo_base_unregister_widgets', function($widgets_to_unregister) {
+
+                if (! current_user_can( 'manage_options' ) ) {
+                    $widgets_to_unregister[] = 'WP_Widget_Recent_Comments';
+                }
+
+                return $widgets_to_unregister;
+            });
+        }
+    }
+
 }
 
 EJO_Base_Module_Manager::init();

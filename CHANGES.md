@@ -1,3 +1,6 @@
+- Added specific module actions (hide widgets while blog not active)
+- Added activation and deactivation hooks for modules
+  - ejo_base_module_activation_$id( $id );
 - Restructured files and folders
 - Module Manager Ready for live
 - Start of module manager functions

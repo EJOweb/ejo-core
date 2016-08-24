@@ -18,23 +18,24 @@ if ( !current_user_can( 'manage_options' ) )  {
 
 	<?php
 
-	$ejo_base_active_modules = get_option( 'ejo_base_active_modules', array() );
-
 	if ( isset($_GET['action']) && isset($_GET['module']) ) {
+
+		$module_id = esc_attr($_GET['module']);
 		
 		if ($_GET['action'] == 'activate') {
 
-			EJO_Base_Module::activate( esc_attr($_GET['module']), $ejo_base_active_modules);
-			ejo_base_module_message( 'Module <strong>geactiveerd</strong>.' );
+			if ( EJO_Base_Module::activate( $module_id ) )
+				ejo_base_module_message( 'Module <strong>geactiveerd</strong>.' );
 		}
 
 		elseif ($_GET['action'] == 'deactivate') {
 
-			EJO_Base_Module::deactivate( esc_attr($_GET['module']), $ejo_base_active_modules);
-			ejo_base_module_message( 'Module <strong>gedeactiveerd</strong>.' );
-			
+			if ( EJO_Base_Module::deactivate( $module_id ) )
+				ejo_base_module_message( 'Module <strong>gedeactiveerd</strong>.' );			
 		}
 	}
+
+	EJO_Base_Module::check_activated_modules();
 
 	?>
 	
@@ -53,8 +54,9 @@ if ( !current_user_can( 'manage_options' ) )  {
 
 				<?php 
 
+				$ejo_base_active_modules = get_option( 'ejo_base_active_modules', array() );
 				foreach (EJO_Base::$modules as $id => $module) {
-					show_module_row( $module );
+					show_module_row( $module, $ejo_base_active_modules );
 				}
 
 				?>
@@ -72,13 +74,16 @@ if ( !current_user_can( 'manage_options' ) )  {
 </div><!-- END .wrap -->
 <?php
 
-function show_module_row($module)
+function show_module_row($module, $active_modules = null)
 {
+	if ( ! $active_modules )
+            $active_modules = get_option( 'ejo_base_active_modules', array() );
+
 	$menu_page = EJO_Base_Module_Manager::$menu_page;
 
 	$is_available = EJO_Base_Module::is_available( $module['id'] );
 	$has_theme_support = EJO_Base_Module::has_theme_support( $module['id'] );
-	$is_active = EJO_Base_Module::is_active( $module['id'] );
+	$is_active = EJO_Base_Module::is_active( $module['id'], $active_modules );
 
 	$classes = ($has_theme_support) ? ' supported' : ' not-supported';
 	$active = ($is_active) ? 'active' : 'inactive';

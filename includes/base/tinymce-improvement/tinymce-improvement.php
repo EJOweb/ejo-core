@@ -49,7 +49,7 @@ function ejo_tinymce_formats($settings)
     $block_formats = 'Paragraph=p;Heading 1=h1;Heading 2=h2;Heading 3=h3;Heading 4=h4;Pre=pre';
 
     //* Allow blockformats to be filtered by theme
-    $block_formats = apply_filters( 'ejo_tinymce_blockformats', $style_formats );
+    $block_formats = apply_filters( 'ejo_tinymce_blockformats', $block_formats );
     
     //* Get current styles or empty array
     $style_formats = !empty($settings['style_formats']) ? json_decode( $settings['style_formats'] ) : array();
