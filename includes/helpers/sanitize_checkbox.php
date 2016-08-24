@@ -1,5 +1,7 @@
+<?php
+
 //* Sanitize checkbox
-public function sanitize_checkbox( $checkbox_value )
+public function ejo_sanitize_checkbox( $checkbox_value )
 {
     if ( $checkbox_value == 'on' || $checkbox_value == 'true' || $checkbox_value == '1' || $checkbox_value =='enabled' )
         $checkbox_value = true;
@@ -8,3 +10,4 @@ public function sanitize_checkbox( $checkbox_value )
 
     return $checkbox_value;
 }}
+

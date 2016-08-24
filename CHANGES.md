@@ -1,3 +1,5 @@
+- Restructured files and folders
+- Module Manager Ready for live
 - Start of module manager functions
 - Restructured site-scripts and moved to appearance menu
 - Added [author] shortcode

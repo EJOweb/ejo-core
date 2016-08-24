@@ -23,13 +23,18 @@ function ejo_unregister_widgets()
 		'WP_Widget_Tag_Cloud',
 	);
 
-	//* If blog is supported by theme
-	if ( ! ejo_base_module_is_active( 'blog') )
-		$widgets_to_unregister[] = 'WP_Widget_Recent_Posts';
+	//* If user is not admin, check for module availability
+	if (! current_user_can( 'manage_options' ) ) {
 
-	//* If blog-commments is supported by theme
-	if ( ! ejo_base_module_is_active( 'blog-commments') )
-		$widgets_to_unregister[] = 'WP_Widget_Recent_Comments';
+		// //* If blog is supported by theme
+		// if ( ! EJO_Base_Module::is_active( 'blog') )
+		// 	$widgets_to_unregister[] = 'WP_Widget_Recent_Posts';
+
+		// //* If blog-commments is supported by theme
+		// if ( ! EJO_Base_Module::is_active( 'blog-commments') )
+		// 	$widgets_to_unregister[] = 'WP_Widget_Recent_Comments';
+
+	}
 
 	//* If Black Studio TinyMCE widget is available remove 'default text widget'
 	if ( isset($wp_widget_factory->widgets['WP_Widget_Black_Studio_TinyMCE']) )

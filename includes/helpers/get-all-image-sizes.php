@@ -5,7 +5,11 @@
  */
 function get_all_image_sizes()
 {
-	/* Default Image Sizes */
+	/**
+	 * Default Image Sizes 
+	 *
+	 * Responsive image size `medium_large` is excluded. Maybe include in future?
+	 */
 	$image_sizes = array( 'thumbnail', 'medium', 'large' );
 
 	/* Additional Image Sizes */
