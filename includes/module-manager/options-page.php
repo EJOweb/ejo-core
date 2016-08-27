@@ -16,29 +16,6 @@ if ( !current_user_can( 'manage_options' ) )  {
 <div class="wrap">
 	<h1><?php echo esc_html( get_admin_page_title() ); ?></h1> 
 
-	<?php
-
-	if ( isset($_GET['action']) && isset($_GET['module']) ) {
-
-		$module_id = esc_attr($_GET['module']);
-		
-		if ($_GET['action'] == 'activate') {
-
-			if ( EJO_Base_Module::activate( $module_id ) )
-				ejo_base_module_message( 'Module <strong>geactiveerd</strong>.' );
-		}
-
-		elseif ($_GET['action'] == 'deactivate') {
-
-			if ( EJO_Base_Module::deactivate( $module_id ) )
-				ejo_base_module_message( 'Module <strong>gedeactiveerd</strong>.' );			
-		}
-	}
-
-	EJO_Base_Module::check_activated_modules();
-
-	?>
-	
 	<form action="<?php echo esc_attr( wp_unslash( $_SERVER['REQUEST_URI'] ) ); ?>" method="post">
 
 		<table class="wp-list-table widefat plugins">
@@ -55,6 +32,7 @@ if ( !current_user_can( 'manage_options' ) )  {
 				<?php 
 
 				$ejo_base_active_modules = get_option( 'ejo_base_active_modules', array() );
+				write_log($ejo_base_active_modules);
 				foreach (EJO_Base::$modules as $id => $module) {
 					show_module_row( $module, $ejo_base_active_modules );
 				}
@@ -64,10 +42,6 @@ if ( !current_user_can( 'manage_options' ) )  {
 			</tbody>
 
 		</table>
-
-    	<p class="bottom-buttons">
-			<?php //submit_button( 'Bewaar Instellingen', 'primary', 'submit', false ); ?>
-		</p>
 
 	</form>
 

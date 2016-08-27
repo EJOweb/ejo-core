@@ -1,8 +1,11 @@
+- Improved handling with plugin (deactivations)
+- Improved integration with EJO_Client plugin
+- Improved module manipulations on activation/deactivation of modules
+- Added function `is_inactive` (module)
+- Replaced occurences of `is_plugin_active` by `class_exists`
 - Added specific module actions (hide widgets while blog not active)
-- Added activation and deactivation hooks for modules
-  - ejo_base_module_activation_$id( $id );
+- Added activation and deactivation hook for modules
 - Restructured files and folders
-- Module Manager Ready for live
 - Start of module manager functions
 - Restructured site-scripts and moved to appearance menu
 - Added [author] shortcode

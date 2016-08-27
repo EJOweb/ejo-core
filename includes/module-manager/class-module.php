@@ -134,6 +134,17 @@ class EJO_Base_Module
         return false;
     }
 
+    /**
+     * Wrapper for is_active
+     */
+    public static function is_inactive( $id, $active_modules = null ) 
+    {
+        if ( ! $active_modules )
+            $active_modules = get_option( 'ejo_base_active_modules', array() );
+        
+        return ! self::is_active( $id, $active_modules );
+    }
+
 
     public static function has_missing_dependancies( $id ) 
     {
@@ -141,8 +152,8 @@ class EJO_Base_Module
 
         if ( empty(self::check_dependancies($dependancies)) )
             return false;
-        else 
-            return true;
+
+        return true;
     }
 
     public static function has_no_missing_dependancies( $id ) 
@@ -169,7 +180,7 @@ class EJO_Base_Module
 
                 $dependant_plugin = $dependancy;
 
-                if ( ! is_plugin_active( $dependant_plugin['path'] ) ) {
+                if ( ! class_exists( $dependant_plugin['class'] ) ) {
                     $missing_dependancies[] = $dependant_plugin['name'];
                 }
             }
@@ -215,7 +226,7 @@ class EJO_Base_Module
 
                 $dependant_plugin = $dependancy;
 
-                if ( is_plugin_active( $dependant_plugin['path'] ) ) {
+                if ( class_exists( $dependant_plugin['class'] ) ) {
                     $output .= '<span class="dependancy-good">' . $dependant_plugin['name'] . ': ' . __( 'active') . ' |</span> ';
                 }
                 else {
@@ -268,7 +279,8 @@ class EJO_Base_Module
                 //* Store altered modules
                 update_option( 'ejo_base_active_modules', $active_modules );
 
-                do_action( "ejo_base_module_activation_$id", $id );
+                //* Allow code to be hooked here
+                do_action( 'ejo_base_module_activation', $id );
 
                 return true;
             }
@@ -293,10 +305,11 @@ class EJO_Base_Module
             //* Store altered modules
             update_option( 'ejo_base_active_modules', $active_modules );
 
-            do_action( "ejo_base_module_deactivation_$id", $id );
+            //* Allow code to be hooked here
+            do_action( 'ejo_base_module_deactivation', $id );
 
-            // //* Check for dependancy
-            // self::check_activated_modules( $active_modules );
+            //* Check for dependancy
+            self::check_activated_modules( $active_modules );
 
             return true;
         }

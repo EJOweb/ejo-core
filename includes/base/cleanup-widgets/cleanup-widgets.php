@@ -20,7 +20,7 @@ function ejo_unregister_widgets()
 		'WP_Widget_Search',
 		'WP_Widget_Categories',
 		'WP_Widget_RSS',
-		'WP_Widget_Tag_Cloud',
+		'WP_Widget_Tag_Cloud'
 	);
 
 	//* If Black Studio TinyMCE widget is available remove 'default text widget'

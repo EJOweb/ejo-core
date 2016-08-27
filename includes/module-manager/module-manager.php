@@ -38,11 +38,62 @@ final class EJO_Base_Module_Manager
         add_filter( 'current_theme_supports-ejo-base-modules', 'ejo_theme_support_arguments', 10, 3 );
         
         /* Add EJObase Option page to Wordpress Option menu */
-        add_action( 'admin_menu', array( 'EJO_Base_Module_Manager', 'register_ejo_base_modules_menu' ) );
+        add_action( 'admin_menu', array( 'EJO_Base_Module_Manager', 'register_menu' ) );
 
-        //* Stuff that needs to be done when some modules are (in)active
-        add_action( 'after_setup_theme', array( 'EJO_Base_Module_Manager', 'module_actions_blog' ) );
-        add_action( 'after_setup_theme', array( 'EJO_Base_Module_Manager', 'module_actions_blog_comments' ) );
+        //* Save Activate/Deactivate actions of options page
+        add_action( 'after_setup_theme', array( 'EJO_Base_Module_Manager', 'save_module_activations' ), 98 );
+
+        //* Hook to module activation and deactivation
+        add_action( 'ejo_base_module_activation', array( 'EJO_Base_Module_Manager', 'reset_caps_on_module_activation' ) ); 
+        add_action( 'ejo_base_module_deactivation', array( 'EJO_Base_Module_Manager', 'reset_caps_on_module_activation' ) );
+
+        //* Check modules after plugin (de)activations
+        add_action( 'after_setup_theme', array( 'EJO_Base_Module_Manager', 'check_modules_on_every_plugin_activation' ), 98 );
+
+        //* Code to activate when some modules are (in)active (hook after `save_module_activations`)
+        add_action( 'after_setup_theme', array( 'EJO_Base_Module_Manager', 'module_manipulations' ), 99 );
+    }
+
+    /**
+     * Process the actions of the EJO Base Modules Options Page
+     */
+    public static function save_module_activations()
+    {
+        //* Perform action if set
+        if ( isset($_GET['action']) && isset($_GET['module']) ) {
+
+            $module_id = esc_attr($_GET['module']);
+
+            if ($_GET['action'] == 'activate') {
+
+                if ( EJO_Base_Module::activate( $module_id ) ) {
+                    add_action( 'admin_notices', array( 'EJO_Base_Module_Manager', 'show_activation_message' ) );
+                }
+            } 
+
+            elseif ($_GET['action'] == 'deactivate') {
+
+                if ( EJO_Base_Module::deactivate( $module_id ) ) {
+                    add_action( 'admin_notices', array( 'EJO_Base_Module_Manager', 'show_deactivation_message' ) );
+                }
+            }
+        }
+    }
+
+    public static function show_activation_message()
+    {
+        $class = 'notice updated is-dismissible';
+        $message = 'Module <strong>' . __('activated') . '</strong>';
+
+        printf( '<div class="%1$s"><p>%2$s</p></div>', $class, $message ); 
+    }
+
+    public static function show_deactivation_message()
+    {
+        $class = 'notice updated is-dismissible';
+        $message = 'Module <strong>' . __('deactivated') . '</strong>';
+
+        printf( '<div class="%1$s"><p>%2$s</p></div>', $class, $message ); 
     }
 
     /* Defines the directory path and URI for the plugin. */
@@ -80,9 +131,9 @@ final class EJO_Base_Module_Manager
                 'description'  => __( 'Overzichtspagina met referenties en widget met laatste referenties', EJO_Base::$slug ),
                 'dependancies' => array(
                     array(
-                        'type' => 'plugin',
-                        'name' => 'EJO Simple Testimonials',
-                        'path' => 'ejo-simple-testimonials/ejo-simple-testimonials.php',
+                        'type'  => 'plugin',
+                        'name'  => 'EJO Simple Testimonials',
+                        'class' => 'EJO_Simple_Testimonials',
                     ),
                 ),
             ),
@@ -92,9 +143,9 @@ final class EJO_Base_Module_Manager
                 'description'  => __( '', EJO_Base::$slug ),
                 'dependancies' => array(
                     array(
-                        'type' => 'plugin',
-                        'name' => 'EJO Contactadvertenties',
-                        'path' => 'ejo-contactadvertenties/ejo-contactadvertenties.php',
+                        'type'  => 'plugin',
+                        'name'  => 'EJO Contactadvertenties',
+                        'class' => 'EJO_Contactads',
                     ),
                 ),
             ),
@@ -104,9 +155,9 @@ final class EJO_Base_Module_Manager
                 'description'  => __( 'Overzichtspagina met projecten en widget met laatste projecten', EJO_Base::$slug ),
                 'dependancies' => array(
                     array(
-                        'type' => 'plugin',
-                        'name' => 'EJO Portfolio',
-                        'path' => 'ejo-portfolio/ejo-portfolio.php',
+                        'type'  => 'plugin',
+                        'name'  => 'EJO Portfolio',
+                        'class' => 'EJO_Portfolio',
                     ),
                 ),
             ),
@@ -144,7 +195,7 @@ final class EJO_Base_Module_Manager
     }
 
     /* Register EJObase Options Menu Page */
-    public static function register_ejo_base_modules_menu()
+    public static function register_menu()
     {
         add_menu_page( __('EJO Base Modules'), __('EJO Base'), 'manage_options', self::$menu_page, array( 'EJO_Base_Module_Manager', 'add_menu_page' ) );
     }
@@ -156,38 +207,66 @@ final class EJO_Base_Module_Manager
         require_once( self::$dir . 'options-page.php' );
     }
 
-    public static function module_actions_blog()
+    /** 
+     * Module Manipulations 
+     *
+     * Must be hooked after `manage_module_activations`
+     * Because it needs to check if modules are active
+     * And `manage_module_activations` impacts that
+     */
+    public static function module_manipulations()
     {
-        if ( ! EJO_Base_Module::is_active('blog') ) {
+        //* Modules
+        require_once( self::$dir . 'modules/blog.php' ); // Blog
+        require_once( self::$dir . 'modules/blog-comments.php' ); // Blog Comments
+        require_once( self::$dir . 'modules/contactads.php' ); // EJO Contactadvertenties
+        require_once( self::$dir . 'modules/testimonials.php' ); // EJO Simple testimonials
+        // require_once( self::$dir . 'modules/portfolio.php' ); // EJO Portfolio
+        // require_once( self::$dir . 'modules/popup-box.php' ); // EJO Popup-box
+        // require_once( self::$dir . 'modules/photo-gallery.php' ); // EJO Photo Gallery
+        // require_once( self::$dir . 'modules/team.php' ); // EJO Team
+        // require_once( self::$dir . 'modules/social-media-extra.php' ); // EJO Social Media Pack
+        // require_once( self::$dir . 'modules/faq.php' ); // FAQ
+    }
 
-            //* Remove widget 
-            add_filter( 'ejo_base_unregister_widgets', function($widgets_to_unregister) {
+    /* On module activation */
+    public static function reset_caps_on_module_activation( $module_id )
+    {
+        //* Hook to end of admin init to ensure all module manipulations and checks are done
+        add_action( 'admin_init', array( 'EJO_Base_Module_Manager', 'reset_client_caps') );
+    }
 
-                if (! current_user_can( 'manage_options' ) ) {
-                    $widgets_to_unregister[] = 'WP_Widget_Recent_Posts';
-                }
+    /* On module activation */
+    public static function check_modules_on_every_plugin_activation()
+    {
+        global $pagenow;
 
-                return $widgets_to_unregister;
-            });
+        if ($pagenow == 'plugins.php') {
+
+            if ( isset($_GET['activate']) || isset($_GET['deactivate']) || isset($_GET['activate-multi']) || isset($_GET['deactivate-multi']) ) {
+                EJO_Base_Module::check_activated_modules();
+            }
         }
     }
 
-    public static function module_actions_blog_comments()
+    /* Reset the caps of the client-role */
+    public static function reset_client_caps()
     {
-        if ( ! EJO_Base_Module::is_active('blog-comments') ) {
+        if ( class_exists('EJO_Client') ) {
 
-            //* Remove widget 
-            add_filter( 'ejo_base_unregister_widgets', function($widgets_to_unregister) {
+            EJO_Client::reset_client_caps();
 
-                if (! current_user_can( 'manage_options' ) ) {
-                    $widgets_to_unregister[] = 'WP_Widget_Recent_Comments';
-                }
-
-                return $widgets_to_unregister;
-            });
+            /**
+             * Remove double client-cap-reset
+             *
+             * Situation: 
+             * - EJO_Client reset caps on every plugin (de)activation
+             * - When a plugin is deactivated which causes a module to deactivate this class will run a EJO_Client reset cap
+             * - No need to run two client cap resets
+             */
+            remove_action( 'admin_init', array( 'EJO_Client', 'reset_on_every_plugin_activation'), 99);
         }
     }
-
 }
 
 EJO_Base_Module_Manager::init();
