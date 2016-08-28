@@ -7,7 +7,7 @@
  *
  * Integrate the template loader by using the following line in the widget-method of you Widget Class
  *     //* Check if Widget Template Loader exists and try to load template
- *     if ( class_exists( 'EJO_Widget_Template_Loader' ) && EJO_Widget_Template_Loader::load_template( $args, $instance, $this ) );
+ *     if ( class_exists( 'EJO_Widget_Template_Loader' ) && EJO_Widget_Template_Loader::load_template( $args, $instance, $this ) )
  *          return;
  */
 final class EJO_Widget_Template_Loader
@@ -120,7 +120,7 @@ final class EJO_Widget_Template_Loader
 	 * @param array  $args          Widget $args
 	 * @param array  $instance      Widget $instance
 	 */
-	public static function load_template( $args, $instance, $widget ) 
+	public static function load_template( $args, $instance, $widget, $data = array() ) 
 	{
 		//* Get template file
 		$template_file = self::get_template_file( $widget->id_base, $args['id'] );

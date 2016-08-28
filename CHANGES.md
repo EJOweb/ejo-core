@@ -1,3 +1,5 @@
+- Small fix for widget-template-loader
+
 1.3
 - Relocated EJO_Widget_Template_Loader and slightly improved it
 - Improved handling with plugin (deactivations)
