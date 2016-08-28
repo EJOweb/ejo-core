@@ -1,3 +1,4 @@
+1.3
 - Relocated EJO_Widget_Template_Loader and slightly improved it
 - Improved handling with plugin (deactivations)
 - Improved integration with EJO_Client plugin
