@@ -1,9 +1,14 @@
 <?php
 
 /**
+ * EJO Widget Template Loader
  *
+ * Load widget templates from your theme directory
  *
- * 
+ * Integrate the template loader by using the following line in the widget-method of you Widget Class
+ *     //* Check if Widget Template Loader exists and try to load template
+ *     if ( class_exists( 'EJO_Widget_Template_Loader' ) && EJO_Widget_Template_Loader::load_template( $args, $instance, $this ) );
+ *          return;
  */
 final class EJO_Widget_Template_Loader
 {
@@ -78,25 +83,12 @@ final class EJO_Widget_Template_Loader
 
 
 	/**
-	 * Retrieve the name of the highest priority template file that exists.
+	 * Retrieve the directory and filename of the highest priority template file that exists.
 	 *
-	 * Searches in the STYLESHEETPATH before TEMPLATEPATH so that themes which
-	 * inherit from a parent theme can just overload one file. If the template is
-	 * not found in either of those, it looks in the theme-compat folder last.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @param string|array $template_file_names Template file(s) to search for, in order.
-	 * @param bool         $load           If true the template file will be loaded if it is found.
-	 * @param bool         $require_once   Whether to require_once or require. Default true.
-	 *                                     Has no effect if $load is false.
-	 *
-	 * @return string The template filename if one is located.
+	 * @return string The template filename if one is located. Otherwise false
 	 */
 	public static function get_template_file( $widget_slug, $sidebar_slug ) 
 	{
-		$located = false;
-
 		$template_file_names = self::get_template_file_names( $widget_slug, $sidebar_slug );
 		$template_directories = self::get_template_directories();
 
@@ -111,15 +103,14 @@ final class EJO_Widget_Template_Loader
 
 				if ( file_exists( $template_directory . $template_file_name ) ) {
 
-					$located = $template_directory . $template_file_name;
-
-					//* Break out both loops
-					break 2;
+					//* Return template file
+					return $template_directory . $template_file_name;
 				}
 			}
 		}
 
-		return $located;
+		//* Return false if no file found
+		return false;
 	}
 
 	/**
@@ -134,10 +125,14 @@ final class EJO_Widget_Template_Loader
 		//* Get template file
 		$template_file = self::get_template_file( $widget->id_base, $args['id'] );
 
-		if ( file_exists( $template_file ) ) {
-			require( $template_file );
-		}
+		//* Premature return false if template_file does not exist
+		if ( !$template_file )
+			return false;
 
+		//* Include the template-file
+		require( $template_file );
+
+		//* Return the name of the template-file
 		return $template_file;
 	}
 }

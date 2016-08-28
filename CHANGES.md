@@ -1,3 +1,4 @@
+- Relocated EJO_Widget_Template_Loader and slightly improved it
 - Improved handling with plugin (deactivations)
 - Improved integration with EJO_Client plugin
 - Improved module manipulations on activation/deactivation of modules

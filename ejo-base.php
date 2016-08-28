@@ -66,7 +66,10 @@ final class EJO_Base
         self::helpers();
 
         //* Load Module Management
-        add_action( 'plugins_loaded', array( 'EJO_Base', 'module_management' ), 4 );
+        add_action( 'plugins_loaded', array( 'EJO_Base', 'module_management' ), 3 );
+
+        //* Load Module Management
+        add_action( 'plugins_loaded', array( 'EJO_Base', 'widget_template_loader' ), 4 );
 
         //* Load Base
         add_action( 'plugins_loaded', array( 'EJO_Base', 'base' ), 5 );
@@ -109,12 +112,16 @@ final class EJO_Base
         require_once( self::$dir . 'includes/module-manager/module-manager.php' );
     }
 
+    /* Widget Template Loader */
+    public static function widget_template_loader() 
+    {
+        //* Setup Widget Template Loader
+        require_once( self::$dir . 'includes/widget-template-loader/widget-template-loader.php' );
+    }
+
     /* Base */
     public static function base() 
     {
-        //* Allow templating of widgets
-        require_once( self::$dir . 'includes/base/widget-template-loader/widget-template-loader.php' );
-
         /* cleanup default widgets */
         require_once( self::$dir . 'includes/base/cleanup-widgets/cleanup-widgets.php' );
 
