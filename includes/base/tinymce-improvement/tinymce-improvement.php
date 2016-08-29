@@ -22,7 +22,7 @@ function ejo_mce_buttons( $buttons )
     return array(
         'formatselect', 'bold', 'italic', 'sub', 'sup', 
         'bullist', 'numlist', 'blockquote', 'link', 'unlink',
-        'styleselect', '|', 'charmap', 'wp_more', '|', 
+        'styleselect', '|', 'charmap', '|', 
         'removeformat', 'spellchecker', 'fullscreen', 'wp_help'
     );
 }

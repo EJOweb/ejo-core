@@ -100,9 +100,6 @@ final class EJO_Base
 
         /* Use this function to filter custom theme support with arguments */
         require_once( self::$dir . 'includes/helpers/theme-support-arguments.php' );
-
-        /* Improved summary for posts */
-        require_once( self::$dir . 'includes/helpers/post-summary.php' );
     }
 
     /* Module Manager */

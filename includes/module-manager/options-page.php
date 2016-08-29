@@ -32,7 +32,6 @@ if ( !current_user_can( 'manage_options' ) )  {
 				<?php 
 
 				$ejo_base_active_modules = get_option( 'ejo_base_active_modules', array() );
-				write_log($ejo_base_active_modules);
 				foreach (EJO_Base::$modules as $id => $module) {
 					show_module_row( $module, $ejo_base_active_modules );
 				}

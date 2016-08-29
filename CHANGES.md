@@ -1,3 +1,4 @@
+- Removed unwanted helpers
 - Small fix for widget-template-loader
 
 1.3
