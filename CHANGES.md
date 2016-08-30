@@ -1,3 +1,5 @@
+- Added theme functions: post-summary and sidebar-widget-count
+
 1.3.1
 - Removed unwanted helpers
 - Small fix for widget-template-loader

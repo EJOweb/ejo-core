@@ -148,6 +148,10 @@ final class EJO_Base
 
         /* Shortcodes */
         require_once( self::$dir . 'includes/base/shortcodes/shortcodes.php' );  
+
+        /* Theme Functions */
+        require_once( self::$dir . 'includes/base/theme-functions/post-summary.php' );  
+        require_once( self::$dir . 'includes/base/theme-functions/sidebar-widget-count.php' );  
     }
 
 
