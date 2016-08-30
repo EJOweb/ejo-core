@@ -1,3 +1,4 @@
+- Added good example for custom-colors
 - Added theme functions: post-summary and sidebar-widget-count
 
 1.3.1
