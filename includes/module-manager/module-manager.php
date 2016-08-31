@@ -137,18 +137,18 @@ final class EJO_Base_Module_Manager
                     ),
                 ),
             ),
-            'contactads' => array(
-                'id'           => 'contactads',
-                'name'         => __( 'Contact Advertenties', EJO_Base::$slug ),
-                'description'  => __( '', EJO_Base::$slug ),
-                'dependancies' => array(
-                    array(
-                        'type'  => 'plugin',
-                        'name'  => 'EJO Contactadvertenties',
-                        'class' => 'EJO_Contactads',
-                    ),
-                ),
-            ),
+            // 'contactads' => array(
+            //     'id'           => 'contactads',
+            //     'name'         => __( 'Contact Advertenties', EJO_Base::$slug ),
+            //     'description'  => __( '', EJO_Base::$slug ),
+            //     'dependancies' => array(
+            //         array(
+            //             'type'  => 'plugin',
+            //             'name'  => 'EJO Contactadvertenties',
+            //             'class' => 'EJO_Contactads',
+            //         ),
+            //     ),
+            // ),
             'portfolio' => array(
                 'id'           => 'portfolio',
                 'name'         => __( 'Portfolio', EJO_Base::$slug ),
@@ -219,7 +219,7 @@ final class EJO_Base_Module_Manager
         //* Modules
         require_once( self::$dir . 'modules/blog.php' ); // Blog
         require_once( self::$dir . 'modules/blog-comments.php' ); // Blog Comments
-        require_once( self::$dir . 'modules/contactads.php' ); // EJO Contactadvertenties
+        // require_once( self::$dir . 'modules/contactads.php' ); // EJO Contactadvertenties
         require_once( self::$dir . 'modules/testimonials.php' ); // EJO Simple testimonials
         // require_once( self::$dir . 'modules/portfolio.php' ); // EJO Portfolio
         // require_once( self::$dir . 'modules/popup-box.php' ); // EJO Popup-box
