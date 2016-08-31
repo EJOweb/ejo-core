@@ -1,3 +1,4 @@
+1.4
 - Added Custom Colors functionality
 
 1.3.3
