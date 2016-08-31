@@ -71,6 +71,9 @@ final class EJO_Base
         //* Load Module Management
         add_action( 'plugins_loaded', array( 'EJO_Base', 'widget_template_loader' ), 4 );
 
+        //* Load Module Management
+        add_action( 'plugins_loaded', array( 'EJO_Base', 'custom_colors' ), 5 );
+
         //* Load Base
         add_action( 'plugins_loaded', array( 'EJO_Base', 'base' ), 5 );
     }
@@ -114,6 +117,13 @@ final class EJO_Base
     {
         //* Setup Widget Template Loader
         require_once( self::$dir . 'includes/widget-template-loader/widget-template-loader.php' );
+    }
+
+    /* Custom Colors */
+    public static function custom_colors() 
+    {
+        //* Setup Module Management
+        require_once( self::$dir . 'includes/custom-colors/custom-colors.php' );
     }
 
     /* Base */

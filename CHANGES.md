@@ -1,3 +1,5 @@
+- Added Custom Colors functionality
+
 1.3.3
 - Fixed bug in Module Manager
 

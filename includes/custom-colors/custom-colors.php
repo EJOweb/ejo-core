@@ -1,14 +1,8 @@
 <?php
 /**
- * Handles the custom colors feature for the theme.  This feature allows the theme or child theme author to
- * set a custom color by default.  However the user can overwrite this default color via the theme customizer
- * to a color of their choosing.
+ * EJO Custom Colors
  *
- * @package    Stargazer
- * @author     Justin Tadlock <justin@justintadlock.com>
- * @copyright  Copyright (c) 2013 - 2016, Justin Tadlock
- * @link       http://themehybrid.com/themes/stargazer
- * @license    http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+ * Inspired by the Stargazer theme (Justin Tadlock)
  */
 
 /**
@@ -17,7 +11,7 @@
  * @since  1.0.0
  * @access public
  */
-final class Stargazer_Custom_Colors {
+final class EJO_Custom_Colors {
 
 	/**
 	 * Holds the instance of this class.
@@ -47,8 +41,9 @@ final class Stargazer_Custom_Colors {
 		// Add options to the theme customizer.
 		add_action( 'customize_register', array( $this, 'customize_register' ) );
 
-		// Filter the default primary color late.
+		// Filter the defaults color late.
 		add_filter( 'theme_mod_color_primary', array( $this, 'color_primary_default' ), 95 );
+		add_filter( 'theme_mod_color_primary', array( $this, 'color_secondary_default' ), 95 );
 
 		// Delete the cached data for this feature.
 		add_action( 'update_option_theme_mods_' . get_stylesheet(), array( $this, 'cache_delete' ) );
@@ -65,6 +60,10 @@ final class Stargazer_Custom_Colors {
 	 */
 	public function color_primary_default( $hex ) {
 		return $hex ? $hex : 'cc4a00';
+	}
+
+	public function color_secondary_default( $hex ) {
+		return $hex ? $hex : '000000';
 	}
 
 	/**
@@ -91,10 +90,8 @@ final class Stargazer_Custom_Colors {
 	 */
 	public function wp_head_callback() {
 
-		$stylesheet = get_stylesheet();
-
 		// Get the cached style.
-		$style = wp_cache_get( "{$stylesheet}_custom_colors" );
+		$style = wp_cache_get( "ejo_base_custom_colors" );
 
 		// If the style is available, output it and return.
 		if ( ! empty( $style ) ) {
@@ -104,11 +101,15 @@ final class Stargazer_Custom_Colors {
 
 		$style = $this->get_primary_styles();
 
-		// Put the final style output together.
-		$style = "\n" . '<style type="text/css" id="custom-colors-css">' . trim( $style ) . '</style>' . "\n";
+		//* Don't output empty
+		if (!empty($style)) {
+
+			// Put the final style output together.
+			$style = "\n" . '<style type="text/css" id="custom-colors-css">' . trim( $style ) . '</style>' . "\n";
+		}
 
 		// Cache the style, so we don't have to process this on each page load.
-		wp_cache_set( "{$stylesheet}_custom_colors", $style );
+		wp_cache_set( "ejo_base_custom_colors", $style );
 
 		// Output the custom style.
 		echo $style;
@@ -123,8 +124,6 @@ final class Stargazer_Custom_Colors {
 	 */
 	public function get_primary_styles() {
 
-		$style = '';
-
 		$hex = get_theme_mod( 'color_primary', '' );
 		$rgb = join( ', ', hybrid_hex_to_rgb( $hex ) );
 
@@ -132,16 +131,21 @@ final class Stargazer_Custom_Colors {
 		// $style .= "
 		// 		{ color: #{$hex}; } ";
 
-		// background-color
-		$style .= ".page-header
-				{ background-color: #{$hex}; } ";
+		$style = apply_filters( 'ejo_custom_color_style', '', $hex, $rgb );
 
-		// Header image
-		$style .= ".header-image .overlay
-				{ background-image: linear-gradient(to right, #{$hex} 0%, rgba({$rgb}, 0.9) 25%, rgba({$rgb}, 0.9) 75%, #{$hex} 100%); } ";
+		write_log( 'filtered?' );
+		write_log( $style );
 
-		// Firefox chokes on this rule and drops the rule set, so we're separating it.
-		$style .= "::selection { background-color: #{$hex}; } ";
+		// // background-color
+		// $style .= ".page-header
+		// 		{ background-color: #{$hex}; } ";
+
+		// // Header image
+		// $style .= ".header-image .overlay
+		// 		{ background-image: linear-gradient(to right, #{$hex} 0%, rgba({$rgb}, 0.9) 25%, rgba({$rgb}, 0.9) 75%, #{$hex} 100%); } ";
+
+		// // Firefox chokes on this rule and drops the rule set, so we're separating it.
+		// $style .= "::selection { background-color: #{$hex}; } ";
 
 		// border-color
 
@@ -186,9 +190,36 @@ final class Stargazer_Custom_Colors {
 				$wp_customize,
 				'custom-colors-primary',
 				array(
-					'label'    => esc_html__( 'Primary Color', 'stargazer' ),
+					'label'    => esc_html__( 'Primary Color', EJO_Base::$slug ),
 					'section'  => 'colors',
 					'settings' => 'color_primary',
+					'priority' => 10,
+				)
+			)
+		);
+
+		// Add a new setting for this color.
+		$wp_customize->add_setting(
+			'color_secondary',
+			array(
+				'default'              => apply_filters( 'theme_mod_color_secondary', '' ),
+				'type'                 => 'theme_mod',
+				'capability'           => 'edit_theme_options',
+				'sanitize_callback'    => 'sanitize_hex_color_no_hash',
+				'sanitize_js_callback' => 'maybe_hash_hex_color',
+				'transport'            => 'postMessage',
+			)
+		);
+
+		// Add a control for this color.
+		$wp_customize->add_control(
+			new WP_Customize_Color_Control(
+				$wp_customize,
+				'custom-colors-secondary',
+				array(
+					'label'    => esc_html__( 'Secondary Color', EJO_Base::$slug ),
+					'section'  => 'colors',
+					'settings' => 'color_secondary',
 					'priority' => 10,
 				)
 			)
@@ -203,7 +234,7 @@ final class Stargazer_Custom_Colors {
 	 * @return void
 	 */
 	public function cache_delete() {
-		wp_cache_delete( get_stylesheet() . '_custom_colors' );
+		wp_cache_delete( 'ejo_base_custom_colors' );
 	}
 
 	/**
@@ -222,4 +253,4 @@ final class Stargazer_Custom_Colors {
 	}
 }
 
-Stargazer_Custom_Colors::get_instance();
+EJO_Custom_Colors::get_instance();
