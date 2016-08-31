@@ -148,11 +148,14 @@ class EJO_Base_Module
 
     public static function has_missing_dependancies( $id ) 
     {
-        $dependancies = self::get_dependancies($id);
+        //* Get missing dependancies
+        $missing_dependancies = self::get_missing_dependancies($id);
 
-        if ( empty(self::check_dependancies($dependancies)) )
+        //* If no missing dependancies, return false
+        if ( empty($missing_dependancies) )
             return false;
 
+        //* Module has missing dependancies
         return true;
     }
 

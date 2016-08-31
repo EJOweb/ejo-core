@@ -1,3 +1,6 @@
+1.3.3
+- Fixed bug in Module Manager
+
 1.3.2
 - Decommented contactads from ejo-base (unique extension)
 - Added good example for custom-colors
