@@ -1,3 +1,4 @@
+1.3.2
 - Decommented contactads from ejo-base (unique extension)
 - Added good example for custom-colors
 - Added theme functions: post-summary and sidebar-widget-count
