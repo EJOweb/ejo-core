@@ -1,3 +1,5 @@
+- Fixed secondary custom color bug
+
 1.4
 - Added Custom Colors functionality
 

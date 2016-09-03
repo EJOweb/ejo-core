@@ -43,7 +43,7 @@ final class EJO_Custom_Colors {
 
 		// Filter the defaults color late.
 		add_filter( 'theme_mod_color_primary', array( $this, 'color_primary_default' ), 95 );
-		add_filter( 'theme_mod_color_primary', array( $this, 'color_secondary_default' ), 95 );
+		add_filter( 'theme_mod_color_secondary', array( $this, 'color_secondary_default' ), 95 );
 
 		// Delete the cached data for this feature.
 		add_action( 'update_option_theme_mods_' . get_stylesheet(), array( $this, 'cache_delete' ) );
@@ -59,11 +59,11 @@ final class EJO_Custom_Colors {
 	 * @return string
 	 */
 	public function color_primary_default( $hex ) {
-		return $hex ? $hex : 'cc4a00';
+		return $hex ? $hex : '999999';
 	}
 
 	public function color_secondary_default( $hex ) {
-		return $hex ? $hex : '000000';
+		return $hex ? $hex : 'FFFFFF';
 	}
 
 	/**
@@ -130,7 +130,7 @@ final class EJO_Custom_Colors {
 			return;
 		}
 
-		$style = $this->get_primary_styles();
+		$style = $this->get_color_styles();
 
 		//* Don't output empty
 		if (!empty($style)) {
@@ -153,7 +153,7 @@ final class EJO_Custom_Colors {
 	 * @access public
 	 * @return string
 	 */
-	public function get_primary_styles() {
+	public function get_color_styles() {
 
 		$hex1 = get_theme_mod( 'color_primary', '' );
 		$rgb1 = join( ', ', hybrid_hex_to_rgb( $hex1 ) );
