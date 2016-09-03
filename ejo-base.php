@@ -98,8 +98,8 @@ final class EJO_Base
         /* Useful array functions */
         require_once( self::$dir . 'includes/helpers/array-functions.php' );
 
-        /* Function to get all image sizes */
-        require_once( self::$dir . 'includes/helpers/get-all-image-sizes.php' );        
+        /* Useful image functions */
+        require_once( self::$dir . 'includes/helpers/image-functions.php' );        
 
         /* Use this function to filter custom theme support with arguments */
         require_once( self::$dir . 'includes/helpers/theme-support-arguments.php' );

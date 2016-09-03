@@ -1,3 +1,4 @@
+- Added helper function ejo_get_image_dimensions
 - Fixed secondary custom color bug
 
 1.4
