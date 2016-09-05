@@ -31,7 +31,7 @@ final class EJO_Base
     private static $_instance = null;
 
     /* Version number of this plugin */
-    public static $version = '1.4';
+    public static $version = '1.5';
 
     /* Store the slug of this plugin */
     public static $slug = 'ejo-base';

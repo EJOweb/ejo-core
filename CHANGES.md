@@ -1,3 +1,4 @@
+1.5
 - Added [client_copyright] shortcode
 - Updated [ejoweb_credits] shortcode
 - Added Footer Line Widget
