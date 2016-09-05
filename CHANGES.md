@@ -1,3 +1,5 @@
+- Added [client_copyright] shortcode
+- Updated [ejoweb_credits] shortcode
 - Added Footer Line Widget
 - Added helper function ejo_get_image_dimensions
 - Fixed secondary custom color bug

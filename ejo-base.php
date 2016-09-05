@@ -162,6 +162,9 @@ final class EJO_Base
         /* Footer Line Widget */
         require_once( self::$dir . 'includes/base/footer-line-widget/footer-line-widget.php');
 
+        //* Remove smilies?
+        // get_option( 'use_smilies' )
+
         /* Theme Functions */
         require_once( self::$dir . 'includes/base/theme-functions/post-summary.php' );  
         require_once( self::$dir . 'includes/base/theme-functions/sidebar-widget-count.php' );  

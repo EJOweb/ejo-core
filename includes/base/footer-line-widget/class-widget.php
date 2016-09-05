@@ -23,7 +23,6 @@ final class EJO_Footer_Line_Widget extends WP_Widget
 
 		parent::__construct( self::SLUG, $widget_title, $widget_info, $widget_control );
 
-		add_filter( 'ejo_footer_line_widget_text', 'wptexturize'                       );
 		add_filter( 'ejo_footer_line_widget_text', 'convert_smilies',               20 );
 		add_filter( 'ejo_footer_line_widget_text', 'do_shortcode',                  11 );
 	}
@@ -77,8 +76,9 @@ final class EJO_Footer_Line_Widget extends WP_Widget
  	{
 		//* Combine $instance data with defaults
         $instance = wp_parse_args( $instance, array( 
-            'text' => '',
+            'text' => '[client_copyright] | [ejoweb_credits]',
         ));
+
         ?>
 
 		<p>
@@ -97,11 +97,21 @@ final class EJO_Footer_Line_Widget extends WP_Widget
 		/* Store old instance as defaults */
 		$instance = $old_instance;
 
+		//* Add default footer-line if empty
+		if ( empty($new_instance['text']) ) {
+			$new_instance['text'] = '[client_copyright] | [ejoweb_credits]';
+		}
+
+		//* Add [ejoweb_credits] if it doesn't occur
+		elseif (strpos($new_instance['text'], '[ejoweb_credits') === false) {
+			$new_instance['text'] .= ' [ejoweb_credits]';
+		}
+
 		/* Store text */
 		if ( current_user_can('unfiltered_html') )
 			$instance['text'] =  $new_instance['text'];
 		else
-			$instance['text'] = wp_kses_post( stripslashes( $new_instance['text'] ) );
+			$instance['text'] = stripslashes( wp_filter_post_kses( addslashes( $new_instance['text'] ) ) ); // wp_filter_post_kses() expects slashed
 
 		/* Return updated instance */
 		return $instance;

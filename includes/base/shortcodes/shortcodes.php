@@ -13,6 +13,9 @@ add_shortcode( 'ejoweb', 'show_ejoweb_link' );
 //* EJOweb credits
 add_shortcode( 'ejoweb_credits', 'show_ejoweb_credits' );
 
+//* Client copyright
+add_shortcode( 'client_copyright', 'show_client_copyright' );
+
 // Simple current year shortcode
 add_shortcode('year', 'ejo_year_shortcode');
 
@@ -42,17 +45,29 @@ function show_ejoweb_link( $atts )
 function show_ejoweb_credits( $atts ) 
 {
     $atts = shortcode_atts( array(
-        'text' => 'EJOweb',
-        'title' => 'EJOweb - Professionele website laten maken'
+        'text' => 'Webdesign door EJOweb',
+        'title' => 'Website gemaakt door EJOweb'
     ), $atts );
 
     if (is_front_page()) :
         $output = show_ejoweb_link( $atts );
     else :
-        $output = '<span>' . $atts['text'] . '</span>';
+        $output = $atts['text'];
     endif;
 
-    return $output;
+    return '<span class="site-credits">' . $output . '</span>';
+}
+
+/**
+ * Show Client Copyright statement
+ */
+function show_client_copyright( $atts )
+{
+    $atts = shortcode_atts( array(
+        'text' => get_bloginfo( 'name' ),
+    ), $atts );
+
+    return '<span class="site-copyright">' . $atts['text'] . ' &#169; '.date('Y').'</span>';
 }
 
 /**
