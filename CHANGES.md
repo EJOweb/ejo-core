@@ -1,3 +1,4 @@
+1.6
 - Added social-media-links functionality
 
 1.5
