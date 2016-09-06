@@ -1,3 +1,5 @@
+- Added social-media-links functionality
+
 1.5
 - Added [client_copyright] shortcode
 - Updated [ejoweb_credits] shortcode

@@ -61,7 +61,7 @@ class EJO_Site_scripts
     	require( self::$dir . 'menu-page.php' );
     }
 
-    public function register_admin_scripts_and_styles() {
+    public function register_admin_scripts_and_styles( $hook ) {
 
     }
 

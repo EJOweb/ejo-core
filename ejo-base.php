@@ -162,6 +162,9 @@ final class EJO_Base
         /* Footer Line Widget */
         require_once( self::$dir . 'includes/base/footer-line-widget/footer-line-widget.php');
 
+        /* Social Media Links */
+        require_once( self::$dir . 'includes/base/social-media-links/social-media-links.php');
+
         //* Remove smilies?
         // get_option( 'use_smilies' )
 
