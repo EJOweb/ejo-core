@@ -1,3 +1,5 @@
+- Disabled admin-image-script
+
 1.6
 - Added social-media-links functionality
 

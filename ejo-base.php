@@ -133,7 +133,7 @@ final class EJO_Base
         require_once( self::$dir . 'includes/base/cleanup-widgets/cleanup-widgets.php' );
 
         /* Admin Image Select Script */
-        require_once( self::$dir . 'includes/base/admin-image-select/admin-image-select.php' );
+        // require_once( self::$dir . 'includes/base/admin-image-select/admin-image-select.php' );
 
         /* Allow admin to add scripts to entire site */
         require_once( self::$dir . 'includes/base/add-site-scripts/add-site-scripts.php' );

@@ -9,11 +9,11 @@ add_action( 'admin_enqueue_scripts', 'register_ejo_image_select_files' );
 function register_ejo_image_select_files($hook) 
 {
 	if ( ! wp_script_is( 'ejo-image-select', 'enqueued' ) && ! wp_style_is( 'ejo-image-select', 'enqueued' ) ) {		
-		wp_enqueue_style( 'ejo-image-select', EJO_Base::$uri . 'includes/extensions/admin-image-select/admin-image-select.css', array(), EJO_Base::$version );
+		wp_enqueue_style( 'ejo-image-select', EJO_Base::$uri . 'includes/base/admin-image-select/admin-image-select.css', array(), EJO_Base::$version );
 	 
 	    // Image Widget
 	    wp_enqueue_media();     
-	    wp_enqueue_script( 'ejo-image-select', EJO_Base::$uri . 'includes/extensions/admin-image-select/admin-image-select.js', array('jquery'), EJO_Base::$version, true );
+	    wp_enqueue_script( 'ejo-image-select', EJO_Base::$uri . 'includes/base/admin-image-select/admin-image-select.js', array('jquery'), EJO_Base::$version, true );
 	}
 }
 
