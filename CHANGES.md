@@ -1,3 +1,4 @@
+1.6.1
 - Disabled admin-image-script
 
 1.6
