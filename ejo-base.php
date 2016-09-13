@@ -165,6 +165,9 @@ final class EJO_Base
         /* Social Media Links */
         require_once( self::$dir . 'includes/base/social-media-links/social-media-links.php');
 
+        /* Manage Dashboard Widgets */
+        require_once( self::$dir . 'includes/base/dashboard-widgets/dashboard-widgets.php');
+
         //* Remove smilies?
         // get_option( 'use_smilies' )
 

@@ -1,3 +1,4 @@
+- Added dashboard widget manager
 - Hide blog and comments instead of restricting capabilities
 
 1.6.1
