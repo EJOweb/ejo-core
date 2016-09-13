@@ -1,17 +1,64 @@
 <?php
 if ( EJO_Base_Module::is_inactive('blog') ) {
 
-    //* Disable caps
-    add_filter( 'ejo_client_blog_enabled', function() {
-        return false;                
+    /* Remove posts menu */
+    add_action( 'admin_menu', function() {
+
+        //* Manipulations do not count for admin users
+        if (current_user_can('manage_options'))
+            return;
+
+        //* Try to remove posts-section from menu
+        foreach ($GLOBALS['menu'] as $index => $menu_item) {
+
+            //* edit.php represents posts menu
+            if ($menu_item[2] == 'edit.php' ) {
+
+                // Unset top level menu
+                unset( $GLOBALS['menu'][$index], $GLOBALS['submenu'][ 'edit.php' ] );
+                break;
+            }
+        }
+
+    }, 99);
+
+    //* Remove new-post from admin-bar
+    add_action( 'admin_bar_menu', function($wp_admin_bar) {
+
+        //* Manipulations do not count for admin users
+        if (current_user_can('manage_options'))
+            return;
+
+        $wp_admin_bar->remove_node('new-post');      // Remove the new-post link
+
+    }, 99);
+
+    //* Restrict access to posts screen (edit-posts, categories, tags, new-post)
+    add_action( 'current_screen', function($current_screen) {
+
+        //* Manipulations do not count for admin users
+        if (current_user_can('manage_options'))
+            return;
+
+        if ( 'post' == $current_screen->post_type ) {
+            wp_die( __( 'You are not allowed to access the posts section. Contact your developer if this doesn\'t seem right.' ) );
+        }
     });
 
     //* Remove widget 
     add_filter( 'ejo_base_unregister_widgets', function($widgets_to_unregister) {
 
-        if (! current_user_can( 'manage_options' ) )
-            $widgets_to_unregister[] = 'WP_Widget_Recent_Posts';
+        //* Manipulations do not count for admin users
+        if (current_user_can('manage_options'))
+            return $widgets_to_unregister;
+
+        $widgets_to_unregister[] = 'WP_Widget_Recent_Posts';
 
         return $widgets_to_unregister;
     });
+
+    //* Disable caps
+    // add_filter( 'ejo_client_blog_enabled', function() {
+    //     return false;                
+    // });
 }

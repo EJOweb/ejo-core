@@ -1,3 +1,5 @@
+- Hide blog and comments instead of restricting capabilities
+
 1.6.1
 - Disabled admin-image-script
 

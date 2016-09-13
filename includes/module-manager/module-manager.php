@@ -137,18 +137,6 @@ final class EJO_Base_Module_Manager
                     ),
                 ),
             ),
-            // 'contactads' => array(
-            //     'id'           => 'contactads',
-            //     'name'         => __( 'Contact Advertenties', EJO_Base::$slug ),
-            //     'description'  => __( '', EJO_Base::$slug ),
-            //     'dependancies' => array(
-            //         array(
-            //             'type'  => 'plugin',
-            //             'name'  => 'EJO Contactadvertenties',
-            //             'class' => 'EJO_Contactads',
-            //         ),
-            //     ),
-            // ),
             'portfolio' => array(
                 'id'           => 'portfolio',
                 'name'         => __( 'Portfolio', EJO_Base::$slug ),
