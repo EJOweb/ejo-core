@@ -49,6 +49,13 @@ if ( EJO_Base_Module::is_inactive('blog-comments') ) {
         }
     });
 
+    //* Remove comment-related dashboard widgets
+    add_action('admin_init', function() {
+
+        remove_meta_box( 'dashboard_recent_comments', 'dashboard', 'normal' );
+        remove_meta_box( 'dashboard_activity', 'dashboard', 'normal');
+    });
+
     //* Remove widget 
     add_filter( 'ejo_base_unregister_widgets', function($widgets_to_unregister) {
 
