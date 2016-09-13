@@ -1,5 +1,6 @@
+1.7
 - Added dashboard widget manager
-- Hide blog and comments instead of restricting capabilities
+- Hide blog and comments and forbid access instead of changing post-capabilities. Changing post capabilities conflicts with editing attachment meta and presumably more.
 
 1.6.1
 - Disabled admin-image-script
