@@ -148,7 +148,7 @@ final class EJO_Base
         require_once( self::$dir . 'includes/base/image-crop-settings/image-crop-settings.php' );
 
         //* Relocate page menu in admin
-        require_once( self::$dir . 'includes/base/admin-relocate-page-menu/admin-relocate-page-menu.php' );
+        require_once( self::$dir . 'includes/base/admin-menu/admin-menu.php' );
 
         /* Disable XMLRPC and Pingback */
         require_once( self::$dir . 'includes/base/disable-xmlrpc-and-pingback/disable-xmlrpc-and-pingback.php' );
@@ -168,8 +168,8 @@ final class EJO_Base
         /* Manage Dashboard Widgets */
         require_once( self::$dir . 'includes/base/dashboard-widgets/dashboard-widgets.php');
 
-        //* Remove smilies?
-        // get_option( 'use_smilies' )
+        /* Manage WordPress SEO plugin */
+        require_once( self::$dir . 'includes/base/wordpress-seo/wordpress-seo.php');
 
         /* Theme Functions */
         require_once( self::$dir . 'includes/base/theme-functions/post-summary.php' );  
