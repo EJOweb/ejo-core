@@ -1,3 +1,10 @@
+- Restructured appearance menu
+- Restructured admin menu
+- Created admin menu section
+- Added WordPress SEO changes
+- Moved EJO Base menu to Settings
+- Removed WordPress SEO dashboard widget
+
 1.7
 - Added dashboard widget manager
 - Hide blog and comments and forbid access instead of changing post-capabilities. Changing post capabilities conflicts with editing attachment meta and presumably more.

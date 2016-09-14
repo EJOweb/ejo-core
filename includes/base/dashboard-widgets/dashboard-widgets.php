@@ -15,4 +15,7 @@ function ejo_manage_dashboard_widgets()
     // remove_meta_box( 'dashboard_recent_comments', 'dashboard', 'normal' );
     // remove_meta_box( 'dashboard_right_now', 'dashboard', 'normal' );
     // remove_meta_box( 'dashboard_activity', 'dashboard', 'normal');//since 3.8
+
+    //* Wordpress seo
+    remove_meta_box( 'wpseo-dashboard-overview', 'dashboard', 'normal' );
 }
