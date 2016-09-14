@@ -1,4 +1,5 @@
-- Remove WordPress SEO dashboard widget
+- Moved EJO Base menu to Settings
+- Removed WordPress SEO dashboard widget
 
 1.7
 - Added dashboard widget manager

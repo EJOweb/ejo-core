@@ -38,7 +38,7 @@ final class EJO_Base_Module_Manager
         add_filter( 'current_theme_supports-ejo-base-modules', 'ejo_theme_support_arguments', 10, 3 );
         
         /* Add EJObase Option page to Wordpress Option menu */
-        add_action( 'admin_menu', array( 'EJO_Base_Module_Manager', 'register_menu' ) );
+        add_action( 'admin_menu', array( 'EJO_Base_Module_Manager', 'register_menu' ), 1 );
 
         //* Save Activate/Deactivate actions of options page
         add_action( 'after_setup_theme', array( 'EJO_Base_Module_Manager', 'save_module_activations' ), 98 );
@@ -185,7 +185,8 @@ final class EJO_Base_Module_Manager
     /* Register EJObase Options Menu Page */
     public static function register_menu()
     {
-        add_menu_page( __('EJO Base Modules'), __('EJO Base'), 'manage_options', self::$menu_page, array( 'EJO_Base_Module_Manager', 'add_menu_page' ) );
+        // add_menu_page( __('EJO Base Modules'), __('EJO Base'), 'manage_options', self::$menu_page, array( 'EJO_Base_Module_Manager', 'add_menu_page' ) );
+        add_submenu_page( 'options-general.php', __('EJO Base Modules'), __('EJO Base Modules'), 'manage_options', self::$menu_page, array( 'EJO_Base_Module_Manager', 'add_menu_page' ) );
     }
 
     /* Add EJObase Options Menu Page */
