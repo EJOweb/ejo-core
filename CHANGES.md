@@ -1,4 +1,5 @@
-- Added Admin Menu changes
+- Restructured admin menu
+- Created admin menu section
 - Added WordPress SEO changes
 - Moved EJO Base menu to Settings
 - Removed WordPress SEO dashboard widget
