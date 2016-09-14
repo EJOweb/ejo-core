@@ -1,3 +1,4 @@
+- Restructured appearance menu
 - Restructured admin menu
 - Created admin menu section
 - Added WordPress SEO changes
