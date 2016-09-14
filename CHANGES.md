@@ -1,3 +1,4 @@
+1.8
 - Restructured appearance menu
 - Restructured admin menu
 - Created admin menu section
