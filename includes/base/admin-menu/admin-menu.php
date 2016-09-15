@@ -4,7 +4,10 @@
 add_action( 'admin_menu', 'ejo_change_menu_order' );
 
 /* Change Appearance submenu order */
-add_action( 'admin_menu', 'ejo_change_appearance_menu_order', 99 );
+add_action( 'admin_menu', 'ejo_change_appearance_menu_order' );
+
+/* Remove Themes submenu */
+add_action( 'admin_menu', 'ejo_remove_themes_submenu', 99 );
 
 /* Remove Tools submenu */
 add_action( 'admin_menu', 'ejo_remove_tools_submenu', 99 );
@@ -75,7 +78,7 @@ function ejo_change_appearance_menu_order()
 {
 	global $submenu;
 
-	// write_log($submenu['themes.php']);
+	write_log($submenu);
 
 	//* Get index of needed menu-items
     foreach ($submenu['themes.php'] as $index => $menu_item) {
@@ -109,6 +112,19 @@ function ejo_change_appearance_menu_order()
 	}
 
 	ksort($submenu['themes.php']);
+}
+
+function ejo_remove_themes_submenu()
+{	
+	/**
+	 * Remove themes.php from menu (for non-admins)
+	 *
+	 * Changing capabilities results in themes.php?subpages
+	 * not being shown to non-admins i.e. simple-testimonials
+	 */
+	if ( !current_user_can('manage_options') ) {
+		remove_submenu_page( 'themes.php', 'themes.php' );
+	}
 }
 
 

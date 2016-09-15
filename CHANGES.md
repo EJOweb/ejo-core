@@ -1,3 +1,5 @@
+- Bugfix where themes.php submenu pages weren't accessible
+
 1.8
 - Restructured appearance menu
 - Restructured admin menu
