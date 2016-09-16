@@ -1,3 +1,5 @@
+- Removed debug leftover
+
 1.8.1
 - Bugfix where themes.php submenu pages weren't accessible
 

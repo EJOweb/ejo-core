@@ -78,8 +78,6 @@ function ejo_change_appearance_menu_order()
 {
 	global $submenu;
 
-	write_log($submenu);
-
 	//* Get index of needed menu-items
     foreach ($submenu['themes.php'] as $index => $menu_item) {
 
