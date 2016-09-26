@@ -1,3 +1,5 @@
+- Redirection plugin support for ejo-client
+- Combine EJO Client in a base-folder
 - Removed debug leftover
 
 1.8.1

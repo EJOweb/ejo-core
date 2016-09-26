@@ -168,8 +168,8 @@ final class EJO_Base
         /* Manage Dashboard Widgets */
         require_once( self::$dir . 'includes/base/dashboard-widgets/dashboard-widgets.php');
 
-        /* Manage WordPress SEO plugin */
-        require_once( self::$dir . 'includes/base/wordpress-seo/wordpress-seo.php');
+        /* Manage EJO Client access */
+        require_once( self::$dir . 'includes/base/ejo-client/ejo-client.php');        
 
         /* Theme Functions */
         require_once( self::$dir . 'includes/base/theme-functions/post-summary.php' );  
