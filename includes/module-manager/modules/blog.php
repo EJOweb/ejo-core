@@ -36,8 +36,6 @@ if ( EJO_Base_Module::is_inactive('blog') ) {
     //* Restrict access to posts screen (edit-posts, categories, tags, new-post)
     add_action( 'current_screen', function($current_screen) {
 
-        write_log($current_screen);
-
         //* Manipulations do not count for admin users
         if (current_user_can('manage_options'))
             return;
