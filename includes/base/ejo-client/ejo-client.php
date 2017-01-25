@@ -21,7 +21,7 @@ function ejo_base_client_access()
     add_filter( 'wpseo_manage_options_capability',                          'get_ejo_client_capability' );
 
     //* Change capability necessary to save options
-    add_filter( 'option_page_capability_yoast_wpseo_permalinks_options',    'get_ejo_client_capability' );
+    add_filter( 'option_page_capability_yoast_wpseo_titles_options',        'get_ejo_client_capability' );
     add_filter( 'option_page_capability_yoast_wpseo_internallinks_options', 'get_ejo_client_capability' );
     add_filter( 'option_page_capability_yoast_wpseo_permalinks_options',    'get_ejo_client_capability' );
     add_filter( 'option_page_capability_yoast_wpseo_rss_options',           'get_ejo_client_capability' );
