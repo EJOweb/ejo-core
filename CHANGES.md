@@ -1,3 +1,7 @@
+1.8.3
+- Fix bug with saving custom-taxonomy-term when blog-module is not active
+- Fixed WP-SEO capability issue
+
 1.8.2
 - Redirection plugin support for ejo-client
 - Combine EJO Client in a base-folder
