@@ -303,7 +303,7 @@ class EJO_Base_Module
             $active_modules = array_unique($active_modules);
 
             //* Remove module from modules
-            $active_modules = array_remove_value( $id, $active_modules );
+            $active_modules = array_unset_by_value( $id, $active_modules );
 
             //* Store altered modules
             update_option( 'ejo_base_active_modules', $active_modules );

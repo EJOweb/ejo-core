@@ -35,7 +35,7 @@ final class EJO_Base_Module_Manager
         self::set_modules();
 
         /* Allow array-arguments to be passed for theme-support:ejo-base-modules */
-        add_filter( 'current_theme_supports-ejo-base-modules', 'ejo_theme_support_arguments', 10, 3 );
+        add_filter( 'current_theme_supports-ejo-base-modules', 'ejo_add_extended_theme_support', 10, 3 );
         
         /* Add EJObase Option page to Wordpress Option menu */
         add_action( 'admin_menu', array( 'EJO_Base_Module_Manager', 'register_menu' ), 1 );

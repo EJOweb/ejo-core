@@ -5,10 +5,7 @@
  *
  * Load widget templates from your theme directory
  *
- * Integrate the template loader by using the following line in the widget-method of you Widget Class
- *     //* Check if Widget Template Loader exists and try to load template
- *     if ( class_exists( 'EJO_Widget_Template_Loader' ) && EJO_Widget_Template_Loader::load_template( $args, $instance, $this ) )
- *          return;
+ * See README.md for how to use
  */
 final class EJO_Widget_Template_Loader
 {

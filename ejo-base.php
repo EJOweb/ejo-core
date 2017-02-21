@@ -22,7 +22,7 @@
  * @link      http://github.com/erikjoling
  */
 
-/**
+/**c
  *
  */
 final class EJO_Base 
@@ -31,7 +31,7 @@ final class EJO_Base
     private static $_instance = null;
 
     /* Version number of this plugin */
-    public static $version = '1.8.2';
+    public static $version = '1.8.3';
 
     /* Store the slug of this plugin */
     public static $slug = 'ejo-base';
@@ -63,19 +63,13 @@ final class EJO_Base
         self::setup();
 
         //* Immediatly include helpers
-        self::helpers();
-
-        //* Load Module Management
-        add_action( 'plugins_loaded', array( 'EJO_Base', 'module_management' ), 3 );
-
-        //* Load Module Management
-        add_action( 'plugins_loaded', array( 'EJO_Base', 'widget_template_loader' ), 4 );
-
-        //* Load Module Management
-        add_action( 'plugins_loaded', array( 'EJO_Base', 'custom_colors' ), 5 );
+        add_action( 'plugins_loaded', array( 'EJO_Base', 'helpers' ), 4 );
 
         //* Load Base
         add_action( 'plugins_loaded', array( 'EJO_Base', 'base' ), 5 );
+
+        //* Load Plugin Integrations
+        add_action( 'plugins_loaded', array( 'EJO_Base', 'plugin_integrations' ), 6 );
     }
 
     
@@ -98,84 +92,56 @@ final class EJO_Base
         /* Useful array functions */
         require_once( self::$dir . 'includes/helpers/array-functions.php' );
 
-        /* Useful image functions */
-        require_once( self::$dir . 'includes/helpers/image-functions.php' );        
-
         /* Use this function to filter custom theme support with arguments */
-        require_once( self::$dir . 'includes/helpers/theme-support-arguments.php' );
-    }
+        require_once( self::$dir . 'includes/helpers/theme-support-extended.php' );
 
-    /* Module Manager */
-    public static function module_management() 
-    {
-        //* Setup Module Management
-        require_once( self::$dir . 'includes/module-manager/module-manager.php' );
-    }
+        /* Admin image select */
+        require_once( self::$dir . 'includes/helpers/admin-image-select/admin-image-select.php' );
 
-    /* Widget Template Loader */
-    public static function widget_template_loader() 
-    {
-        //* Setup Widget Template Loader
-        require_once( self::$dir . 'includes/widget-template-loader/widget-template-loader.php' );
-    }
+        /* Post Summary */
+        require_once( self::$dir . 'includes/helpers/post-summary.php' );  
 
-    /* Custom Colors */
-    public static function custom_colors() 
-    {
-        //* Setup Module Management
-        require_once( self::$dir . 'includes/custom-colors/custom-colors.php' );
+        /* Sidebar Widget Count */
+        require_once( self::$dir . 'includes/helpers/sidebar-widget-count.php' );  
     }
-
+    
     /* Base */
     public static function base() 
     {
-        /* cleanup default widgets */
-        require_once( self::$dir . 'includes/base/cleanup-widgets/cleanup-widgets.php' );
+        //* Setup Module Management
+        require_once( self::$dir . 'includes/module-manager/module-manager.php' );
 
-        /* Admin Image Select Script */
-        // require_once( self::$dir . 'includes/base/admin-image-select/admin-image-select.php' );
+        /* Cleanup Frontend (Head and XMLRPC) */
+        require_once( self::$dir . 'includes/cleanup-frontend/cleanup-frontend.php' );
 
-        /* Allow admin to add scripts to entire site */
-        require_once( self::$dir . 'includes/base/add-site-scripts/add-site-scripts.php' );
+        /* Manage Custom Scripts (Site and individual Posts) */
+        require_once( self::$dir . 'includes/custom-scripts/custom-scripts.php' );
 
-        /* Allow admin to add scripts to specific posts */
-        require_once( self::$dir . 'includes/base/add-post-scripts/add-post-scripts.php' ); 
+        /* Manage Widget Stuff */
+        require_once( self::$dir . 'includes/widgets/widgets.php' );
 
-        /* Improved Visual Editor */
-        require_once( self::$dir . 'includes/base/tinymce-improvement/tinymce-improvement.php' ); 
+        /* Editor stuff */
+        require_once( self::$dir . 'includes/editor/editor.php' ); 
 
-        /* Change crop switch of default image size */
-        require_once( self::$dir . 'includes/base/image-crop-settings/image-crop-settings.php' );
-
-        //* Relocate page menu in admin
-        require_once( self::$dir . 'includes/base/admin-menu/admin-menu.php' );
-
-        /* Disable XMLRPC and Pingback */
-        require_once( self::$dir . 'includes/base/disable-xmlrpc-and-pingback/disable-xmlrpc-and-pingback.php' );
-
-        /* Cleanup Head */
-        require_once( self::$dir . 'includes/base/cleanup-head/cleanup-head.php' ); // Remove unnecessary head links
+        /* Mold the admin menu to my liking */
+        require_once( self::$dir . 'includes/admin-menu/admin-menu.php' );
 
         /* Shortcodes */
-        require_once( self::$dir . 'includes/base/shortcodes/shortcodes.php' );  
+        require_once( self::$dir . 'includes/shortcodes/shortcodes.php' );
 
-        /* Footer Line Widget */
-        require_once( self::$dir . 'includes/base/footer-line-widget/footer-line-widget.php');
+        /* Social Media */
+        require_once( self::$dir . 'includes/social-media/social-media.php');
 
-        /* Social Media Links */
-        require_once( self::$dir . 'includes/base/social-media-links/social-media-links.php');
-
-        /* Manage Dashboard Widgets */
-        require_once( self::$dir . 'includes/base/dashboard-widgets/dashboard-widgets.php');
-
-        /* Manage EJO Client access */
-        require_once( self::$dir . 'includes/base/ejo-client/ejo-client.php');        
-
-        /* Theme Functions */
-        require_once( self::$dir . 'includes/base/theme-functions/post-summary.php' );  
-        require_once( self::$dir . 'includes/base/theme-functions/sidebar-widget-count.php' );  
+        /* Manage Dashboard */
+        require_once( self::$dir . 'includes/dashboard/dashboard.php');
     }
 
+    /* Plugin Integrations */
+    public static function plugin_integrations() 
+    {
+        /* Manage EJO Client access */
+        require_once( self::$dir . 'includes/plugins/ejo-client/ejo-client.php');    
+    }
 
     /* Uninstall */
     private static function uninstall()
