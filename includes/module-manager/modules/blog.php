@@ -1,5 +1,5 @@
 <?php
-if ( EJO_Base_Module::is_inactive('blog') ) {
+if ( ! EJO_Base_Module::is_active('blog') ) {
 
     /* Remove posts menu */
     add_action( 'admin_menu', function() {

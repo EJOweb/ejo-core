@@ -3,7 +3,7 @@
 /**
  * Blog Comments
  */
-if ( EJO_Base_Module::is_inactive('blog-comments') ) {
+if ( ! EJO_Base_Module::is_active('blog-comments') ) {
 
 	/* Remove comments menu */
     add_action( 'admin_menu', function() {

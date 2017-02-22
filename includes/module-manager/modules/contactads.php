@@ -3,7 +3,7 @@
 /**
  * EJO Contactadvertenties
  */
-if ( EJO_Base_Module::is_inactive('contactads') ) {
+if ( ! EJO_Base_Module::is_active('contactads') ) {
 
     //* Disable caps
     add_filter( 'ejo_client_ejo-contactadvertenties_enabled', function() {

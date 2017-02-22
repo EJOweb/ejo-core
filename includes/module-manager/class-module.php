@@ -30,6 +30,8 @@ class EJO_Base_Module
         if ( empty($modules[$id]) )
             return false;
 
+        write_log($modules[$id]);
+
         return $modules[$id];
     }
 

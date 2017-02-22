@@ -3,7 +3,7 @@
 /**
  * EJO Simple Testimonials
  */
-if ( EJO_Base_Module::is_inactive('testimonials') ) {
+if ( ! EJO_Base_Module::is_active('testimonials') ) {
 
     //* Disable options
     add_filter( 'ejo_simple_testimonials_cap', function() {

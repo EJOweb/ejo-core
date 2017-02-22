@@ -134,6 +134,9 @@ final class EJO_Base
 
         /* Manage Dashboard */
         require_once( self::$dir . 'includes/dashboard/dashboard.php');
+
+        /* Custom Colors for theme */
+        require_once( self::$dir . 'includes/custom-colors/custom-colors.php');
     }
 
     /* Plugin Integrations */

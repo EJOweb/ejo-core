@@ -80,22 +80,6 @@ final class EJO_Base_Module_Manager
         }
     }
 
-    public static function show_activation_message()
-    {
-        $class = 'notice updated is-dismissible';
-        $message = 'Module <strong>' . __('activated') . '</strong>';
-
-        printf( '<div class="%1$s"><p>%2$s</p></div>', $class, $message ); 
-    }
-
-    public static function show_deactivation_message()
-    {
-        $class = 'notice updated is-dismissible';
-        $message = 'Module <strong>' . __('deactivated') . '</strong>';
-
-        printf( '<div class="%1$s"><p>%2$s</p></div>', $class, $message ); 
-    }
-
     /* Defines the directory path and URI for the plugin. */
     public static function setup() 
     {
@@ -149,37 +133,53 @@ final class EJO_Base_Module_Manager
                     ),
                 ),
             ),
-            'popup-box' => array(
-                'id'           => 'popup-box',
-                'name'         => __( 'Popup Box', EJO_Base::$slug ),
-                'description'  => __( '', EJO_Base::$slug ),
-                'dependancies' => array(),
-            ),
-            'photo-gallery' => array(
-                'id'           => 'photo-gallery',
-                'name'         => __( 'Photo Gallery', EJO_Base::$slug ),
-                'description'  => __( '', EJO_Base::$slug ),
-                'dependancies' => array(),
-            ),
-            'team' => array(
-                'id'           => 'team',
-                'name'         => __( 'Team', EJO_Base::$slug ),
-                'description'  => __( '', EJO_Base::$slug ),
-                'dependancies' => array(),
-            ),
-            'social-media-extra' => array(
-                'id'           => 'social-media-extra',
-                'name'         => __( 'Social Media Extra', EJO_Base::$slug ),
-                'description'  => __( '', EJO_Base::$slug ),
-                'dependancies' => array(),
-            ),
-            'faq' => array(
-                'id'           => 'faq',
-                'name'         => __( 'FAQ', EJO_Base::$slug ),
-                'description'  => __( '', EJO_Base::$slug ),
-                'dependancies' => array(),
-            ),
+            // 'popup-box' => array(
+            //     'id'           => 'popup-box',
+            //     'name'         => __( 'Popup Box', EJO_Base::$slug ),
+            //     'description'  => __( '', EJO_Base::$slug ),
+            //     'dependancies' => array(),
+            // ),
+            // 'photo-gallery' => array(
+            //     'id'           => 'photo-gallery',
+            //     'name'         => __( 'Photo Gallery', EJO_Base::$slug ),
+            //     'description'  => __( '', EJO_Base::$slug ),
+            //     'dependancies' => array(),
+            // ),
+            // 'team' => array(
+            //     'id'           => 'team',
+            //     'name'         => __( 'Team', EJO_Base::$slug ),
+            //     'description'  => __( '', EJO_Base::$slug ),
+            //     'dependancies' => array(),
+            // ),
+            // 'social-media-extra' => array(
+            //     'id'           => 'social-media-extra',
+            //     'name'         => __( 'Social Media Extra', EJO_Base::$slug ),
+            //     'description'  => __( '', EJO_Base::$slug ),
+            //     'dependancies' => array(),
+            // ),
+            // 'faq' => array(
+            //     'id'           => 'faq',
+            //     'name'         => __( 'FAQ', EJO_Base::$slug ),
+            //     'description'  => __( '', EJO_Base::$slug ),
+            //     'dependancies' => array(),
+            // ),
         );
+    }
+
+    public static function show_activation_message()
+    {
+        $class = 'notice updated is-dismissible';
+        $message = 'Module <strong>' . __('activated') . '</strong>';
+
+        printf( '<div class="%1$s"><p>%2$s</p></div>', $class, $message ); 
+    }
+
+    public static function show_deactivation_message()
+    {
+        $class = 'notice updated is-dismissible';
+        $message = 'Module <strong>' . __('deactivated') . '</strong>';
+
+        printf( '<div class="%1$s"><p>%2$s</p></div>', $class, $message ); 
     }
 
     /* Register EJObase Options Menu Page */
@@ -199,9 +199,9 @@ final class EJO_Base_Module_Manager
     /** 
      * Module Manipulations 
      *
-     * Must be hooked after `manage_module_activations`
+     * Must be hooked after `check_modules_on_every_plugin_activation`
      * Because it needs to check if modules are active
-     * And `manage_module_activations` impacts that
+     * And `check_modules_on_every_plugin_activation` impacts that
      */
     public static function module_manipulations()
     {
