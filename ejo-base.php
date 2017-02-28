@@ -42,9 +42,6 @@ final class EJO_Base
     /* Stores the directory URI for this plugin. */
     public static $uri;
 
-    /* Stores activated modules */
-    public static $modules = array();
-
     /* Only instantiate once */
     public static function init() 
     {
@@ -108,9 +105,6 @@ final class EJO_Base
     /* Base */
     public static function base() 
     {
-        //* Setup Module Management
-        require_once( self::$dir . 'includes/module-manager/module-manager.php' );
-
         /* Cleanup Frontend (Head and XMLRPC) */
         require_once( self::$dir . 'includes/cleanup-frontend/cleanup-frontend.php' );
 

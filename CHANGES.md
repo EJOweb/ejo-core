@@ -1,3 +1,5 @@
+- Migrated Module Manager to its own plugin
+
 1.8.3
 - Fix bug with saving custom-taxonomy-term when blog-module is not active
 - Fixed WP-SEO capability issue
