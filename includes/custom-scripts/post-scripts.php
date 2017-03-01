@@ -39,8 +39,8 @@ final class EJO_Inpost_Scripts
 	public function add_inpost_scripts_metabox() 
 	{
 		/* Get post types from theme-support arguments. If none, then use posts and pages. */
-		$post_types = get_theme_support( 'ejo-post-scripts' );
-        $post_types = (!is_array($post_types)) ? array('post','page') : $post_types[0];
+		$post_types = get_post_types();
+        $post_types = apply_filters( 'ejo_post_scripts_post_types', $post_types );
 
         /* Add metabox for every give post_type */
         foreach ($post_types as $post_type) {
