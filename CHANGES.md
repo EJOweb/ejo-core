@@ -1,3 +1,6 @@
+- Hide blog unless the theme supports it
+- Added filter to customize on which post-type script-metabox is shown
+- By default add script-metabox to all public post-types
 - Migrated Module Manager to its own plugin
 
 1.8.3

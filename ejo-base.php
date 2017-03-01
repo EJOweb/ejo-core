@@ -60,7 +60,7 @@ final class EJO_Base
         self::setup();
 
         //* Immediatly include helpers
-        add_action( 'plugins_loaded', array( 'EJO_Base', 'helpers' ), 4 );
+        self::helpers();
 
         //* Load Base
         add_action( 'plugins_loaded', array( 'EJO_Base', 'base' ), 5 );
@@ -93,18 +93,18 @@ final class EJO_Base
         require_once( self::$dir . 'includes/helpers/theme-support-extended.php' );
 
         /* Admin image select */
-        require_once( self::$dir . 'includes/helpers/admin-image-select/admin-image-select.php' );
+        // require_once( self::$dir . 'includes/helpers/admin-image-select/admin-image-select.php' );
 
         /* Post Summary */
         require_once( self::$dir . 'includes/helpers/post-summary.php' );  
-
-        /* Sidebar Widget Count */
-        require_once( self::$dir . 'includes/helpers/sidebar-widget-count.php' );  
     }
     
     /* Base */
     public static function base() 
     {
+        /* Hide Blog */
+        require_once( self::$dir . 'includes/blog/hide-blog.php' );
+
         /* Cleanup Frontend (Head and XMLRPC) */
         require_once( self::$dir . 'includes/cleanup-frontend/cleanup-frontend.php' );
 
