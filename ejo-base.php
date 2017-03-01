@@ -88,15 +88,6 @@ final class EJO_Base
 
         /* Useful array functions */
         require_once( self::$dir . 'includes/helpers/array-functions.php' );
-
-        /* Use this function to filter custom theme support with arguments */
-        require_once( self::$dir . 'includes/helpers/theme-support-extended.php' );
-
-        /* Admin image select */
-        // require_once( self::$dir . 'includes/helpers/admin-image-select/admin-image-select.php' );
-
-        /* Post Summary */
-        require_once( self::$dir . 'includes/helpers/post-summary.php' );  
     }
     
     /* Base */

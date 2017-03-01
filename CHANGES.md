@@ -1,3 +1,4 @@
+- Removed Image Admin Select, Theme Support Extended and Post Summary helpers
 - Hide blog unless the theme supports it
 - Added filter to customize on which post-type script-metabox is shown
 - By default add script-metabox to all public post-types
