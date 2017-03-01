@@ -1,8 +1,11 @@
+- Fixed outdated shortcode-tag in Footer Line Widget
 - Removed Image Admin Select, Theme Support Extended and Post Summary helpers
 - Hide blog unless the theme supports it
 - Added filter to customize on which post-type script-metabox is shown
 - By default add script-metabox to all public post-types
 - Migrated Module Manager to its own plugin
+- Improved shortcode tags. [client_copyright] became [copyright]
+- Restructured plugin
 
 1.8.3
 - Fix bug with saving custom-taxonomy-term when blog-module is not active

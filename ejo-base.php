@@ -22,7 +22,7 @@
  * @link      http://github.com/erikjoling
  */
 
-/**c
+/**
  *
  */
 final class EJO_Base 

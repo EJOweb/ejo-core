@@ -76,7 +76,7 @@ final class EJO_Footer_Line_Widget extends WP_Widget
  	{
 		//* Combine $instance data with defaults
         $instance = wp_parse_args( $instance, array( 
-            'text' => '[client_copyright] | [ejoweb_credits]',
+            'text' => '[copyright] | [ejoweb_credits]',
         ));
 
         ?>
@@ -99,7 +99,7 @@ final class EJO_Footer_Line_Widget extends WP_Widget
 
 		//* Add default footer-line if empty
 		if ( empty($new_instance['text']) ) {
-			$new_instance['text'] = '[client_copyright] | [ejoweb_credits]';
+			$new_instance['text'] = '[copyright] | [ejoweb_credits]';
 		}
 
 		//* Add [ejoweb_credits] if it doesn't occur

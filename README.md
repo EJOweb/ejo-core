@@ -1,33 +1,25 @@
 # EJO Base for Wordpress
-Base Framework for EJOweb basiswebsites themes
+The base for all my WordPress websites
 
-# What's inside?
+**Golden Rule: Themes and plugins should also work without EJO Base**
 
-## Helper functions
-* array_remove_value( $value, $array ) 
-* array_insert_before( $key, $array, $new_key, $new_value ) 
-* array_insert_after( $key, $array, $new_key, $new_value )
+# Usage
+This plugin adds, removes and changes functionality by default. 
 
-### Golden Rule: Theme may depent on EJO Base being present, other plugins not
+## Post Scripts
+Adds a script-metabox to every public post-type. Use the ejo_post_scripts_post_types filter to change this behaviour.
 
 ## Development functions
 * Debugging: Easily write to debug.log using `write_log( array or string )`
 
-## Theme Functions
-* ejo_the_post_summary( optional $post_id )
-* ejo_get_post_summary( optional $post_id )
-
 ## Shortcodes
 * EJOweb credits in footer: [footer_ejoweb]
-
-## Modules Management
-
 
 
 ## To Do
 * Move Widget Template Loader to seperate plugin
-* Modules
-  * dynamic menupage (now admin.php is hardcoded in optionspage)
+  Respons: I will ship EJO Base with all my websites so not necessary to extract Widget Template Loader. 
+  Respons2: Only interesting if I want to launch it as a official plugin
 * Document theme-support
 * Improve allround documentation
 * Use Settings API for theme-options?
