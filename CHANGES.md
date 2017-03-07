@@ -1,7 +1,100 @@
-# EJO Core
-[Wordpress] My own core functionalities for theme development. Including some nifty debug tools.
+- Fixed outdated shortcode-tag in Footer Line Widget
+- Removed Image Admin Select, Theme Support Extended and Post Summary helpers
+- Hide blog unless the theme supports it
+- Added filter to customize on which post-type script-metabox is shown
+- By default add script-metabox to all public post-types
+- Migrated Module Manager to its own plugin
+- Improved shortcode tags. [client_copyright] became [copyright]
+- Restructured plugin
 
-## CHANGELOG
+1.8.3
+- Fix bug with saving custom-taxonomy-term when blog-module is not active
+- Fixed WP-SEO capability issue
+
+1.8.2
+- Redirection plugin support for ejo-client
+- Combine EJO Client in a base-folder
+- Removed debug leftover
+
+1.8.1
+- Bugfix where themes.php submenu pages weren't accessible
+
+1.8
+- Restructured appearance menu
+- Restructured admin menu
+- Created admin menu section
+- Added WordPress SEO changes
+- Moved EJO Base menu to Settings
+- Removed WordPress SEO dashboard widget
+
+1.7
+- Added dashboard widget manager
+- Hide blog and comments and forbid access instead of changing post-capabilities. Changing post capabilities conflicts with editing attachment meta and presumably more.
+
+1.6.1
+- Disabled admin-image-script
+
+1.6
+- Added social-media-links functionality
+
+1.5
+- Added [client_copyright] shortcode
+- Updated [ejoweb_credits] shortcode
+- Added Footer Line Widget
+- Added helper function ejo_get_image_dimensions
+- Fixed secondary custom color bug
+
+1.4
+- Added Custom Colors functionality
+
+1.3.3
+- Fixed bug in Module Manager
+
+1.3.2
+- Decommented contactads from ejo-base (unique extension)
+- Added good example for custom-colors
+- Added theme functions: post-summary and sidebar-widget-count
+
+1.3.1
+- Removed unwanted helpers
+- Small fix for widget-template-loader
+
+1.3
+- Relocated EJO_Widget_Template_Loader and slightly improved it
+- Improved handling with plugin (deactivations)
+- Improved integration with EJO_Client plugin
+- Improved module manipulations on activation/deactivation of modules
+- Added function `is_inactive` (module)
+- Replaced occurences of `is_plugin_active` by `class_exists`
+- Added specific module actions (hide widgets while blog not active)
+- Added activation and deactivation hook for modules
+- Restructured files and folders
+- Start of module manager functions
+- Restructured site-scripts and moved to appearance menu
+- Added [author] shortcode
+- Added EJO_Widget_Template_Loader so themes can have their own widget-templates
+- Small improvement on code structuring
+
+1.2
+- Improved admin image select organization
+- Fixed tinyMCE styleselect
+- Added snippets
+
+1.1
+- Rename to EJO Base
+- Code restructuring
+- Made a start for enabling/disabling modules
+- Removed all theme support checks. Included most functionalities by default, removed others
+- Improved widget-cleanup
+
+1.0.1
+- Fixed bug/notice when posts menu is hidden
+
+1.0 
+- Fork from EJO core
+- Removed knowledgebase. It's in a seperate plugin now
+- Removed client cleanup. It's in a seperate plugin now
+
 0.9.10
 - Added functionality to remove category base when using `front` in permalink-structure
 - Minor update to knowledgebase rewrite-rule
@@ -11,7 +104,7 @@
 - Updated WP smushit Cleanup to support 2.2
 
 0.9.8
-- Removed ejo-core's tinymce styleformats. This is theme domain  
+- Removed ejo-base's tinymce styleformats. This is theme domain  
   * add_theme_support( 'ejo-tinymce' ) no longer supports array of styles
   * include function to simply add tinymce style-formats by default
 
@@ -57,7 +150,7 @@ theme-support branch
 0.8.6
 - check if theme-support-arguments functionality already exists
 - featured image widget nog shown on archives
-- changed underscores in couple of filenames to hyphens
+- changed undersbases in couple of filenames to hyphens
 
 0.8.5
 - Added foundation for adding widgets using theme-support
