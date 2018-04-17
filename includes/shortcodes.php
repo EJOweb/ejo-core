@@ -25,11 +25,11 @@ add_shortcode('year', 'year_shortcode');
 function show_vsee_credits( $atts ) 
 {
     $atts = shortcode_atts( array(
-        'text' => 'Internetbureau Vsee',
+        'text' => 'Vsee Search Marketing',
     ), $atts );
 
     if (is_front_page()) :
-        $output = '<a class="footer-credits" href="http://www.vsee.nl" title="Internetbureau Vsee - Google Adwords en SEO specialisten">' . $atts['text'] . '</a>';
+        $output = '<a class="footer-credits" href="https://www.vsee.nl" title="Vsee Search Marketing: Online Marketing Bureau, sinds 2009">' . $atts['text'] . '</a>';
     else :
         $output = '<span class="footer-credits">' . $atts['text'] . '</span>';
     endif;

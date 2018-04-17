@@ -2,6 +2,9 @@
 [Wordpress] My own core functionalities for theme development. Including some nifty debug tools.
 
 ## CHANGELOG
+0.9.11
+- Changed name of Internetbureau Vsee to Vsee Search Marketing
+
 0.9.10
 - Added functionality to remove category base when using `front` in permalink-structure
 - Minor update to knowledgebase rewrite-rule
